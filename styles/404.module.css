@@ -1,0 +1,42 @@
+@keyframes animacion-404 {
+    0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-20px);
+      }
+}
+@keyframes animacion-sombra {
+    0%, 100% {
+        background-color: #fff3;
+        width: 400px;
+      }
+      50% {
+        background-color: #fff2;
+        width: 300px;
+      }
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.error{
+    animation: animacion-404 2s infinite ease;
+}
+
+.sombra{
+    height: 30px;
+    border-radius: 50%;
+    position: absolute;
+    margin-top: 300px;
+    animation: animacion-sombra 2s infinite ease;
+}
+
+.titulo{
+    font-size: 3em;
+    font-weight: bold;
+}

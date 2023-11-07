@@ -16,12 +16,13 @@
   }
 }
 
+*{
+  user-select: none;
+}
+
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background-image: url('../public/images/bg-main.jpg');
+  background-size: cover;
+  min-height: 100vh;
 }

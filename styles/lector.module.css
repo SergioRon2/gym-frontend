@@ -1,0 +1,23 @@
+.title{
+    font-size: 3em;
+    text-align: center;
+    font-weight: bold;
+}
+
+.containerLector{
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.registrarAsistencia{
+    padding: 5px;
+    margin-top: 100px;
+    transition: all .2s ease;
+    outline: 1px solid transparent;
+}
+.registrarAsistencia:hover{
+    outline: 1px solid #333;
+}
