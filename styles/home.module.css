@@ -1,0 +1,24 @@
+.container{
+    backdrop-filter: blur(10px);
+    height: 80vh;
+    border: 1px solid #888;
+    transition: all .2s ease-out;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.container:hover{
+    backdrop-filter: blur(15px);
+    border: 1px solid #eee;
+}
+
+.title{
+    font-weight: bold;
+    font-size: 4em;
+}
+
+.encabezado{
+    font-size: 1em;
+}

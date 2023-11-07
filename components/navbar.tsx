@@ -5,7 +5,7 @@ export default function Navbar(){
     return <>
             <nav className={navbar.navbar}>
                 <div className="">
-                    <Link className={navbar.gymsoftware} href={"/usuarios"}>GymSoftware</Link>
+                    <Link className={navbar.gymsoftware} href={"/"}>GymSoftware</Link>
                     <ul className={navbar.links}>
                         <li className="">
                             <Link className={navbar.link} aria-current="page" href={"/usuarios"}>Inicio</Link>

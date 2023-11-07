@@ -3,7 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import Navbar from '../components/navbar'
 import layoutStyle from '../styles/layout.module.css'
-import FuenteTexto from '../components/fuente-texto'
+import HeadLinks from '../components/head-links'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <FuenteTexto />
+      <HeadLinks />
       <body className={inter.className}>
         <div className={layoutStyle.container}>
           <div className={layoutStyle.navbar}>
