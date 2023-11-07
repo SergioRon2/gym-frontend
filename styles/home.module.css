@@ -1,5 +1,14 @@
+@keyframes blur-animation {
+    0%, 100%{
+        backdrop-filter: blur(5px);
+    }
+    50%{
+        backdrop-filter: blur(10px);
+    }
+}
+
 .container{
-    backdrop-filter: blur(10px);
+    animation: blur-animation 2s infinite ease;
     height: 80vh;
     border: 1px solid #888;
     transition: all .2s ease-out;
@@ -10,7 +19,6 @@
     align-items: center;
 }
 .container:hover{
-    backdrop-filter: blur(15px);
     border: 1px solid #eee;
 }
 
