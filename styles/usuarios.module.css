@@ -25,6 +25,12 @@
     border: 1px solid #222;
     backdrop-filter: blur(10px);    
     transition: all .2s;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .card:hover{

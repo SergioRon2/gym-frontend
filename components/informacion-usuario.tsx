@@ -1,5 +1,5 @@
 import axios from 'axios';
-import ApiUrl from './apiConfig'; // Importa la URL de la API
+import ApiUrl from './ApiConfig'; // Importa la URL de la API
 
 function datosUsuario() {
   const obtenerDatosDeUsuario = async () => {
