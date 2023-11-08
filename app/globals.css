@@ -29,3 +29,16 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
 }
+
+@media (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+    min-height: 100%;
+  }
+}
+
+/* @media (min-width: 769px) and (max-width: 1024px) {
+  body {
+    overflow-x: hidden;
+  }
+} */

@@ -6,6 +6,27 @@ export default function Miembros(){
     return <>
         <div className={StyleUsuarios.container}>
             <div className={StyleUsuarios.card}></div>
+            <div className={StyleUsuarios.card}></div>
+            <div className={StyleUsuarios.card}></div>
+            <div className={StyleUsuarios.card}></div>
+            <div className={StyleUsuarios.card}></div>
+            <div className={StyleUsuarios.card}></div>
+            <div className={StyleUsuarios.card}></div>
+            <div className={StyleUsuarios.card}></div>
+            <div className={StyleUsuarios.card}></div>
+            <div className={StyleUsuarios.card}></div>
+            <div className={StyleUsuarios.card}></div>
+            <div className={StyleUsuarios.card}></div>
+            <div className={StyleUsuarios.card}></div>
+            <div className={StyleUsuarios.card}></div>
+            <div className={StyleUsuarios.card}></div>
+            <div className={StyleUsuarios.card}></div>
+            <div className={StyleUsuarios.card}></div>
+            <div className={StyleUsuarios.card}></div>
+            <div className={StyleUsuarios.card}></div>
+            <div className={StyleUsuarios.card}></div>
+            <div className={StyleUsuarios.card}></div>
+            <div className={StyleUsuarios.card}></div>
         </div>
     </>
 }

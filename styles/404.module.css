@@ -40,3 +40,28 @@
     font-size: 3em;
     font-weight: bold;
 }
+
+@media (max-width: 768px) {
+  
+  .error{
+    margin-top: 40px;
+  }
+
+  .sombra{
+    margin-top: 350px;
+  }
+
+  
+  .titulo{
+    font-size: 3ex;
+    font-weight: bold;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .titulo{
+    font-size: 3em;
+    font-weight: bold;
+  }
+}
+

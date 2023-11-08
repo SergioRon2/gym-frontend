@@ -65,3 +65,37 @@
 .registrarNuevo:hover{
     outline: 1px solid #333;
 }
+
+@media (max-width: 768px) {
+    .container{
+        margin-bottom: 30px;
+    
+    }
+    .title{
+        margin-top: 100px;
+    }
+    .formulario{
+        border: 1px solid #888;
+        width: 90%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: start;
+    }
+    .inputs > input{
+        width: 75vw;
+        height: 30px;
+        border-radius: 10px;
+        color: black;
+        padding-left: 10px;
+    }
+    .select > select{
+        width: 75vw;
+        height: 30px;
+        border-radius: 10px;
+        color: black;
+        padding-left: 10px;
+    }
+}
+  

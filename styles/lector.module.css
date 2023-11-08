@@ -35,3 +35,19 @@
 .registrarAsistencia:hover{
     outline: 1px solid #333;
 }
+
+@media (max-width: 768px) {
+    .containerLector{
+        margin-top: 30px;
+        height: 65vh;
+        width: 90%;
+        border: 1px solid #888;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: all .2s ease;
+        backdrop-filter: blur(10px);
+    }
+}
+  

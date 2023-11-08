@@ -4,6 +4,7 @@ import './globals.css'
 import Navbar from '../components/navbar'
 import layoutStyle from '../styles/layout.module.css'
 import HeadLinks from '../components/head-links'
+import Script from 'next/script'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -29,6 +30,7 @@ export default function RootLayout({
             {children}
           </div>
         </div>
+        <Script src="../js/menu-burguer.js" />
       </body>
     </html>
   )
