@@ -1,3 +1,7 @@
+.general{
+    display: flex;
+    justify-content: center;
+}
 .container{
     height: 100vh;
     width: 100vw;
@@ -56,7 +60,6 @@
     height: 30px;
     outline: none;
     color: white;
-    padding-left: 10px;
     background-color: transparent;
     border-bottom: 1px solid white;
 }
@@ -71,7 +74,7 @@
     outline: 1px solid transparent;
 }
 .registrarNuevo:hover{
-    outline: 1px solid #333;
+    outline: 1px solid #ddd;
 }
 
 @media (max-width: 768px) {
@@ -94,16 +97,10 @@
     .inputs > input{
         width: 75vw;
         height: 30px;
-        border-radius: 10px;
-        color: black;
-        padding-left: 10px;
     }
     .select > select{
         width: 75vw;
         height: 30px;
-        border-radius: 10px;
-        color: black;
-        padding-left: 10px;
     }
 }
   

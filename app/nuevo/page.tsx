@@ -1,7 +1,7 @@
 import NuevoStyle from 'styles/nuevo.module.css'
 
 export default function miembroNuevo(){
-    return <>
+    return <div className={NuevoStyle.general}>
         <div className={NuevoStyle.container}>
             <h1 className={NuevoStyle.title}>Registrar Nuevo Miembro</h1>
             <form action="" className={NuevoStyle.formulario}>
@@ -10,7 +10,7 @@ export default function miembroNuevo(){
                     <input type="text" />
                 </div>
                 <div className={NuevoStyle.inputs}>
-                    <label htmlFor="">Apellido(s)</label>
+                    <label htmlFor="">Apellido(s):</label>
                     <input type="text" />
                 </div>
                 <div className={NuevoStyle.select}>
@@ -45,5 +45,5 @@ export default function miembroNuevo(){
                 <a className={NuevoStyle.registrarNuevo} href="">Registrar nuevo miembro</a>
             </form>
         </div>
-    </>
+    </div>
 }

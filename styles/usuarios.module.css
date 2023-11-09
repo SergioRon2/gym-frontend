@@ -37,3 +37,18 @@
     border: 1px solid #eee;
     backdrop-filter: blur(20px);
 }
+
+.buttons{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    outline: 1px solid transparent;
+    padding: 20px;
+}
+.buttons button{    
+    transition: all .2s ease-in;
+    outline: 1px solid transparent;
+}
+.buttons button:hover{    
+    outline: 1px solid #888;
+}
