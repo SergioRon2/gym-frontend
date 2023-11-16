@@ -62,3 +62,16 @@
 .consultarAsistencia:hover{
     outline: 1px solid #333;
 }
+
+
+@media (max-width:768px) {
+    .formulario{
+        width: 90vw;
+        height: 50vh;
+    }
+}
+
+
+.container input{
+    outline: none;
+}

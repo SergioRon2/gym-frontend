@@ -62,3 +62,17 @@
 .registrarAsistencia:hover{
     outline: 1px solid #333;
 }
+
+
+
+
+.container input{
+    outline: none;
+}
+
+@media (max-width:768px) {
+    .formulario{
+        width: 90vw;
+        height: 50vh;
+    }
+}
