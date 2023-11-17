@@ -28,6 +28,7 @@ body {
   background-size: cover;
   min-height: 100vh;
   overflow-x: hidden;
+  backdrop-filter: brightness(1.4);
 }
 
 @media (max-width: 768px) {

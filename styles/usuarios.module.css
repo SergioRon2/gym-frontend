@@ -31,6 +31,7 @@
     justify-content: center;
     flex-direction: column;
     gap: 20px;
+    text-align: center;
 }
 
 .card:hover{
@@ -52,10 +53,13 @@
 }
 .buttons .buttonBlue:hover{    
     outline: 1px solid #05f;
+    color: #05f;
 }
 .buttons .buttonGreen:hover{    
     outline: 1px solid #0f5;
+    color: #0f5;
 }
 .buttons .buttonRed:hover{    
     outline: 1px solid #a00;
+    color: #a00;
 }
