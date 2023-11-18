@@ -42,21 +42,33 @@ const eliminarUsuario = async (userId: number) => {
       // Verificar si la eliminación fue exitosa
       if (response.success) {
         // La eliminación fue exitosa, mostrar SweetAlert de éxito
-        swal('Éxito', response.mensaje, 'success');
+        swal({
+          title:'Éxito',
+          text: response.mensaje,
+          icon: 'success',
+        }).then(function(){
+          window.location.href = '/usuarios'
+        });
         // Puedes realizar otras acciones después de la eliminación si es necesario
       } else {
         // La eliminación falló, mostrar SweetAlert de error
         swal('Error', response.mensaje, 'error');
       }
-    } catch (error) {
+    } catch (error:any) {
       // Manejar errores de la solicitud DELETE, si es necesario
       console.error('Error al eliminar el usuario:', error);
-      swal('Error', 'Error al eliminar el usuario', 'error');
+    
+      // Verificar si hay un mensaje de error específico
+      const errorMessage = error.response ? error.response.data : 'Error al eliminar el usuario';
+    
+      // Mostrar SweetAlert de error con el mensaje adecuado
+      swal('Error', errorMessage, 'error');
     }
   } else {
     // El usuario canceló la eliminación, puedes mostrar un mensaje opcional
     swal('Cancelado', 'La eliminación ha sido cancelada', 'info');
   }
+
 };
 
 
