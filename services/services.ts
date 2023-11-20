@@ -47,6 +47,8 @@ export async function apiRestPost(path: string, body: any = {}): Promise<any> {
   try {
     const requestOptions: any = {}
     requestOptions.headers = await getRequestHeaders()
+    requestOptions.data = body;
+
     const response = await axios.post(path, body, requestOptions)
     return response.data
   } catch (e) {

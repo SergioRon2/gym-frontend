@@ -19,8 +19,7 @@ export default function Miembros(){
 
         datosUsuarios()
     }, [])
-
-
+    
 // Función para manejar la eliminación del usuario
 const eliminarUsuario = async (userId: number) => {
   // Mostrar una SweetAlert de confirmación

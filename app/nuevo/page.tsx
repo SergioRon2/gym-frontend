@@ -25,9 +25,9 @@ export default function MiembroNuevo() {
       e.preventDefault();
       try {
         const response = await apiRestPost('/nuevo_usuario/', formData);
+        console.log(response)
         if (response.success) {
           // Aquí manejas el caso de éxito
-          console.log(response.usuario)
         } else {
           // Aquí manejas el caso de error
           console.log('Error al registrar nuevo miembro:', response.errors)
