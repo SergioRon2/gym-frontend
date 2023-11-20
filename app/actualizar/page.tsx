@@ -1,12 +1,15 @@
 'use client';
-import { apiRestPost } from '@/services/services';
-import { useState } from 'react';
-import NuevoStyle from 'styles/nuevo.module.css';
+import { apiRestPut } from '@/services/services';
+import { useState, useEffect } from 'react';
+import NuevoStyle from 'styles/actualizar.module.css';
 import Image from 'next/image'
 import swal from 'sweetalert'
 
-export default function MiembroNuevo() {
+
+export default function ActualizarMiembro({ id }:any) {
+
     const [formData, setFormData] = useState({
+      id: '',
       nombre: '',
       apellido: '',
       tipo_id: '',
@@ -22,23 +25,37 @@ export default function MiembroNuevo() {
         [name]: value,
       });
     };
+
+    useEffect(() => {
+      const fetchUsuario = async () => {
+        try {
+          const response = await apiRestPut(`/editar/${id}`);
+          setFormData(response.usuario); // Ajusta esto según la estructura de tu API
+        } catch (error) {
+          console.error('Error al obtener datos del usuario:', error);
+        }
+      };
+    
+      fetchUsuario();
+    }, [id]);
   
     const handleSubmit = async (e:any) => {
       e.preventDefault();
 
-      const confirmarRegistro = await swal({
+      const confirmarActualizacion = await swal({
         title: '¿Estás seguro?',
-        text: 'Esta acción registra un nuevo usuario',
+        text: 'Esta acción no se puede deshacer',
         icon: 'warning',
         buttons: ['Cancelar', 'Aceptar'],
         dangerMode: false,
       });
 
-      if (confirmarRegistro){
+      if (confirmarActualizacion){
         try {
-          const response = await apiRestPost('/nuevo_usuario/', formData);
+          const response = await apiRestPut(`/editar_usuario/${formData.id}`, formData);
           console.log(response)
           if (response.success) {
+            console.log(response.usuario)
             // En caso de éxito, muestra el SweetAlert
             swal({
                 title: '¡Éxito!',
@@ -75,7 +92,7 @@ export default function MiembroNuevo() {
     return (
       <div className={NuevoStyle.general}>
         <div className={NuevoStyle.container1}>
-          <h1 className={NuevoStyle.title}>Registrar Nuevo Miembro</h1>
+          <h1 className={NuevoStyle.title}>Actualizar Miembro</h1>
           <Image src='/banner-nuevo-usuario.png' width={300} height={300} alt="banner-nuevo-usuario.png" />
         </div>
         <div className={NuevoStyle.container2}>
@@ -101,7 +118,7 @@ export default function MiembroNuevo() {
             </div>
             <div className={NuevoStyle.inputs}>
               <label htmlFor="id_usuario">Numero de ID:</label>
-              <input type="number" name="id_usuario" value={formData.id_usuario} onChange={handleChange} minLength={6} required/>
+              <input type="number" name="id_usuario" value={formData.id_usuario} onChange={handleChange} required/>
             </div>
             <div className={NuevoStyle.select}>
               <label htmlFor="plan">Plan:</label>
@@ -124,7 +141,7 @@ export default function MiembroNuevo() {
             <div className={NuevoStyle.buttons}>
               <a className={NuevoStyle.volver} href="/usuarios">Volver</a>
               <button type="submit" className={NuevoStyle.registrarNuevo}>
-                Registrar nuevo miembro
+                Guardar cambios
               </button>
             </div>
           </form>
