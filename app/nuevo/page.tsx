@@ -2,6 +2,8 @@
 import { apiRestPost } from '@/services/services';
 import { useState } from 'react';
 import NuevoStyle from 'styles/nuevo.module.css';
+import Image from 'next/image'
+import swal from 'sweetalert'
 
 export default function MiembroNuevo() {
     const [formData, setFormData] = useState({
@@ -23,29 +25,60 @@ export default function MiembroNuevo() {
   
     const handleSubmit = async (e:any) => {
       e.preventDefault();
-      try {
-        const response = await apiRestPost('/nuevo_usuario/', formData);
-        console.log(response)
-        if (response.success) {
-          // Aquí manejas el caso de éxito
-        } else {
-          // Aquí manejas el caso de error
-          console.log('Error al registrar nuevo miembro:', response.errors)
-          // Puedes mostrar mensajes de error específicos para cada campo si lo deseas
-        // Aquí puedes manejar la respuesta, redireccionar, mostrar mensajes, etc.
+
+      const confirmarRegistro = await swal({
+        title: '¿Estás seguro?',
+        text: 'Esta acción no se puede deshacer',
+        icon: 'warning',
+        buttons: ['Cancelar', 'Aceptar'],
+        dangerMode: false,
+      });
+
+      if (confirmarRegistro){
+        try {
+          const response = await apiRestPost('/nuevo_usuario/', formData);
+          console.log(response)
+          if (response.success) {
+            // En caso de éxito, muestra el SweetAlert
+            swal({
+                title: '¡Éxito!',
+                text: 'Usuario creado correctamente.',
+                icon: 'success',
+            }).then(() => {
+                window.location.href = '/usuarios'
+            });
+          } else {
+              // En caso de error, muestra el SweetAlert con el mensaje de error
+              swal({
+                  title: 'Error',
+                  text: 'Error al registrar nuevo miembro. Verifica los campos e inténtalo de nuevo.',
+                  icon: 'error',
+              });
+              console.log('Error al registrar nuevo miembro:', response.errors)
+          }
+        } catch (error) {
+            console.error('Error al registrar nuevo miembro:', error);
+            // Muestra SweetAlert para indicar un error inesperado
+            swal({
+                title: 'Error',
+                text: 'Error inesperado al intentar registrar el nuevo miembro. Inténtalo de nuevo más tarde.',
+                icon: 'error',
+            });
         }
-      } catch (error) {
-        console.error('Error al registrar nuevo miembro:', error);
-        console.log(error)
+      } else{
+        swal('Cancelado', 'El registro ha sido cancelada', 'info');
       }
 
       console.log(formData)
-    };
+    }
   
     return (
       <div className={NuevoStyle.general}>
-        <div className={NuevoStyle.container}>
+        <div className={NuevoStyle.container1}>
           <h1 className={NuevoStyle.title}>Registrar Nuevo Miembro</h1>
+          <Image src='/banner-nuevo-usuario.png' width={300} height={300} alt="banner-nuevo-usuario.png" />
+        </div>
+        <div className={NuevoStyle.container2}>
           <form onSubmit={handleSubmit} className={NuevoStyle.formulario}>
             <div className={NuevoStyle.inputs}>
               <label htmlFor="nombre">Nombre(s):</label>
@@ -88,9 +121,12 @@ export default function MiembroNuevo() {
               <label htmlFor="fechaInicio">Fecha de inicio</label>
               <input type="date" name="fechaInicio" value={formData.fechaInicio} onChange={handleChange} required/>
             </div>
-            <button type="submit" className={NuevoStyle.registrarNuevo}>
-              Registrar nuevo miembro
-            </button>
+            <div className={NuevoStyle.buttons}>
+              <a className={NuevoStyle.volver} href="/usuarios">Volver</a>
+              <button type="submit" className={NuevoStyle.registrarNuevo}>
+                Registrar nuevo miembro
+              </button>
+            </div>
           </form>
         </div>
       </div>
