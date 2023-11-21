@@ -1,5 +1,5 @@
 'use client';
-import { apiRestDelete, apiRestGet } from '@/services/services'
+import { apiRestDelete, apiRestGet, apiRestPatch } from '@/services/services'
 import { useEffect, useState } from 'react'
 import StyleUsuarios from 'styles/usuarios.module.css'
 import swal from 'sweetalert'
@@ -29,7 +29,7 @@ export default function Miembros(){
 
   const actualizarUsuario = async (userId: any) => {
     // Redirige a la página de actualización con la ID como parámetro
-    window.location.href = `/actualizar/${userId}`;
+    window.location.href = `/actualizar?id=${userId}`;
   }
 
 
@@ -119,9 +119,7 @@ export default function Miembros(){
                         <h4>Dias restantes: {user.dias_restantes}</h4>
                         <div className={StyleUsuarios.buttons}>
                             <button onClick={()=>{detallesUsuario(user.usuario.id)}} className={StyleUsuarios.buttonBlue}>Ver</button>
-                            <Link href={`/actualizar/${user.id}`}>
-                              <button className={StyleUsuarios.buttonGreen}>Actualizar</button>
-                            </Link>
+                            <button onClick={()=>{actualizarUsuario(user.usuario.id)}} className={StyleUsuarios.buttonGreen}>Actualizar</button>
                             <button onClick={()=>{eliminarUsuario(user.usuario.id)}} className={StyleUsuarios.buttonRed}>Eliminar</button>
                         </div>
                     </div>

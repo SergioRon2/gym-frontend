@@ -4,13 +4,15 @@ import { useState, useEffect } from 'react';
 import NuevoStyle from 'styles/actualizar.module.css';
 import Image from 'next/image'
 import swal from 'sweetalert'
-import { useRouter } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 
 
-export default function ActualizarMiembro({ id }:any) {
 
-    // const router = useRouter();
-    // const { id } = router.query;
+export default function ActualizarMiembro() {
+
+    
+    const searchParams = useSearchParams();
+    const id = searchParams.get('id');
 
     const [formData, setFormData] = useState({
       id: '',
@@ -33,7 +35,7 @@ export default function ActualizarMiembro({ id }:any) {
     useEffect(() => {
       const fetchUsuario = async () => {
         try {
-          const response = await apiRestGet(`/usuarios/${id}`);
+          const response = await apiRestPut(`/usuarios/${id}`);
           setFormData(response.usuario); // Ajusta esto según la estructura de tu API
         } catch (error) {
           console.error('Error al obtener datos del usuario:', error);
@@ -55,34 +57,33 @@ export default function ActualizarMiembro({ id }:any) {
       });
 
       if (confirmarActualizacion){
+        swal('Listo', 'La actualizacion se proceso de manera exitosa', 'success');
         try {
           const response = await apiRestPut(`/editar_usuario/${formData.id}`, formData);
           console.log(response)
           if (response.success) {
             console.log(response.usuario)
-            // En caso de éxito, muestra el SweetAlert
             swal({
                 title: '¡Éxito!',
-                text: 'Usuario creado correctamente.',
+                text: 'Usuario actualizado correctamente.',
                 icon: 'success',
             }).then(() => {
                 window.location.href = '/usuarios'
             });
           } else {
-              // En caso de error, muestra el SweetAlert con el mensaje de error
               swal({
                   title: 'Error',
-                  text: 'Error al registrar nuevo miembro. Verifica los campos e inténtalo de nuevo.',
+                  text: 'Error al actualizar miembro. Verifica los campos e inténtalo de nuevo.',
                   icon: 'error',
               });
-              console.log('Error al registrar nuevo miembro:', response.errors)
+              console.log('Error al actualizar miembro:', response.errors)
           }
         } catch (error) {
-            console.error('Error al registrar nuevo miembro:', error);
+            console.error('Error al actualizar miembro:', error);
             // Muestra SweetAlert para indicar un error inesperado
             swal({
                 title: 'Error',
-                text: 'Error inesperado al intentar registrar el nuevo miembro. Inténtalo de nuevo más tarde.',
+                text: 'Error inesperado al intentar actualizar el miembro. Inténtalo de nuevo más tarde.',
                 icon: 'error',
             });
         }
