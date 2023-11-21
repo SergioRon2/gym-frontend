@@ -1,12 +1,16 @@
 'use client';
-import { apiRestPut } from '@/services/services';
+import { apiRestPut, apiRestGet } from '@/services/services';
 import { useState, useEffect } from 'react';
 import NuevoStyle from 'styles/actualizar.module.css';
 import Image from 'next/image'
 import swal from 'sweetalert'
+import { useRouter } from 'next/navigation'
 
 
 export default function ActualizarMiembro({ id }:any) {
+
+    // const router = useRouter();
+    // const { id } = router.query;
 
     const [formData, setFormData] = useState({
       id: '',
@@ -29,7 +33,7 @@ export default function ActualizarMiembro({ id }:any) {
     useEffect(() => {
       const fetchUsuario = async () => {
         try {
-          const response = await apiRestPut(`/editar/${id}`);
+          const response = await apiRestGet(`/usuarios/${id}`);
           setFormData(response.usuario); // Ajusta esto según la estructura de tu API
         } catch (error) {
           console.error('Error al obtener datos del usuario:', error);
