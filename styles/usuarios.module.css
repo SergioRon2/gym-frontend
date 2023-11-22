@@ -33,11 +33,40 @@
     gap: 20px;
     text-align: center;
 }
+.cardRed{
+    min-width: 200px;
+    width: 300px;
+    height: 300px;
+    border: 1px solid #500000;
+    background-color: #4001;
+    backdrop-filter: blur(10px);    
+    transition: all .2s;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+}
 
 .card:hover{
     border: 1px solid #ccc;
     backdrop-filter: blur(20px);
     box-shadow: 0px 1px 10px 5px #fff2;
+}
+
+@keyframes animation-borderRed {
+    0%, 100%{
+        border: 1px solid #500000;
+    } 50%{
+        border: 1px solid #dd0000;
+    }
+}
+.cardRed:hover{
+    animation: animation-borderRed 2s infinite ease;
+    backdrop-filter: blur(20px);
+    box-shadow: 0px 1px 10px 5px #f004;
 }
 
 .buttons{

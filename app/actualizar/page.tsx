@@ -35,7 +35,7 @@ export default function ActualizarMiembro() {
     useEffect(() => {
       const fetchUsuario = async () => {
         try {
-          const response = await apiRestPut(`/usuarios/${id}`);
+          const response = await apiRestGet(`/usuarios/${id}`);
           setFormData(response.usuario); // Ajusta esto según la estructura de tu API
         } catch (error) {
           console.error('Error al obtener datos del usuario:', error);
@@ -56,42 +56,47 @@ export default function ActualizarMiembro() {
         dangerMode: false,
       });
 
-      if (confirmarActualizacion){
-        swal('Listo', 'La actualizacion se proceso de manera exitosa', 'success');
+      if (confirmarActualizacion) {
+        swal('Éxito', 'La actualización se procesó de manera exitosa', 'success');
         try {
-          const response = await apiRestPut(`/editar_usuario/${formData.id}`, formData);
-          console.log(response)
+          console.log('antes:', formData)
+          const response = await apiRestPut(`/editar/${formData.id}`, formData);
+          console.log('despues:', formData)
+
+
+          console.log(response);
           if (response.success) {
-            console.log(response.usuario)
+            // Actualizar el estado del formulario con los nuevos datos
+            setFormData(response.usuario);
+      
             swal({
-                title: '¡Éxito!',
-                text: 'Usuario actualizado correctamente.',
-                icon: 'success',
+              title: '¡Éxito!',
+              text: 'Usuario actualizado correctamente.',
+              icon: 'success',
             }).then(() => {
-                window.location.href = '/usuarios'
+              window.location.href = '/usuarios';
             });
           } else {
-              swal({
-                  title: 'Error',
-                  text: 'Error al actualizar miembro. Verifica los campos e inténtalo de nuevo.',
-                  icon: 'error',
-              });
-              console.log('Error al actualizar miembro:', response.errors)
+            swal({
+              title: 'Error',
+              text: 'Error al actualizar miembro. Verifica los campos e inténtalo de nuevo.',
+              icon: 'error',
+            });
+            console.log('Error al actualizar miembro:', response.errors);
           }
         } catch (error) {
-            console.error('Error al actualizar miembro:', error);
-            // Muestra SweetAlert para indicar un error inesperado
-            swal({
-                title: 'Error',
-                text: 'Error inesperado al intentar actualizar el miembro. Inténtalo de nuevo más tarde.',
-                icon: 'error',
-            });
+          console.error('Error al actualizar miembro:', error);
+          // Muestra SweetAlert para indicar un error inesperado
+          swal({
+            title: 'Error',
+            text: 'Error inesperado al intentar actualizar el miembro. Inténtalo de nuevo más tarde.',
+            icon: 'error',
+          });
         }
-      } else{
-        swal('Cancelado', 'El registro ha sido cancelada', 'info');
+      } else {
+        swal('Cancelado', 'El registro ha sido cancelado', 'info');
       }
-
-      console.log(formData)
+      
     }
   
     return (

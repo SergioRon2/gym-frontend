@@ -9,7 +9,7 @@ export default function Navbar(){
                     <Link className={navbar.gymsoftware} href={"/"}>GymSoftware</Link>
                     <ul className={navbar.links}>
                         <li className="">
-                            <Link className={navbar.link} aria-current="page" href={"/usuarios"}>Inicio</Link>
+                            <Link className={navbar.link} aria-current="page" href={"/usuarios"}>Usuarios</Link>
                         </li>
                         <li className="">
                             <Link className={navbar.link} href={"/asistencia"}>Registrar asistencia</Link>

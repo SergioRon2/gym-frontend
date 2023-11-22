@@ -1,9 +1,9 @@
 'use client';
-import { apiRestDelete, apiRestGet, apiRestPatch } from '@/services/services'
+import { apiRestDelete, apiRestGet } from '@/services/services'
 import { useEffect, useState } from 'react'
 import StyleUsuarios from 'styles/usuarios.module.css'
 import swal from 'sweetalert'
-import Link from 'next/link'
+import classNames from 'classnames'
 
 
 
@@ -15,7 +15,7 @@ export default function Miembros(){
     const datosUsuarios = async () => {
       const res = await apiRestGet('plan');
       setUsuarios(res.tarjetas);
-      console.log(res.tarjetas[0])
+      console.log(res.tarjetas)
     }
 
     datosUsuarios()
@@ -112,8 +112,9 @@ export default function Miembros(){
   return <>
         <div className={StyleUsuarios.container}>
             {
+              
                 usuarios.map((user:any, index:any) => (
-                    <div className={StyleUsuarios.card}>
+                    <div className={classNames({ [StyleUsuarios.cardRed]: user.dias_restantes <= 0 }, { [StyleUsuarios.card]: user.dias_restantes > 0 })}>
                         <h2>{user.usuario.nombre} {user.usuario.apellido}</h2>
                         <h4>ID: {user.usuario.id_usuario}</h4>
                         <h4>Dias restantes: {user.dias_restantes}</h4>
