@@ -82,15 +82,14 @@
 }
 
 @media (max-width: 768px) {
-    .container{
-        margin-bottom: 30px;
+    .container1{
+        display: none;
     
     }
     .title{
         margin-top: 100px;
     }
     .formulario{
-        border: 1px solid #888;
         width: 90%;
         height: auto;
         display: flex;

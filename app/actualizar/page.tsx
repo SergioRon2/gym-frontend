@@ -9,10 +9,18 @@ import { useSearchParams } from 'next/navigation'
 
 
 export default function ActualizarMiembro() {
-
-    
     const searchParams = useSearchParams();
     const id = searchParams.get('id');
+
+    const [initialUserData, setInitialUserData] = useState({
+      id: '',
+      nombre: '',
+      apellido: '',
+      tipo_id: '',
+      id_usuario: '',
+      plan: '',
+      fechaInicio: '',
+    });
 
     const [formData, setFormData] = useState({
       id: '',
@@ -23,27 +31,28 @@ export default function ActualizarMiembro() {
       plan: '',
       fechaInicio: '',
     });
-  
+
+    useEffect(() => {
+      const fetchUsuario = async () => {
+        try {
+          const response = await apiRestGet(`/plan/${id}`);
+          setInitialUserData(response.usuario);
+          setFormData(response.usuario);
+        } catch (error) {
+          console.log('Error al obtener datos del usuario:', error);
+        }
+      };
+
+      fetchUsuario();
+    }, [id]);
+
     const handleChange = (e:any) => {
-      const {name, value} = e.target;
+      const { name, value } = e.target;
       setFormData({
         ...formData,
         [name]: value,
       });
     };
-
-    useEffect(() => {
-      const fetchUsuario = async () => {
-        try {
-          const response = await apiRestGet(`/usuarios/${id}`);
-          setFormData(response.usuario); // Ajusta esto según la estructura de tu API
-        } catch (error) {
-          console.error('Error al obtener datos del usuario:', error);
-        }
-      };
-    
-      fetchUsuario();
-    }, [id]);
   
     const handleSubmit = async (e:any) => {
       e.preventDefault();
@@ -59,7 +68,7 @@ export default function ActualizarMiembro() {
       if (confirmarActualizacion) {
         swal('Éxito', 'La actualización se procesó de manera exitosa', 'success');
         try {
-          console.log('antes:', formData)
+          console.log('antes:', initialUserData)
           const response = await apiRestPut(`/editar/${formData.id}`, formData);
           console.log('despues:', formData)
 
@@ -109,15 +118,15 @@ export default function ActualizarMiembro() {
           <form onSubmit={handleSubmit} className={NuevoStyle.formulario}>
             <div className={NuevoStyle.inputs}>
               <label htmlFor="nombre">Nombre(s):</label>
-              <input type="text" name="nombre" value={formData.nombre} onChange={handleChange} required/>
+              <input type="text" name="nombre" value={formData?.nombre || ''} onChange={handleChange} required/>
             </div>
             <div className={NuevoStyle.inputs}>
               <label htmlFor="apellido">Apellido(s):</label>
-              <input type="text" name="apellido" value={formData.apellido} onChange={handleChange} required/>
+              <input type="text" name="apellido" value={formData?.apellido || ''} onChange={handleChange} required/>
             </div>
             <div className={NuevoStyle.select}>
               <label htmlFor="tipo_id">Identificacion:</label>
-              <select name="tipo_id" value={formData.tipo_id} onChange={handleChange} required>
+              <select name="tipo_id" value={formData?.tipo_id || ''} onChange={handleChange} required>
                 <option value="">Seleccione el tipo de Identificacion</option>
                 <option value="ti">Tarjeta de identidad</option>
                 <option value="cedula">Cedula de ciudadania</option>
@@ -128,11 +137,11 @@ export default function ActualizarMiembro() {
             </div>
             <div className={NuevoStyle.inputs}>
               <label htmlFor="id_usuario">Numero de ID:</label>
-              <input type="number" name="id_usuario" value={formData.id_usuario} onChange={handleChange} required/>
+              <input type="number" name="id_usuario" value={formData?.id_usuario || ''} onChange={handleChange} required/>
             </div>
             <div className={NuevoStyle.select}>
               <label htmlFor="plan">Plan:</label>
-              <select name="plan" value={formData.plan} onChange={handleChange} required>
+              <select name="plan" value={formData?.plan || ''} onChange={handleChange} required>
                 <option value="">Seleccione su plan</option>
                 <option value="A">Anual - $1000</option>
                 <option value="T">Trimestral - $300</option>
@@ -146,7 +155,7 @@ export default function ActualizarMiembro() {
             </div>
             <div className={NuevoStyle.inputs}>
               <label htmlFor="fechaInicio">Fecha de inicio</label>
-              <input type="date" name="fechaInicio" value={formData.fechaInicio} onChange={handleChange} required/>
+              <input type="date" name="fechaInicio" value={formData?.fechaInicio || ''} onChange={handleChange} required/>
             </div>
             <div className={NuevoStyle.buttons}>
               <a className={NuevoStyle.volver} href="/usuarios">Volver</a>
