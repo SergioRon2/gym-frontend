@@ -1,6 +1,5 @@
 import navbar from '../styles/navbar.module.css'
 import Link from 'next/link'
-import Script from 'next/script'
 
 export default function Navbar(){
     return <>

@@ -4,11 +4,11 @@ import { useEffect, useState } from 'react'
 import StyleUsuarios from 'styles/usuarios.module.css'
 import swal from 'sweetalert'
 import classNames from 'classnames'
-
+import LoadingSpinner from '../../components/loading'
 
 
 export default function Miembros(){
-
+  
   const [usuarios, setUsuarios] = useState([])
 
   useEffect(() => {
@@ -85,7 +85,6 @@ export default function Miembros(){
           }).then(function(){
             window.location.href = '/usuarios'
           });
-          // Puedes realizar otras acciones después de la eliminación si es necesario
         } else {
           // La eliminación falló, mostrar SweetAlert de error
           swal('Error', response.mensaje, 'error');
@@ -93,39 +92,33 @@ export default function Miembros(){
       } catch (error:any) {
         // Manejar errores de la solicitud DELETE, si es necesario
         console.error('Error al eliminar el usuario:', error);
-      
-        // Verificar si hay un mensaje de error específico
-        const errorMessage = error.response ? error.response.data : 'Error al eliminar el usuario';
-      
+  
         // Mostrar SweetAlert de error con el mensaje adecuado
-        swal('Error', errorMessage, 'error');
+        swal('Error', error, 'error');
       }
-    } else {
-      // El usuario canceló la eliminación, puedes mostrar un mensaje opcional
-      swal('Cancelado', 'La eliminación ha sido cancelada', 'info');
-    }
-
+    } 
   };
 
 
 
   return <>
-        <div className={StyleUsuarios.container}>
-            {
-              
-                usuarios.map((user:any, index:any) => (
-                    <div className={classNames({ [StyleUsuarios.cardRed]: user.dias_restantes <= 0 }, { [StyleUsuarios.card]: user.dias_restantes > 0 })}>
-                        <h2>{user.usuario.nombre} {user.usuario.apellido}</h2>
-                        <h4>ID: {user.usuario.id_usuario}</h4>
-                        <h4>Dias restantes: {user.dias_restantes}</h4>
-                        <div className={StyleUsuarios.buttons}>
-                            <button onClick={()=>{detallesUsuario(user.usuario.id)}} className={StyleUsuarios.buttonBlue}>Ver</button>
-                            <button onClick={()=>{actualizarUsuario(user.usuario.id)}} className={StyleUsuarios.buttonGreen}>Actualizar</button>
-                            <button onClick={()=>{eliminarUsuario(user.usuario.id)}} className={StyleUsuarios.buttonRed}>Eliminar</button>
-                        </div>
-                    </div>
-                ))
-            }
-        </div>
+          <div className={StyleUsuarios.container}>
+            {usuarios.length > 0 ? (
+              usuarios.map((user:any, index:any) => (
+                <div className={classNames({ [StyleUsuarios.cardRed]: user.dias_restantes <= 0 }, { [StyleUsuarios.card]: user.dias_restantes > 0 })} key={index}>
+                  <h2>{user.nombre} {user.apellido}</h2>
+                  <h4>ID: {user.id_usuario}</h4>
+                  <h4>Dias restantes: {user.dias_restantes}</h4>
+                  <div className={StyleUsuarios.buttons}>
+                    <button onClick={() => {detallesUsuario(user.id)}} className={StyleUsuarios.buttonBlue}>Ver</button>
+                    <button onClick={() => {actualizarUsuario(user.id)}} className={StyleUsuarios.buttonGreen}>Actualizar</button>
+                    <button onClick={() => {eliminarUsuario(user.id)}} className={StyleUsuarios.buttonRed}>Eliminar</button>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <h2>Para crear un usuario, haz clic en "Nuevo Usuario" en el navbar.</h2>
+            )}
+      </div>
     </>
 }

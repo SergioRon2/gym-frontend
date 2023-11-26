@@ -18,33 +18,32 @@ export default function ActualizarMiembro() {
       apellido: '',
       tipo_id: '',
       id_usuario: '',
-      plan: '',
-      fechaInicio: '',
+      tipo_plan: '',
+      fecha_inicio: '',
     });
-
+    
     const [formData, setFormData] = useState({
-      id: '',
       nombre: '',
       apellido: '',
       tipo_id: '',
       id_usuario: '',
-      plan: '',
-      fechaInicio: '',
+      tipo_plan: '',
+      fecha_inicio: '',
     });
 
     useEffect(() => {
       const fetchUsuario = async () => {
-        try {
           const response = await apiRestGet(`/plan/${id}`);
-          setInitialUserData(response.usuario);
-          setFormData(response.usuario);
-        } catch (error) {
-          console.log('Error al obtener datos del usuario:', error);
-        }
+          console.log(response.tarjeta)
+          setInitialUserData(response.tarjeta);
+          setFormData(response.tarjeta);
       };
 
       fetchUsuario();
     }, [id]);
+
+    console.log(initialUserData)
+    console.log(formData)
 
     const handleChange = (e:any) => {
       const { name, value } = e.target;
@@ -68,15 +67,11 @@ export default function ActualizarMiembro() {
       if (confirmarActualizacion) {
         swal('Éxito', 'La actualización se procesó de manera exitosa', 'success');
         try {
-          console.log('antes:', initialUserData)
-          const response = await apiRestPut(`/editar/${formData.id}`, formData);
-          console.log('despues:', formData)
+          const response = await apiRestPut(`/editar/${initialUserData.id}`, formData);
+          console.log(response)
 
-
-          console.log(response);
           if (response.success) {
             // Actualizar el estado del formulario con los nuevos datos
-            setFormData(response.usuario);
       
             swal({
               title: '¡Éxito!',
@@ -103,7 +98,7 @@ export default function ActualizarMiembro() {
           });
         }
       } else {
-        swal('Cancelado', 'El registro ha sido cancelado', 'info');
+        swal('Cancelado', 'La actualizacion ha sido cancelada', 'info');
       }
       
     }
@@ -140,8 +135,8 @@ export default function ActualizarMiembro() {
               <input type="number" name="id_usuario" value={formData?.id_usuario || ''} onChange={handleChange} required/>
             </div>
             <div className={NuevoStyle.select}>
-              <label htmlFor="plan">Plan:</label>
-              <select name="plan" value={formData?.plan || ''} onChange={handleChange} required>
+              <label htmlFor="tipo_plan">Plan:</label>
+              <select name="tipo_plan" value={formData?.tipo_plan || ''} onChange={handleChange} required>
                 <option value="">Seleccione su plan</option>
                 <option value="A">Anual - $1000</option>
                 <option value="T">Trimestral - $300</option>
@@ -154,8 +149,8 @@ export default function ActualizarMiembro() {
               </select>
             </div>
             <div className={NuevoStyle.inputs}>
-              <label htmlFor="fechaInicio">Fecha de inicio</label>
-              <input type="date" name="fechaInicio" value={formData?.fechaInicio || ''} onChange={handleChange} required/>
+              <label htmlFor="fecha_inicio">Fecha de inicio</label>
+              <input type="date" name="fecha_inicio" value={formData?.fecha_inicio || ''} onChange={handleChange} required/>
             </div>
             <div className={NuevoStyle.buttons}>
               <a className={NuevoStyle.volver} href="/usuarios">Volver</a>

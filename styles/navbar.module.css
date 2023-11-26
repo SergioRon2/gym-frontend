@@ -18,7 +18,12 @@
     padding: 0 20px;
 }
 .gymsoftware{
-    width: 50vw;
+    width: auto;
+    font-size: 2.5ex;
+    transition: all .3s ease;
+}
+.gymsoftware:hover{
+    color: #ccc;
 }
 .links{
     gap: 30px;
@@ -30,12 +35,13 @@
 }
 
 .link{
-    color: #fff;
+    color: #888;
     transition: all .2s ease;
 }
 
-.link:hover{
-    color: #999;
+.link:hover,
+.link:focus{
+    color: #fff;
 }
 
 @media (max-width: 768px) {
