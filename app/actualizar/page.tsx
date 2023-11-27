@@ -72,7 +72,6 @@ export default function ActualizarMiembro() {
 
           if (response.success) {
             // Actualizar el estado del formulario con los nuevos datos
-      
             swal({
               title: '¡Éxito!',
               text: 'Usuario actualizado correctamente.',
