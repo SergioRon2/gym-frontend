@@ -7,8 +7,8 @@
 
 .formulario{
     backdrop-filter: blur(20px);
-    width: 30vw;
-    height: 50vh;
+    width: auto;
+    height: auto;
     border: 1px solid #555;
     transition: all .2s ease;
     padding: 10px;
@@ -74,4 +74,8 @@
 
 .container input{
     outline: none;
+}
+
+.i{
+    color: #aaa;
 }
