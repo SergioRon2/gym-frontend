@@ -29,12 +29,12 @@ body {
   background-image: url('../public/images/bg-main.webp');
   background-size: cover;
   min-height: 100vh;
-  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 @media (max-width: 768px) {
   body {
-    overflow-x: hidden;
+    overflow-y: scroll;
     min-height: 100%;
   }
 }

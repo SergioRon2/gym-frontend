@@ -11,7 +11,7 @@
     height: auto;
     border: 1px solid #555;
     transition: all .2s ease;
-    padding: 10px;
+    padding: 40px;
 
     display: flex;
     flex-direction: column;

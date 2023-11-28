@@ -22,6 +22,9 @@ export default function Navbar(){
                         <li className="">
                             <Link className={navbar.link} href={"/nuevo"}>Nuevo Usuario</Link>
                         </li>
+                        <li className="">
+                            <Link className={navbar.link} href={"/inventario"}>Inventario</Link>
+                        </li>
                     </ul>
                 </div>
             </nav>

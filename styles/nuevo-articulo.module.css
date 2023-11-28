@@ -1,0 +1,112 @@
+.general{
+    display: flex;
+    justify-content: center;
+}
+.container1, .container2{
+    height: 80vh;
+    width: 100vw;
+    background-color: #aaa2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #888;
+    backdrop-filter: blur(15px);
+    gap: 50px;
+}
+
+.title{
+    font-size: 2em; 
+    font-weight: bold;
+}
+
+.formulario{
+    width: auto;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    gap: 25px;
+}
+
+.inputs{
+    display: flex;
+    flex-direction: column;
+}
+
+.inputs > input{
+    width: 30vw;
+    height: 30px;
+    outline: none;
+    color: white;
+    padding-left: 5px;
+    background-color: transparent;
+    border-bottom: 1px solid white;
+}
+
+.textarea{
+    display: flex;
+    flex-direction: column;
+}
+
+.textarea > textarea{
+    width: 30vw;
+    height: 15vh;
+    outline: none;
+    color: white;
+    background: transparent;
+    border-bottom: 1px solid white;
+    resize: none;
+    transition: all 2s ease-in-out;
+}
+.textarea > textarea:hover{
+    background: linear-gradient(to bottom, transparent, #aaa1);
+}
+
+.registrarNuevo, .volver{
+    padding: 5px;
+    margin-top: 50px;
+    transition: all .2s ease;
+    outline: 1px solid transparent;
+}
+.registrarNuevo:hover,
+ .volver:hover{
+    outline: 1px solid #ddd;
+}
+
+
+.buttons{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+@media (max-width: 768px) {
+    .container1{
+        display: none;
+    
+    }
+    .title{
+        margin-top: 100px;
+    }
+    .formulario{
+        border: none;
+        width: 90%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: start;
+    }
+    .inputs > input{
+        width: 75vw;
+        height: 30px;
+    }
+    .select > select{
+        width: 75vw;
+        height: 30px;
+    }
+}
+  

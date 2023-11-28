@@ -1,0 +1,137 @@
+.container{
+    height: 65vh;
+    background-color: #1119;
+    border: 1px solid #333;
+    transition: all .3s ease-in;
+    backdrop-filter: blur(5px);
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    padding: 40px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+.container:hover{
+    border: 1px solid #999;
+    backdrop-filter: blur(10px);
+}
+
+.card{
+    width: 90vw;
+    height: 10vh;
+    border: 1px solid #444;
+    backdrop-filter: blur(10px);    
+    transition: all .2s;
+    background-color: #0006;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    flex-direction: row;
+    text-align: center;
+}
+.card:hover{
+    border: 1px solid #aaa;
+    backdrop-filter: blur(20px);
+}
+
+@media (max-width:768px) {
+    .container{
+        display: flex;
+        gap: 20px;
+    }
+    .card{
+        height: 20vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+}
+
+.titulos{
+    display: flex;
+    width: 90vw;
+    background-color: #333;
+    border: 1px solid #444;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+.buttons{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    outline: 1px solid transparent;
+    padding: 20px;
+}
+.buttons button{    
+    transition: all .2s ease-in;
+    outline: 1px solid transparent;
+    padding: 0 5px;
+}
+.buttons .buttonBlue:hover{    
+    outline: 1px solid #05f;
+    color: #05f;
+}
+.buttons .buttonGreen:hover{    
+    outline: 1px solid #0f5;
+    color: #0f5;
+}
+.buttons .buttonRed:hover{    
+    outline: 1px solid #d00;
+    color: #d00;
+}
+
+
+.h2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70vh;
+}
+
+.h2 > a{
+    font-weight: bold;
+}
+
+.nuevoArticulo{
+    padding: 10px 0;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.nuevoArticulo a{
+    transition: all .2s ease-in-out;
+    color: #fff;
+}
+.nuevoArticulo a:hover{
+    color: #0f5;
+}
+
+.container2{
+    background-color: #1119;
+    border: 1px solid #333;
+    transition: all .3s ease-in;
+    backdrop-filter: blur(5px);
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    padding: 40px;  
+    margin-top: 10px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+}
+.container2:hover{
+    border: 1px solid #999;
+    backdrop-filter: blur(10px);
+}
+
+@media (max-width:768px) {
+    .container2{
+        display: flex;
+        flex-direction: column;
+    }
+}
