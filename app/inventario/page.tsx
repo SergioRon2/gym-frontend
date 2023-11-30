@@ -24,7 +24,6 @@ export default function Inventario(){
   // ------------------------- ACTUALIZAR ARTICULO --------------------------------
 
 
-
   const actualizarArticulo = async (itemId: any) => {
     // Redirige a la página de actualización con la ID como parámetro
     window.location.href = `/actualizar?id=${itemId}`;
@@ -125,11 +124,11 @@ export default function Inventario(){
               </div>
             )}
           </div>
-      <div className={StyleArticulos.container2}>
-        <h2>Gastos diarios: ${}</h2>
-        <h2>Gastos mensuales: ${}</h2>
-        <h2>Ganancias diarias: ${}</h2>
-        <h2>Ganancias mensuales: ${}</h2>
-      </div>
+          <div className={StyleArticulos.container2}>
+            <h2>Gastos diarios: ${}</h2>
+            <h2>Gastos mensuales: ${}</h2>
+            <h2>Ganancias diarias: ${}</h2>
+            <h2>Ganancias mensuales: ${}</h2>
+          </div>
     </>
 }
