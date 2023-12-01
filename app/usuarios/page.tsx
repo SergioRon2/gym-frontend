@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react'
 import StyleUsuarios from 'styles/usuarios.module.css'
 import swal from 'sweetalert'
 import classNames from 'classnames'
-import LoadingSpinner from '../../components/loading'
 
 
 export default function Miembros(){
@@ -102,7 +101,9 @@ export default function Miembros(){
 
 
   return <>
+          <a href="#inicio"><div className={StyleUsuarios.botonSubida}>↑</div></a>
           <div className={StyleUsuarios.container}>
+            <div id="inicio" className={StyleUsuarios.inicioContainer}></div>
             {usuarios.length > 0 ? (
               usuarios.map((user:any, index:any) => (
                 <div className={classNames({ [StyleUsuarios.cardRed]: user.dias_restantes <= 0 }, { [StyleUsuarios.card]: user.dias_restantes > 0 })} key={index}>
@@ -117,7 +118,7 @@ export default function Miembros(){
                 </div>
               ))
             ) : (
-              <h2>Para crear un usuario, haz clic en "Nuevo Usuario" en el navbar.</h2>
+              <h2>Para crear un usuario, haz clic en "Nuevo Usuario" en la barra de navegacion.</h2>
             )}
       </div>
     </>
