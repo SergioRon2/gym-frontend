@@ -9,6 +9,8 @@ import classNames from 'classnames'
 export default function Miembros(){
   
   const [usuarios, setUsuarios] = useState([])
+  const [filtroTexto, setFiltroTexto] = useState('');
+  const [filtroCategoria, setFiltroCategoria] = useState('todos'); // Puedes cambiar el valor por defecto según tus necesidades
 
   useEffect(() => {
     const datosUsuarios = async () => {
@@ -98,28 +100,75 @@ export default function Miembros(){
     } 
   };
 
+  const filtrarUsuarios = () => {
+    let usuariosFiltrados = usuarios;
 
+    // Filtrar por texto
+    if (filtroTexto.trim() !== '') {
+      usuariosFiltrados = usuariosFiltrados.filter((user:any) =>
+        `${user.nombre} ${user.apellido}`.toLowerCase().includes(filtroTexto.toLowerCase())
+      );
+    }
+
+    // Filtrar por categoría
+    if (filtroCategoria !== 'todos') {
+      usuariosFiltrados = usuariosFiltrados.sort((a:any, b:any) => {
+        // Ajusta según la categoría seleccionada (puedes agregar más categorías según sea necesario)
+        if (filtroCategoria === 'diasRestantes') {
+          return a.dias_restantes - b.dias_restantes;
+        } else if (filtroCategoria === 'alfabeticamente') {
+          return a.nombre.localeCompare(b.nombre);
+        } else if (filtroCategoria === 'tipoPlan') {
+          return a.tipo_plan.localeCompare(b.tipo_plan);
+        }
+
+        return 0; // Si la categoría no coincide
+      });
+    }
+
+    return usuariosFiltrados;
+  };
 
   return <>
           <a href="#inicio"><div className={StyleUsuarios.botonSubida}>↑</div></a>
           <div className={StyleUsuarios.container}>
-            <div id="inicio" className={StyleUsuarios.inicioContainer}></div>
-            {usuarios.length > 0 ? (
-              usuarios.map((user:any, index:any) => (
-                <div className={classNames({ [StyleUsuarios.cardRed]: user.dias_restantes <= 0 }, { [StyleUsuarios.card]: user.dias_restantes > 0 })} key={index}>
-                  <h2>{user.nombre} {user.apellido}</h2>
-                  <h4>ID: {user.id_usuario}</h4>
-                  <h4>Dias restantes: {user.dias_restantes}</h4>
-                  <div className={StyleUsuarios.buttons}>
-                    <button onClick={() => {detallesUsuario(user.id)}} className={StyleUsuarios.buttonBlue}>Ver</button>
-                    <button onClick={() => {actualizarUsuario(user.id)}} className={StyleUsuarios.buttonGreen}>Actualizar</button>
-                    <button onClick={() => {eliminarUsuario(user.id)}} className={StyleUsuarios.buttonRed}>Eliminar</button>
-                  </div>
-                </div>
-              ))
-            ) : (
-              <h2>Para crear un usuario, haz clic en "Nuevo Usuario" en la barra de navegacion.</h2>
-            )}
+            <div className={StyleUsuarios.filtrosContainer}>
+              <input
+                type="text"
+                placeholder="Buscar por nombre"
+                value={filtroTexto}
+                onChange={(e) => setFiltroTexto(e.target.value)}
+              />
+
+              <select
+                value={filtroCategoria}
+                onChange={(e) => setFiltroCategoria(e.target.value)}
+              >
+                <option value="todos">Todos</option>
+                <option value="diasRestantes">Días Restantes</option>
+                <option value="alfabeticamente">Alfabéticamente</option>
+                <option value="tipoPlan">Tipo de Plan</option>
+              </select>
+            </div>
+            <div className={StyleUsuarios.usuarios}>
+                <div id="inicio" className={StyleUsuarios.inicioContainer}></div>
+                {usuarios.length > 0 ? (
+                  usuarios.map((user:any, index:any) => (
+                    <div className={classNames({ [StyleUsuarios.cardRed]: user.dias_restantes <= 0 }, { [StyleUsuarios.card]: user.dias_restantes > 0 })} key={index}>
+                      <h2>{user.nombre} {user.apellido}</h2>
+                      <h4>ID: {user.id_usuario}</h4>
+                      <h4>Dias restantes: {user.dias_restantes}</h4>
+                      <div className={StyleUsuarios.buttons}>
+                        <button onClick={() => {detallesUsuario(user.id)}} className={StyleUsuarios.buttonBlue}>Ver</button>
+                        <button onClick={() => {actualizarUsuario(user.id)}} className={StyleUsuarios.buttonGreen}>Actualizar</button>
+                        <button onClick={() => {eliminarUsuario(user.id)}} className={StyleUsuarios.buttonRed}>Eliminar</button>
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <h2>Para crear un usuario, haz clic en "Nuevo Usuario" en la barra de navegacion.</h2>
+                )}
+            </div>
       </div>
     </>
 }

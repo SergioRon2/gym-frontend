@@ -5,13 +5,24 @@
     transition: all .3s ease-in;
     backdrop-filter: blur(5px);
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding-top: 20px;
+    overflow: hidden;
+}
+.container > .usuarios{
+    height: 100vh;
+    width: 95vw;
+    display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
     flex-grow: 1;
     gap: 20px;
-    padding: 40px;
-    overflow-y: scroll;
+    padding: 30px;
+    overflow-x: hidden;
 }
 .container:hover{
     border: 1px solid #999;
@@ -125,3 +136,27 @@
     color: #aaa;
 }
 
+.filtrosContainer{
+    width: 92vw;
+    height: 5vh;
+
+    display: flex;
+    gap: 30px;
+}
+.filtrosContainer > input,
+.filtrosContainer > select{
+    background-color: transparent;
+    border-bottom: 1px solid white;
+    outline: transparent;
+    width: auto;
+    height: 30px;
+    padding: 15px;
+    color: white;
+}
+
+.filtrosContainer > input::placeholder{
+    color: white;
+}
+.filtrosContainer > select > option{
+    color: black;
+}
