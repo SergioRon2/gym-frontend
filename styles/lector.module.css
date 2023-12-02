@@ -31,6 +31,7 @@
     margin-top: 100px;
     transition: all .2s ease;
     outline: 1px solid transparent;
+    background-color: #555c;
 }
 .registrarAsistencia:hover{
     outline: 1px solid #333;

@@ -58,6 +58,7 @@
     margin-top: 50px;
     transition: all .2s ease;
     outline: 1px solid transparent;
+    background-color: #555c;
 }
 .consultarAsistencia:hover{
     outline: 1px solid #333;

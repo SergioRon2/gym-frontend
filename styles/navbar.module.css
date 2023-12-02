@@ -6,6 +6,7 @@
     flex-direction: row;
     border-bottom: 1px solid #999;
     transition: all .3s ease;
+    background-color: #7774;
 }
 .navbar:hover{
     border-bottom: 1px solid #fff;
@@ -35,14 +36,10 @@
 }
 
 .link{
-    color: #888;
+    color: #fff;
     transition: all .2s ease;
 }
 
-.link:hover,
-.link:focus{
-    color: #fff;
-}
 
 @media (max-width: 768px) {
     .navbar {

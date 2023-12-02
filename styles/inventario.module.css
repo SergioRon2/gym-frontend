@@ -1,6 +1,6 @@
 .container{
     height: 65vh;
-    background-color: #1119;
+    background-color: #5559;
     border: 1px solid #333;
     transition: all .3s ease-in;
     backdrop-filter: blur(5px);
@@ -18,10 +18,10 @@
 .card{
     width: 90vw;
     height: 10vh;
-    border: 1px solid #444;
+    border: 1px solid #000;
     backdrop-filter: blur(10px);    
     transition: all .2s;
-    background-color: #0006;
+    background-color: #7779;
 
     display: flex;
     align-items: center;
@@ -29,10 +29,6 @@
     padding: 0 10px;
     flex-direction: row;
     text-align: center;
-}
-.card:hover{
-    border: 1px solid #aaa;
-    backdrop-filter: blur(20px);
 }
 
 @media (max-width:768px) {
@@ -52,7 +48,7 @@
 .titulos{
     display: flex;
     width: 90vw;
-    background-color: #333;
+    background-color: #2226;
     border: 1px solid #444;
     justify-content: space-between;
     padding: 0 20px;
@@ -71,16 +67,16 @@
     padding: 0 5px;
 }
 .buttons .buttonBlue:hover{    
-    outline: 1px solid #05f;
-    color: #05f;
+    outline: 1px solid #009;
+    color: #009;
 }
 .buttons .buttonGreen:hover{    
-    outline: 1px solid #0f5;
-    color: #0f5;
+    outline: 1px solid #0f0;
+    color: #0f0;
 }
 .buttons .buttonRed:hover{    
-    outline: 1px solid #d00;
-    color: #d00;
+    outline: 1px solid #600;
+    color: #600;
 }
 
 
@@ -110,7 +106,7 @@
 }
 
 .container2{
-    background-color: #1119;
+    background-color: #5559;
     border: 1px solid #333;
     transition: all .3s ease-in;
     backdrop-filter: blur(5px);
