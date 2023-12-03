@@ -1,6 +1,6 @@
 'use client';
-import { apiRestPost } from '@/services/services';
-import { useState } from 'react';
+import { apiRestGet, apiRestPost } from '@/services/services';
+import { useEffect, useState } from 'react';
 import NuevoStyle from 'styles/nuevo.module.css';
 import Image from 'next/image'
 import swal from 'sweetalert'
@@ -14,6 +14,32 @@ export default function MiembroNuevo() {
       plan: '',
       fechaInicio: '',
     });
+
+  // obtener planes
+
+    const [planes, setPlanes] = useState([])
+
+    useEffect(() => {
+      const datosPlanes = async () => {
+        const resPlanes = await apiRestGet('obtener_plan/')
+        setPlanes(resPlanes.planes_gym)
+        console.log(resPlanes.planes_gym)
+      }
+      datosPlanes()
+    }, [])
+
+  // obtener tipoId
+
+    const [tiposId, setTiposId] = useState([])
+
+    useEffect(() => {
+      const datosTipoId = async () => {
+        const resTipoId = await apiRestGet('obtener_tipos_id/')
+        setTiposId(resTipoId.tipos_id)
+        console.log(resTipoId.tipos_id)
+      }
+      datosTipoId()
+    }, [])
   
     const handleChange = (e:any) => {
       const {name, value} = e.target;
@@ -92,11 +118,11 @@ export default function MiembroNuevo() {
               <label htmlFor="tipo_id">Identificacion:</label>
               <select name="tipo_id" value={formData.tipo_id} onChange={handleChange} required>
                 <option value="">Seleccione el tipo de Identificacion</option>
-                <option value="ti">Tarjeta de identidad</option>
-                <option value="cedula">Cedula de ciudadania</option>
-                <option value="ce">Cedula de extranjeria</option>
-                <option value="pasaporte">Pasaporte</option>
-                <option value="pep">Permiso especial de Permanencia</option>
+                {
+                  tiposId.map((tipo:any)=>(
+                    <option value={tipo.tipo_id}>{tipo.tipo_id}</option>
+                  ))
+                }
               </select>
             </div>
             <div className={NuevoStyle.inputs}>
@@ -106,15 +132,12 @@ export default function MiembroNuevo() {
             <div className={NuevoStyle.select}>
               <label htmlFor="plan">Plan:</label>
               <select name="plan" value={formData.plan} onChange={handleChange} required>
-                <option value="">Seleccione su plan</option>
-                <option value="A">Anual - $1000</option>
-                <option value="T">Trimestral - $300</option>
-                <option value="M">Mensual - $100</option>
-                <option value="S3">Semana x3 - $90</option>
-                <option value="S2">Semana x2 - $75</option>
-                <option value="S">Semanal - $10</option>
-                <option value="D">Diario - $1</option>
-                <option value="O">Personalizado - $??</option>
+                <option value="">Seleccione un plan</option>
+                {
+                  planes.map((plan:any)=>(
+                    <option value={plan.tipo_plan}>{plan.tipo_plan}</option>
+                  ))
+                }
               </select>
             </div>
             <div className={NuevoStyle.inputs}>

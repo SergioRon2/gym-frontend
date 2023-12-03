@@ -65,7 +65,7 @@
 .card:hover{
     border: 1px solid #000;
     backdrop-filter: blur(20px);
-    box-shadow: 0px 1px 5px 5px #0009;
+    box-shadow: 0px 1px 5px 5px #2229;
 }
 
 @keyframes animation-borderRed {
@@ -109,6 +109,9 @@
 .inicioContainer{
     position: absolute;
     top: 0px;
+    width: 5px;
+    height: 5px;
+    background-color: #600;
 }
 
 .botonSubida{
@@ -129,7 +132,7 @@
 
     font-weight: bold;
     font-size: 2.5ex;
-    color: #9995;
+    color: #ddd;
 
 }
 .botonSubida:hover{
@@ -140,12 +143,16 @@
 .filtrosContainer{
     width: 92vw;
     height: 5vh;
-
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.filtrosContainer > div{
     display: flex;
     gap: 30px;
 }
-.filtrosContainer > input,
-.filtrosContainer > select{
+.filtrosContainer > div > input,
+.filtrosContainer > div > select{
     background-color: transparent;
     border-bottom: 1px solid white;
     outline: transparent;
@@ -155,9 +162,18 @@
     color: white;
 }
 
-.filtrosContainer > input::placeholder{
-    color: white;
+.filtrosContainer > select {
+    background-color: black;
 }
-.filtrosContainer > select > option{
-    color: black;
+
+.filtrosContainer > input::placeholder{
+    color: #777;
+}
+
+.nuevoUsuario{
+    color: #fff;
+    transition: all .2s ease;
+}
+.nuevoUsuario:hover{
+    color: #999;
 }

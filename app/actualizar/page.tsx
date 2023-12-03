@@ -12,7 +12,8 @@ export default function ActualizarMiembro() {
     const searchParams = useSearchParams();
     const id = searchParams.get('id');
 
-    const [initialUserData, setInitialUserData] = useState({
+    // Inicializa formData con algunas propiedades iniciales
+    const [formData, setFormData] = useState({
       id: '',
       nombre: '',
       apellido: '',
@@ -21,36 +22,60 @@ export default function ActualizarMiembro() {
       tipo_plan: '',
       fecha_inicio: '',
     });
-    
-    const [formData, setFormData] = useState({
-      nombre: '',
-      apellido: '',
-      tipo_id: '',
-      id_usuario: '',
-      tipo_plan: '',
-      fecha_inicio: '',
-    });
+
+
+
+    // obtener planes
+
+    const [planes, setPlanes] = useState([])
+
+    useEffect(()=>{
+      const datosPlanes = async () =>{
+        const resPlanes = await apiRestGet('obtener_plan/')
+        setPlanes(resPlanes.planes_gym)
+        console.log(resPlanes.planes_gym)
+      }
+      datosPlanes()
+    }, [])
+
+
+      // obtener tipoId
+
+      const [tiposId, setTiposId] = useState([])
+
+      useEffect(() => {
+        const datosTipoId = async () => {
+          const resTipoId = await apiRestGet('obtener_tipos_id/')
+          setTiposId(resTipoId.tipos_id)
+          console.log(resTipoId.tipos_id)
+        }
+        datosTipoId()
+      }, [])
+
+
+      // obtener datos 
 
     useEffect(() => {
       const fetchUsuario = async () => {
           const response = await apiRestGet(`/plan/${id}`);
           console.log(response.tarjeta)
-          setInitialUserData(response.tarjeta);
           setFormData(response.tarjeta);
       };
 
       fetchUsuario();
     }, [id]);
 
-    console.log(initialUserData)
     console.log(formData)
 
-    const handleChange = (e:any) => {
+    
+    const handleChange = (e: any) => {
       const { name, value } = e.target;
-      setFormData({
-        ...formData,
+
+      // Actualiza formData incluyendo el cambio
+      setFormData((prevData) => ({
+        ...prevData,
         [name]: value,
-      });
+      }));
     };
   
     const handleSubmit = async (e:any) => {
@@ -67,7 +92,7 @@ export default function ActualizarMiembro() {
       if (confirmarActualizacion) {
         swal('Éxito', 'La actualización se procesó de manera exitosa', 'success');
         try {
-          const response = await apiRestPut(`/editar/${initialUserData.id}`, formData);
+          const response = await apiRestPut(`/editar/${formData.id}`, formData);
           console.log(response)
 
           if (response.success) {
@@ -85,7 +110,7 @@ export default function ActualizarMiembro() {
               text: 'Error al actualizar miembro. Verifica los campos e inténtalo de nuevo.',
               icon: 'error',
             });
-            console.log('Error al actualizar miembro:', response.errors);
+            console.log('Error al actualizar miembro:', response.errores);
           }
         } catch (error) {
           console.error('Error al actualizar miembro:', error);
@@ -112,44 +137,40 @@ export default function ActualizarMiembro() {
           <form onSubmit={handleSubmit} className={NuevoStyle.formulario}>
             <div className={NuevoStyle.inputs}>
               <label htmlFor="nombre">Nombre(s):</label>
-              <input type="text" name="nombre" value={formData?.nombre || ''} onChange={handleChange} required/>
+              <input type="text" name="nombre" value={formData?.nombre || ''} onChange={handleChange} />
             </div>
             <div className={NuevoStyle.inputs}>
               <label htmlFor="apellido">Apellido(s):</label>
-              <input type="text" name="apellido" value={formData?.apellido || ''} onChange={handleChange} required/>
+              <input type="text" name="apellido" value={formData?.apellido || ''} onChange={handleChange} />
             </div>
             <div className={NuevoStyle.select}>
               <label htmlFor="tipo_id">Identificacion:</label>
-              <select name="tipo_id" value={formData?.tipo_id || ''} onChange={handleChange} required>
+              <select name="tipo_id" value={formData?.tipo_id || ''} onChange={handleChange} >
                 <option value="">Seleccione el tipo de Identificacion</option>
-                <option value="ti">Tarjeta de identidad</option>
-                <option value="cedula">Cedula de ciudadania</option>
-                <option value="ce">Cedula de extranjeria</option>
-                <option value="pasaporte">Pasaporte</option>
-                <option value="pep">Permiso especial de Permanencia</option>
+                {
+                  tiposId.map((tipo:any)=>(
+                    <option key={tipo.tipo_id} value={tipo.tipo_id}>{tipo.tipo_id}</option>
+                  ))
+                }
               </select>
             </div>
             <div className={NuevoStyle.inputs}>
               <label htmlFor="id_usuario">Numero de ID:</label>
-              <input type="number" name="id_usuario" value={formData?.id_usuario || ''} onChange={handleChange} required/>
+              <input type="number" name="id_usuario" value={formData?.id_usuario || ''} onChange={handleChange} />
             </div>
             <div className={NuevoStyle.select}>
               <label htmlFor="tipo_plan">Plan:</label>
-              <select name="tipo_plan" value={formData?.tipo_plan || ''} onChange={handleChange} required>
-                <option value="">Seleccione su plan</option>
-                <option value="A">Anual - $1000</option>
-                <option value="T">Trimestral - $300</option>
-                <option value="M">Mensual - $100</option>
-                <option value="S3">Semana x3 - $90</option>
-                <option value="S2">Semana x2 - $75</option>
-                <option value="S">Semanal - $10</option>
-                <option value="D">Diario - $1</option>
-                <option value="O">Personalizado - $??</option>
+              <select name="tipo_plan" value={formData?.tipo_plan || ''} onChange={handleChange} >
+                {
+                  planes.map((plan:any)=>(
+                    <option value={plan.tipo_plan}>{plan.tipo_plan}</option>
+                  ))
+                }
               </select>
             </div>
             <div className={NuevoStyle.inputs}>
               <label htmlFor="fecha_inicio">Fecha de inicio</label>
-              <input type="date" name="fecha_inicio" value={formData?.fecha_inicio || ''} onChange={handleChange} required/>
+              <input type="date" name="fecha_inicio" value={formData?.fecha_inicio || ''} onChange={handleChange} />
             </div>
             <div className={NuevoStyle.buttons}>
               <a className={NuevoStyle.volver} href="/usuarios">Volver</a>

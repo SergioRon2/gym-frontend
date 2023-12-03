@@ -20,9 +20,6 @@ export default function Navbar(){
                             <Link className={navbar.link} href={"/lector"}>Lector</Link>
                         </li>
                         <li className="">
-                            <Link className={navbar.link} href={"/nuevo"}>Nuevo Usuario</Link>
-                        </li>
-                        <li className="">
                             <Link className={navbar.link} href={"/inventario"}>Inventario</Link>
                         </li>
                     </ul>
