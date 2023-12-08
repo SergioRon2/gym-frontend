@@ -131,7 +131,7 @@ export default function ActualizarMiembro() {
       <div className={NuevoStyle.general}>
         <div className={NuevoStyle.container1}>
           <h1 className={NuevoStyle.title}>Actualizar Miembro</h1>
-          <Image src='/banner-nuevo-usuario.png' width={300} height={300} alt="banner-nuevo-usuario.png" />
+          <Image draggable={false} src='/banner-nuevo-usuario.png' width={300} height={300} alt="banner-nuevo-usuario.png" />
         </div>
         <div className={NuevoStyle.container2}>
           <form onSubmit={handleSubmit} className={NuevoStyle.formulario}>

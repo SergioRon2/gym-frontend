@@ -144,7 +144,7 @@ export default function Miembros(){
                   <option value="tipoPlan">Tipo de Plan</option>
                 </select>
               </div>
-              <Link className={StyleUsuarios.nuevoUsuario} href={"/nuevo"}>Nuevo Usuario</Link>
+              <Link className={StyleUsuarios.nuevoUsuario} href={"/nuevo"}>+ Nuevo Usuario</Link>
             </div>
             <div className={StyleUsuarios.usuarios}>
                 <div id="inicio" className={StyleUsuarios.inicioContainer}></div>
