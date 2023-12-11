@@ -7,6 +7,41 @@
     border: 1px solid white;
     backdrop-filter: blur(10px);
 }
+
+@media (max-width:992px) {
+    .container{
+        flex-direction: column-reverse;
+        height: auto;
+    }
+    .container h1{
+        font-size: 2em;
+        text-align: center;
+    }
+
+    .campos > form > div > input[type=text]{
+        width: 80vw;
+    }
+    .campos > form > div > input[type=number]{
+        width: 80vw;
+    }
+    .button{
+        width: auto;
+    }
+    .planesActuales{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .listaPlanes{
+        display: flex;
+        width: 90vw;
+    }
+    .categoria{
+        display: flex;
+        width: 90vw;
+    }
+}
+
 .container h1{
     position: absolute;
     top: 10px;

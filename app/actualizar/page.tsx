@@ -2,9 +2,9 @@
 import { apiRestPut, apiRestGet } from '@/services/services';
 import { useState, useEffect } from 'react';
 import NuevoStyle from 'styles/actualizar.module.css';
-import Image from 'next/image'
-import swal from 'sweetalert'
-import { useSearchParams } from 'next/navigation'
+import Image from 'next/image';
+import swal from 'sweetalert';
+import { useSearchParams } from 'next/navigation';
 
 
 
