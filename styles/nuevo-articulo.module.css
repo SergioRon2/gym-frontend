@@ -59,10 +59,15 @@
     background: transparent;
     border-bottom: 1px solid white;
     resize: none;
-    transition: all 2s ease-in-out;
+    transition: all 2s ease-in;
 }
 .textarea > textarea:hover{
     background: linear-gradient(to bottom, transparent, #aaa1);
+    transition: all 1s ease;
+}
+.textarea > textarea:focus{
+    background: linear-gradient(to bottom, transparent, #aaa1);
+    transition: all 1s ease;
 }
 
 .registrarNuevo, .volver{

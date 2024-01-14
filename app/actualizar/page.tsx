@@ -12,17 +12,8 @@ export default function ActualizarMiembro() {
     const searchParams = useSearchParams();
     const id = searchParams.get('id');
 
-    const [initialUserData, setInitialUserData] = useState({
-      id: '',
-      nombre: '',
-      apellido: '',
-      tipo_id: '',
-      id_usuario: '',
-      tipo_plan: '',
-      fecha_inicio: '',
-    });
-    
     const [formData, setFormData] = useState({
+      id: '',
       nombre: '',
       apellido: '',
       tipo_id: '',
@@ -35,18 +26,30 @@ export default function ActualizarMiembro() {
       const fetchUsuario = async () => {
           const response = await apiRestGet(`/plan/${id}`);
           console.log(response.tarjeta)
-          setInitialUserData(response.tarjeta);
           setFormData(response.tarjeta);
       };
 
       fetchUsuario();
     }, [id]);
 
-    console.log(initialUserData)
     console.log(formData)
+
+    
+    const [planes, setPlanes] = useState([])
+
+    useEffect(()=>{
+      const obtenerPLanes = async() =>{
+        const res = await apiRestGet('/obtener_plan');
+        setPlanes(res.planes_gym)
+        console.log(res.planes_gym)
+      }
+      obtenerPLanes()
+    }, [])
+
 
     const handleChange = (e:any) => {
       const { name, value } = e.target;
+      console.log(`Changing ${name} to ${value}`);
       setFormData({
         ...formData,
         [name]: value,
@@ -67,7 +70,7 @@ export default function ActualizarMiembro() {
       if (confirmarActualizacion) {
         swal('Éxito', 'La actualización se procesó de manera exitosa', 'success');
         try {
-          const response = await apiRestPut(`/editar/${initialUserData.id}`, formData);
+          const response = await apiRestPut(`/editar/${formData.id}`, formData);
           console.log(response)
 
           if (response.success) {
@@ -120,7 +123,7 @@ export default function ActualizarMiembro() {
             </div>
             <div className={NuevoStyle.select}>
               <label htmlFor="tipo_id">Identificacion:</label>
-              <select name="tipo_id" value={formData?.tipo_id || ''} onChange={handleChange} required>
+              <select key={formData.tipo_id} name="tipo_id" value={formData?.tipo_id || ''} onChange={handleChange} required>
                 <option value="">Seleccione el tipo de Identificacion</option>
                 <option value="ti">Tarjeta de identidad</option>
                 <option value="cedula">Cedula de ciudadania</option>
@@ -134,17 +137,14 @@ export default function ActualizarMiembro() {
               <input type="number" name="id_usuario" value={formData?.id_usuario || ''} onChange={handleChange} required/>
             </div>
             <div className={NuevoStyle.select}>
-              <label htmlFor="tipo_plan">Plan:</label>
+            <label htmlFor="tipo_plan">Plan:</label>
               <select name="tipo_plan" value={formData?.tipo_plan || ''} onChange={handleChange} required>
-                <option value="">Seleccione su plan</option>
-                <option value="A">Anual - $1000</option>
-                <option value="T">Trimestral - $300</option>
-                <option value="M">Mensual - $100</option>
-                <option value="S3">Semana x3 - $90</option>
-                <option value="S2">Semana x2 - $75</option>
-                <option value="S">Semanal - $10</option>
-                <option value="D">Diario - $1</option>
-                <option value="O">Personalizado - $??</option>
+                <option value="">Seleccione un plan</option>
+                {planes.map((plan:any) => (
+                  <option key={plan.cod_plan} value={plan.cod_plan}>
+                    {`${plan.tipo_plan} - $${plan.precio}`}
+                  </option>
+                ))}
               </select>
             </div>
             <div className={NuevoStyle.inputs}>

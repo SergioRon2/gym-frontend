@@ -1,6 +1,6 @@
 'use client';
-import { apiRestPost } from '@/services/services';
-import { useState } from 'react';
+import { apiRestGet, apiRestPost } from '@/services/services';
+import { useEffect, useState } from 'react';
 import NuevoStyle from 'styles/nuevo.module.css';
 import Image from 'next/image'
 import swal from 'sweetalert'
@@ -14,6 +14,20 @@ export default function MiembroNuevo() {
       plan: '',
       fechaInicio: '',
     });
+
+
+    const [planes, setPlanes] = useState([])
+
+
+    useEffect(()=>{
+      const obtenerPLanes = async() =>{
+        const res = await apiRestGet('/obtener_plan');
+        setPlanes(res.planes_gym)
+        console.log(res.planes_gym)
+      }
+      obtenerPLanes()
+    }, [])
+    
   
     const handleChange = (e:any) => {
       const {name, value} = e.target;
@@ -106,15 +120,12 @@ export default function MiembroNuevo() {
             <div className={NuevoStyle.select}>
               <label htmlFor="plan">Plan:</label>
               <select name="plan" value={formData.plan} onChange={handleChange} required>
-                <option value="">Seleccione su plan</option>
-                <option value="A">Anual - $1000</option>
-                <option value="T">Trimestral - $300</option>
-                <option value="M">Mensual - $100</option>
-                <option value="S3">Semana x3 - $90</option>
-                <option value="S2">Semana x2 - $75</option>
-                <option value="S">Semanal - $10</option>
-                <option value="D">Diario - $1</option>
-                <option value="O">Personalizado - $??</option>
+                <option value="">Seleccione un plan</option>
+                {
+                  planes.map((plan:any)=>(
+                    <option value={plan.cod_plan}>{plan.tipo_plan} - ${plan.precio}</option>
+                  ))
+                }
               </select>
             </div>
             <div className={NuevoStyle.inputs}>

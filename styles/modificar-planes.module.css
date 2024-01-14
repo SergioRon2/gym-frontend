@@ -113,14 +113,14 @@
     padding: 10px;
 }
 
-.opciones{
+.acciones{
     display: flex;
-    margin-top: 20px;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    width: 100%;
 }
+
 
 .eliminar{
     cursor: pointer;
@@ -129,4 +129,62 @@
 
 .eliminar:hover{
     background-color: darkred;
+}
+
+.editar{
+    cursor: pointer;
+    transition: all .2s ease;
+}
+
+.editar:hover{
+    background-color: #eee;
+    color: #000;
+}
+
+.opciones{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    margin-top: 20px;
+}
+
+@media (max-width: 992px) {
+
+    .container{
+        flex-direction: column;
+        height: auto;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .container > h1{
+        text-align: center;
+        font-size: 2em;
+    }
+
+    .planesActuales{
+        width: auto;
+    }
+
+    .listaPlanes > p{
+        width: 100%;
+    }
+
+    .campos > form > div > input[type=text]{
+        width: 80vw;
+    }
+    .campos > form > div > input[type=number]{
+        width: 80vw;
+    }
+    .button{
+        width:80vw;
+    }
+    .button:hover{
+        background-color: #aaa;
+    }
+    .volver{
+        width: 80vw;
+    }
 }

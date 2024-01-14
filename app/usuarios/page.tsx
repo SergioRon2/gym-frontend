@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import StyleUsuarios from 'styles/usuarios.module.css'
 import swal from 'sweetalert'
 import classNames from 'classnames'
+import Link from 'next/link'
 
 
 export default function Miembros(){
@@ -132,23 +133,26 @@ export default function Miembros(){
   return <>
           <a href="#inicio"><div className={StyleUsuarios.botonSubida}>↑</div></a>
           <div className={StyleUsuarios.container}>
-            <div className={StyleUsuarios.filtrosContainer}>
-              <input
-                type="text"
-                placeholder="Buscar por nombre"
-                value={filtroTexto}
-                onChange={(e) => setFiltroTexto(e.target.value)}
-              />
+            <div className={StyleUsuarios.opciones}>
+              <div className={StyleUsuarios.filtrosContainer}>
+                <input
+                  type="text"
+                  placeholder="Buscar por nombre"
+                  value={filtroTexto}
+                  onChange={(e) => setFiltroTexto(e.target.value)}
+                />
 
-              <select
-                value={filtroCategoria}
-                onChange={(e) => setFiltroCategoria(e.target.value)}
-              >
-                <option value="todos">Todos</option>
-                <option value="diasRestantes">Días Restantes</option>
-                <option value="alfabeticamente">Alfabéticamente</option>
-                <option value="tipoPlan">Tipo de Plan</option>
-              </select>
+                <select
+                  value={filtroCategoria}
+                  onChange={(e) => setFiltroCategoria(e.target.value)}
+                >
+                  <option value="todos">Todos</option>
+                  <option value="diasRestantes">Días Restantes</option>
+                  <option value="alfabeticamente">Alfabéticamente</option>
+                  <option value="tipoPlan">Tipo de Plan</option>
+                </select>
+              </div>
+              <Link className={StyleUsuarios.nuevo} href={"/nuevo"}>+ Nuevo Usuario</Link>
             </div>
             <div className={StyleUsuarios.usuarios}>
                 <div id="inicio" className={StyleUsuarios.inicioContainer}></div>
@@ -166,7 +170,7 @@ export default function Miembros(){
                     </div>
                   ))
                 ) : (
-                  <h2>Para crear un usuario, haz clic en "Nuevo Usuario" en la barra de navegacion.</h2>
+                  <h2>Para crear un usuario, haz clic en <b>'Nuevo Usuario'</b>.</h2>
                 )}
             </div>
       </div>

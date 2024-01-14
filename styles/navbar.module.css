@@ -6,8 +6,18 @@
     flex-direction: row;
     border-bottom: 1px solid #999;
     transition: all .3s ease;
-    background-color: #7774;
+    background-color: #7776;
 }
+
+.x{
+    position: absolute;
+    padding: 25px;
+    font-size: 1.5em;
+    right: 0;
+    top: 0;
+    display: none;
+}
+
 .navbar:hover{
     border-bottom: 1px solid #fff;
 }
@@ -43,7 +53,7 @@
 
 @media (max-width: 768px) {
     .navbar {
-        position: sticky;
+        position: absolute;
         top: 0;
 
         width: 100%;
@@ -53,6 +63,7 @@
         align-items: center;
         flex-direction: column;
         text-align: center;
+        background-color: #777f;
     }
     .navbar > div{
         width: 100%;
@@ -71,6 +82,11 @@
         flex-direction: column;
         justify-content: center;
         align-items: start;
+    }
+
+    .x{
+        display: block;
+        cursor: pointer;
     }
   }
   

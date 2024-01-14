@@ -137,6 +137,24 @@
     color: #aaa;
 }
 
+.opciones{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.opciones > div{
+    min-width: 200px;
+}
+
+.opciones > div, .nuevo{
+    padding: 0 20px;
+    width: auto;
+}
+
 .filtrosContainer{
     width: 92vw;
     height: 5vh;
@@ -160,4 +178,12 @@
 }
 .filtrosContainer > select > option{
     color: black;
+}
+
+.nuevo{
+    transition: all .3s ease;
+}
+
+.nuevo:hover{
+    color: #aaa;
 }

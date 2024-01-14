@@ -1,5 +1,5 @@
 'use client'
-import { apiRestDelete, apiRestGet, apiRestPost } from '@/services/services'
+import { apiRestDelete, apiRestGet, apiRestPost, apiRestPut } from '@/services/services'
 import { useEffect, useState } from 'react'
 import ModificarPlanes from 'styles/modificar-planes.module.css'
 import Link from 'next/link'
@@ -13,17 +13,21 @@ const ModificacionPlanes = () => {
 
     useEffect(()=>{
         const datos = async() => {
-            const res = await apiRestGet('obtener_plan')
-            setPlanes(res.planes_gym)
-            console.log(res.planes_gym)
+            const res = await apiRestGet('Planes')
+            setPlanes(res.dataCollection)
+            console.log(res.dataCollection)
         }
         datos()
     }, []);
 
 // -------------------------- Hasta aqui -----------------------------
+    const [formularioEditado, setFormularioEditado] = useState({
+        editable : false,
+        id : null
+    })
 
     const [formulario, setFormulario] = useState({
-      tipo_plan: '',
+      tipoPlan: '',
       precio: '',
       dias: '',
     });
@@ -41,44 +45,54 @@ const ModificacionPlanes = () => {
 
         const confirmarPlan = await swal({
             title: '¿Estás seguro?',
-            text: 'Esta acción añadira un nuevo plan',
+            text: formularioEditado.editable ? `Esta accion editara el plan ${formulario.tipoPlan}` : 'Esta acción añadira un nuevo plan',
             icon: 'warning',
             buttons: ['Cancelar', 'Crear'],
           });
       
         if (confirmarPlan) {
             try {
-                const res = await apiRestPost('/crear_plan/', formulario);
+                const res = formularioEditado.editable ? await apiRestPut('Planes', {...formulario, id:formularioEditado.id}) : await apiRestPost('Planes', formulario);
                 console.log(res);
 
                 if(res.success){
                     swal({
                         icon: 'success',
-                        title: 'Plan creado con éxito',
-                        text: 'El nuevo plan ha sido creado correctamente.',
+                        title: formularioEditado.editable ? 'Plan editado con exito' : 'Plan creado con éxito',
+                        text: formularioEditado.editable ? 'El plan ha sido editado correctamente' : 'El nuevo plan ha sido creado correctamente.',
                     }).then(() => {
+                        setFormularioEditado({editable : false, id : null})
                         window.location.href = '/modificar-planes';
                     });
 
                 } else{
                     swal('Error', 'Error al tomar los datos del plan', 'error')
+                    
                 }
 
             } catch (error) {
                 console.error(error);
                 swal({
                     icon: 'error',
-                    title: 'Error al crear el plan',
-                    text: 'Hubo un problema al intentar crear el plan. Por favor, inténtalo de nuevo.',
+                    title: formularioEditado.editable ? 'Error al editar el plan' : 'Error al crear el plan',
+                    text: formularioEditado.editable ? 'Hubo un problema al intentar editar el plan. Por favor, inténtalo de nuevo.' : 'Hubo un problema al intentar crear el plan. Por favor, inténtalo de nuevo.',
                 });
             }
         } else{
-            swal('Cancelado', 'La creacion del plan no se llevo a cabo', 'error')
+            swal('Cancelado', formularioEditado.editable ? 'La edicion del plan no se llevo a cabo' : 'La creacion del plan no se llevo a cabo', 'error')
         }
-      };
+    };
+
+    
+    const editarPlan = async(plan:any) =>{
+        setFormulario({tipoPlan : plan.tipoPlan, dias : plan.dias, precio : plan.precio})
+
+        setFormularioEditado({editable : true, id : plan.id})
+    }
 
 
-    const eliminarPlan = async() =>{
+    const eliminarPlan = async(plan:any) =>{
+
         const confirmDelete = await swal({
             title: '¿Estás seguro?',
             text: 'Esta acción no se puede deshacer',
@@ -89,17 +103,33 @@ const ModificacionPlanes = () => {
 
           if (confirmDelete){
             try{
-                const res = await apiRestDelete('')
-                swal({
-                    title: 'Exito',
-                    text: 'El plan ha sido eliminado correctamente',
-                    icon: 'success'
-                })
+                const res = await apiRestDelete(`Planes/${plan.id}`)
+                console.log(res)
+                if (res.success){
+                    swal({
+                        title: 'Exito',
+                        text: 'El plan ha sido eliminado correctamente',
+                        icon: 'success'
+                    }).then(()=>{
+                        window.location.href = '/modificar-planes'
+                    })
+                } else{
+                    swal({
+                        title: 'Error',
+                        text: 'El plan no pudo ser eliminado',
+                        icon: 'error'
+                    })
+                }
             } catch(error){
                 console.error(error)
             }
           }
     }
+
+    const href = () => {
+        window.location.href = '#formulario'
+    }
+
 
     return <>
         <div className={ModificarPlanes.container}>
@@ -113,16 +143,16 @@ const ModificacionPlanes = () => {
                 </div>
                 {
                     planes.map((plan:any)=> (
-                        <div className={ModificarPlanes.listaPlanes}><p>{plan.tipo_plan}</p><p>{plan.precio}</p><p>{plan.dias}</p><p className={ModificarPlanes.eliminar}>Eliminar</p></div>
+                        <div className={ModificarPlanes.listaPlanes}><p>{plan.tipoPlan}</p><p>{plan.precio}</p><p>{plan.dias}</p><div className={ModificarPlanes.acciones}><p className={ModificarPlanes.editar} onClick={()=>{editarPlan(plan), href()}}>Editar</p><p className={ModificarPlanes.eliminar} onClick={()=>{eliminarPlan(plan)}}>Eliminar</p></div></div>
                     ))
                 }
             </div>
             <div className={ModificarPlanes.formulario}>
                 <div className={ModificarPlanes.campos}>
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit} id='formulario'>
                         <div className="">
-                            <label htmlFor="tipo_plan">Plan</label>
-                            <input type="text" value={formulario.tipo_plan} onChange={handleInputChange} name='tipo_plan' />
+                            <label htmlFor="tipoPlan">Plan</label>
+                            <input type="text" value={formulario.tipoPlan} onChange={handleInputChange} name='tipoPlan' />
                         </div>
                         <div className="">
                             <label htmlFor="precio">Precio</label>
@@ -133,7 +163,7 @@ const ModificacionPlanes = () => {
                             <input type="number" value={formulario.dias} onChange={handleInputChange} name='dias' />
                         </div>
                         <div className={ModificarPlanes.opciones}>
-                            <input type="submit" className={ModificarPlanes.button} value="Ingresar plan" />
+                            <input type="submit" className={ModificarPlanes.button} value={formularioEditado.editable ? 'Editar plan' : 'Crear plan'} />
                             <Link href="/usuarios">
                                 <p className={ModificarPlanes.volver}>Volver</p>
                             </Link>
