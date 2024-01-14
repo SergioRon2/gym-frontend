@@ -14,6 +14,20 @@ export default function MiembroNuevo() {
       plan: '',
       fechaInicio: '',
     });
+
+
+  // obtener tipoId
+
+  const [tiposId, setTiposId] = useState([])
+
+  useEffect(() => {
+    const datosTipoId = async () => {
+      const resTipoId = await apiRestGet('obtener_tipos_id/')
+      setTiposId(resTipoId.tipos_id)
+      console.log(resTipoId.tipos_id)
+    }
+    datosTipoId()
+  }, [])
   
     const handleChange = (e:any) => {
       const {name, value} = e.target;

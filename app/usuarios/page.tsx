@@ -3,7 +3,6 @@ import { apiRestDelete, apiRestGet } from '@/services/services'
 import { useEffect, useState } from 'react'
 import StyleUsuarios from 'styles/usuarios.module.css'
 import swal from 'sweetalert'
-import Link from 'next/link'
 import classNames from 'classnames'
 import Link from 'next/link'
 
