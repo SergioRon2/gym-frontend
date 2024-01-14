@@ -24,7 +24,7 @@ export default function Navbar(){
                             <Link className={navbar.link} href={"/lector"}>Lector</Link>
                         </li>
                         <li className="">
-                        <Link className={navbar.link} href={"/modificar-planes"}>Modificar Planes</Link>
+                            <Link className={navbar.link} href={"/modificar-planes"}>Modificar Planes</Link>
                         </li>
                         <li className="">
                             <Link className={navbar.link} href={"/inventario"}>Inventario</Link>

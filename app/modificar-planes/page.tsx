@@ -167,7 +167,6 @@ const ModificacionPlanes = () => {
                             <Link href="/usuarios">
                                 <p className={ModificarPlanes.volver}>Volver</p>
                             </Link>
- 
                         </div>
                     </form>
                 </div>

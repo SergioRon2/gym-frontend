@@ -2,16 +2,15 @@
 import { apiRestPut, apiRestGet } from '@/services/services';
 import { useState, useEffect } from 'react';
 import NuevoStyle from 'styles/actualizar.module.css';
-import Image from 'next/image'
-import swal from 'sweetalert'
-import { useSearchParams } from 'next/navigation'
+import Image from 'next/image';
+import swal from 'sweetalert';
+import { useSearchParams } from 'next/navigation';
 
 
 
 export default function ActualizarMiembro() {
     const searchParams = useSearchParams();
     const id = searchParams.get('id');
-
     const [formData, setFormData] = useState({
       id: '',
       nombre: '',
@@ -21,6 +20,38 @@ export default function ActualizarMiembro() {
       tipo_plan: '',
       fecha_inicio: '',
     });
+
+
+
+    // obtener planes
+
+    const [planes, setPlanes] = useState([])
+
+    useEffect(()=>{
+      const datosPlanes = async () =>{
+        const resPlanes = await apiRestGet('obtener_plan/')
+        setPlanes(resPlanes.planes_gym)
+        console.log(resPlanes.planes_gym)
+      }
+      datosPlanes()
+    }, [])
+
+
+      // obtener tipoId
+
+      const [tiposId, setTiposId] = useState([])
+
+      useEffect(() => {
+        const datosTipoId = async () => {
+          const resTipoId = await apiRestGet('obtener_tipos_id/')
+          setTiposId(resTipoId.tipos_id)
+          console.log(resTipoId.tipos_id)
+        }
+        datosTipoId()
+      }, [])
+
+
+      // obtener datos 
 
     useEffect(() => {
       const fetchUsuario = async () => {
@@ -52,8 +83,14 @@ export default function ActualizarMiembro() {
       console.log(`Changing ${name} to ${value}`);
       setFormData({
         ...formData,
-        [name]: value,
-      });
+      const handleChange = (e: any) => {
+        const { name, value } = e.target;
+
+        // Actualiza formData incluyendo el cambio
+        setFormData((prevData) => ({
+          ...prevData,
+          [name]: value,
+        }));
     };
   
     const handleSubmit = async (e:any) => {
@@ -88,7 +125,7 @@ export default function ActualizarMiembro() {
               text: 'Error al actualizar miembro. Verifica los campos e inténtalo de nuevo.',
               icon: 'error',
             });
-            console.log('Error al actualizar miembro:', response.errors);
+            console.log('Error al actualizar miembro:', response.errores);
           }
         } catch (error) {
           console.error('Error al actualizar miembro:', error);
@@ -109,32 +146,33 @@ export default function ActualizarMiembro() {
       <div className={NuevoStyle.general}>
         <div className={NuevoStyle.container1}>
           <h1 className={NuevoStyle.title}>Actualizar Miembro</h1>
-          <Image src='/banner-nuevo-usuario.png' width={300} height={300} alt="banner-nuevo-usuario.png" />
+          <Image draggable={false} src='/banner-nuevo-usuario.png' width={300} height={300} alt="banner-nuevo-usuario.png" />
         </div>
         <div className={NuevoStyle.container2}>
           <form onSubmit={handleSubmit} className={NuevoStyle.formulario}>
             <div className={NuevoStyle.inputs}>
               <label htmlFor="nombre">Nombre(s):</label>
-              <input type="text" name="nombre" value={formData?.nombre || ''} onChange={handleChange} required/>
+              <input type="text" name="nombre" value={formData?.nombre || ''} onChange={handleChange} />
             </div>
             <div className={NuevoStyle.inputs}>
               <label htmlFor="apellido">Apellido(s):</label>
-              <input type="text" name="apellido" value={formData?.apellido || ''} onChange={handleChange} required/>
+              <input type="text" name="apellido" value={formData?.apellido || ''} onChange={handleChange} />
             </div>
             <div className={NuevoStyle.select}>
               <label htmlFor="tipo_id">Identificacion:</label>
               <select key={formData.tipo_id} name="tipo_id" value={formData?.tipo_id || ''} onChange={handleChange} required>
+              <select name="tipo_id" value={formData?.tipo_id || ''} onChange={handleChange} >
                 <option value="">Seleccione el tipo de Identificacion</option>
-                <option value="ti">Tarjeta de identidad</option>
-                <option value="cedula">Cedula de ciudadania</option>
-                <option value="ce">Cedula de extranjeria</option>
-                <option value="pasaporte">Pasaporte</option>
-                <option value="pep">Permiso especial de Permanencia</option>
+                {
+                  tiposId.map((tipo:any)=>(
+                    <option key={tipo.tipo_id} value={tipo.tipo_id}>{tipo.tipo_id}</option>
+                  ))
+                }
               </select>
             </div>
             <div className={NuevoStyle.inputs}>
               <label htmlFor="id_usuario">Numero de ID:</label>
-              <input type="number" name="id_usuario" value={formData?.id_usuario || ''} onChange={handleChange} required/>
+              <input type="number" name="id_usuario" value={formData?.id_usuario || ''} onChange={handleChange} />
             </div>
             <div className={NuevoStyle.select}>
             <label htmlFor="tipo_plan">Plan:</label>
@@ -145,11 +183,18 @@ export default function ActualizarMiembro() {
                     {`${plan.tipo_plan} - $${plan.precio}`}
                   </option>
                 ))}
+              <label htmlFor="tipo_plan">Plan:</label>
+              <select name="tipo_plan" value={formData?.tipo_plan || ''} onChange={handleChange} >
+                {
+                  planes.map((plan:any)=>(
+                    <option value={plan.tipo_plan}>{plan.tipo_plan}</option>
+                  ))
+                }
               </select>
             </div>
             <div className={NuevoStyle.inputs}>
               <label htmlFor="fecha_inicio">Fecha de inicio</label>
-              <input type="date" name="fecha_inicio" value={formData?.fecha_inicio || ''} onChange={handleChange} required/>
+              <input type="date" name="fecha_inicio" value={formData?.fecha_inicio || ''} onChange={handleChange} />
             </div>
             <div className={NuevoStyle.buttons}>
               <a className={NuevoStyle.volver} href="/usuarios">Volver</a>

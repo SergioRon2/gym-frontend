@@ -14,20 +14,6 @@ export default function MiembroNuevo() {
       plan: '',
       fechaInicio: '',
     });
-
-
-    const [planes, setPlanes] = useState([])
-
-
-    useEffect(()=>{
-      const obtenerPLanes = async() =>{
-        const res = await apiRestGet('/obtener_plan');
-        setPlanes(res.planes_gym)
-        console.log(res.planes_gym)
-      }
-      obtenerPLanes()
-    }, [])
-    
   
     const handleChange = (e:any) => {
       const {name, value} = e.target;
@@ -90,7 +76,7 @@ export default function MiembroNuevo() {
       <div className={NuevoStyle.general}>
         <div className={NuevoStyle.container1}>
           <h1 className={NuevoStyle.title}>Registrar Nuevo Miembro</h1>
-          <Image src='/banner-nuevo-usuario.png' width={300} height={300} alt="banner-nuevo-usuario.png" />
+          <Image draggable={false} src='/banner-nuevo-usuario.png' width={300} height={300} alt="banner-nuevo-usuario.png" />
         </div>
         <div className={NuevoStyle.container2}>
           <form onSubmit={handleSubmit} className={NuevoStyle.formulario}>
@@ -106,11 +92,11 @@ export default function MiembroNuevo() {
               <label htmlFor="tipo_id">Identificacion:</label>
               <select name="tipo_id" value={formData.tipo_id} onChange={handleChange} required>
                 <option value="">Seleccione el tipo de Identificacion</option>
-                <option value="ti">Tarjeta de identidad</option>
-                <option value="cedula">Cedula de ciudadania</option>
-                <option value="ce">Cedula de extranjeria</option>
-                <option value="pasaporte">Pasaporte</option>
-                <option value="pep">Permiso especial de Permanencia</option>
+                {
+                  tiposId.map((tipo:any)=>(
+                    <option value={tipo.tipo_id}>{tipo.tipo_id}</option>
+                  ))
+                }
               </select>
             </div>
             <div className={NuevoStyle.inputs}>
@@ -120,12 +106,15 @@ export default function MiembroNuevo() {
             <div className={NuevoStyle.select}>
               <label htmlFor="plan">Plan:</label>
               <select name="plan" value={formData.plan} onChange={handleChange} required>
-                <option value="">Seleccione un plan</option>
-                {
-                  planes.map((plan:any)=>(
-                    <option value={plan.cod_plan}>{plan.tipo_plan} - ${plan.precio}</option>
-                  ))
-                }
+                <option value="">Seleccione su plan</option>
+                <option value="A">Anual - $1000</option>
+                <option value="T">Trimestral - $300</option>
+                <option value="M">Mensual - $100</option>
+                <option value="S3">Semana x3 - $90</option>
+                <option value="S2">Semana x2 - $75</option>
+                <option value="S">Semanal - $10</option>
+                <option value="D">Diario - $1</option>
+                <option value="O">Personalizado - $??</option>
               </select>
             </div>
             <div className={NuevoStyle.inputs}>
