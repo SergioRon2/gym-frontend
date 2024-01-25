@@ -1,70 +1,73 @@
-'use client';
-import { apiRestPut, apiRestGet } from '@/services/services';
-import { useState, useEffect } from 'react';
-import NuevoStyle from 'styles/actualizar.module.css';
-import Image from 'next/image';
-import swal from 'sweetalert';
-import { useSearchParams } from 'next/navigation';
-
-
+"use client";
+import { apiRestPut, apiRestGet } from "@/services/services";
+import { useState, useEffect } from "react";
+import NuevoStyle from "styles/actualizar.module.css";
+import Image from "next/image";
+import swal from "sweetalert";
+import { useSearchParams } from "next/navigation";
 
 export default function ActualizarMiembro() {
   const searchParams = useSearchParams();
-  const id = searchParams.get('id');
+  const id = searchParams.get("id");
   const [formData, setFormData] = useState({
-    id: '',
-    nombre: '',
-    apellido: '',
-    tipo_id: '',
-    id_usuario: '',
-    tipo_plan: '',
-    fecha_inicio: '',
+    nombre: "",
+    apellido: "",
+    tipo_id: "",
+    id_usuario: "",
+    tipo_plan: "",
+    fecha_inicio: "",
   });
 
+  const [initialUserData, setInitialUserData] = useState({
+    id: "",
+    nombre_usuario: "",
+    apellido_usuario: "",
+    tipo_id_usuario: "",
+    id_usuario_gym: "",
+    tipo_plan_gym: "",
+    fecha_inicio_usuario: "",
+  })
 
 
   // obtener planes
 
-  const [planes, setPlanes] = useState([])
+  const [planes, setPlanes] = useState([]);
 
   useEffect(() => {
     const datosPlanes = async () => {
-      const resPlanes = await apiRestGet('obtener_plan/')
-      setPlanes(resPlanes.planes_gym)
-      console.log(resPlanes.planes_gym)
-    }
-    datosPlanes()
-  }, [])
-
+      const resPlanes = await apiRestGet("planes");
+      setPlanes(resPlanes.planes_gym);
+      console.log(resPlanes.planes_gym);
+    };
+    datosPlanes();
+  }, []);
 
   // obtener tipoId
 
-  const [tiposId, setTiposId] = useState([])
+  const [tiposId, setTiposId] = useState([]);
 
   useEffect(() => {
     const datosTipoId = async () => {
-      const resTipoId = await apiRestGet('obtener_tipos_id/')
-      setTiposId(resTipoId.tipos_id)
-      console.log(resTipoId.tipos_id)
-    }
-    datosTipoId()
-  }, [])
+      const resTipoId = await apiRestGet("tipos-id");
+      setTiposId(resTipoId.tipos_id);
+      console.log(resTipoId.tipos_id);
+    };
+    datosTipoId();
+  }, []);
 
-
-  // obtener datos 
+  // obtener datos
 
   useEffect(() => {
     const fetchUsuario = async () => {
-      const response = await apiRestGet(`/plan/${id}`);
-      console.log(response.tarjeta)
-      setFormData(response.tarjeta);
+      const response = await apiRestGet(`/plan-usuario/${id}`);
+      console.log(response.tarjeta);
+      setInitialUserData(response.tarjeta);
     };
 
     fetchUsuario();
   }, [id]);
 
-  console.log(formData)
-
+  console.log(formData);
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
@@ -79,114 +82,140 @@ export default function ActualizarMiembro() {
     e.preventDefault();
 
     const confirmarActualizacion = await swal({
-      title: '¿Estás seguro?',
-      text: 'Esta acción no se puede deshacer',
-      icon: 'warning',
-      buttons: ['Cancelar', 'Aceptar'],
+      title: "¿Estás seguro?",
+      text: "Esta acción no se puede deshacer",
+      icon: "warning",
+      buttons: ["Cancelar", "Aceptar"],
       dangerMode: false,
     });
 
     if (confirmarActualizacion) {
-      swal('Éxito', 'La actualización se procesó de manera exitosa', 'success');
+      swal("Éxito", "La actualización se procesó de manera exitosa", "success");
       try {
-        const response = await apiRestPut(`/editar/${formData.id}`, formData);
-        console.log(response)
+        const response = await apiRestPut(`/editar/${initialUserData.id}`, formData);
+        console.log(response);
 
         if (response.success) {
           // Actualizar el estado del formulario con los nuevos datos
           swal({
-            title: '¡Éxito!',
-            text: 'Usuario actualizado correctamente.',
-            icon: 'success',
+            title: "¡Éxito!",
+            text: "Usuario actualizado correctamente.",
+            icon: "success",
           }).then(() => {
-            window.location.href = '/usuarios';
+            window.location.href = "/usuarios";
           });
         } else {
           swal({
-            title: 'Error',
-            text: 'Error al actualizar miembro. Verifica los campos e inténtalo de nuevo.',
-            icon: 'error',
+            title: "Error",
+            text: "Error al actualizar miembro. Verifica los campos e inténtalo de nuevo.",
+            icon: "error",
           });
-          console.log('Error al actualizar miembro:', response.errors);
+          console.log("Error al actualizar miembro:", response.errors);
         }
       } catch (error) {
-        console.error('Error al actualizar miembro:', error);
+        console.error("Error al actualizar miembro:", error);
         // Muestra SweetAlert para indicar un error inesperado
         swal({
-          title: 'Error',
-          text: 'Error inesperado al intentar actualizar el miembro. Inténtalo de nuevo más tarde.',
-          icon: 'error',
+          title: "Error",
+          text: "Error inesperado al intentar actualizar el miembro. Inténtalo de nuevo más tarde.",
+          icon: "error",
         });
       }
     } else {
-      swal('Cancelado', 'La actualizacion ha sido cancelada', 'info');
+      swal("Cancelado", "La actualizacion ha sido cancelada", "info");
     }
+  };
 
-  }
-
-
-  return <>
-    <div className={NuevoStyle.general}>
-      <div className={NuevoStyle.container1}>
-        <h1 className={NuevoStyle.title}>Actualizar Miembro</h1>
-        <Image draggable={false} src='/banner-nuevo-usuario.png' width={300} height={300} alt="banner-nuevo-usuario.png" />
-      </div>
-      <div className={NuevoStyle.container2}>
-        <form onSubmit={handleSubmit} className={NuevoStyle.formulario}>
-          <div className={NuevoStyle.inputs}>
-            <label htmlFor="nombre">Nombre(s):</label>
-            <input type="text" name="nombre" value={formData?.nombre || ''} onChange={handleChange} />
-          </div>
-          <div className={NuevoStyle.inputs}>
-            <label htmlFor="apellido">Apellido(s):</label>
-            <input type="text" name="apellido" value={formData?.apellido || ''} onChange={handleChange} />
-          </div>
-          <div className={NuevoStyle.select}>
-            <label htmlFor="tipo_id">Identificacion:</label>
-            <select key={formData.tipo_id} name="tipo_id" value={formData?.tipo_id || ''} onChange={handleChange} required />
-              <select name="tipo_id" value={formData?.tipo_id || ''} onChange={handleChange} >
+  return (
+    <>
+      <div className={NuevoStyle.general}>
+        <div className={NuevoStyle.container1}>
+          <h1 className={NuevoStyle.title}>Actualizar Miembro</h1>
+          <Image
+            draggable={false}
+            src="/banner-nuevo-usuario.png"
+            width={300}
+            height={300}
+            alt="banner-nuevo-usuario.png"
+          />
+        </div>
+        <div className={NuevoStyle.container2}>
+          <form onSubmit={handleSubmit} className={NuevoStyle.formulario}>
+            <div className={NuevoStyle.inputs}>
+              <label htmlFor="nombre_usuario">Nombre(s):</label>
+              <input
+                type="text"
+                name="nombre_usuario"
+                value={initialUserData.nombre_usuario}
+                onChange={handleChange}
+              />
+            </div>
+            <div className={NuevoStyle.inputs}>
+              <label htmlFor="apellido_usuario">Apellido(s):</label>
+              <input
+                type="text"
+                name="apellido_usuario"
+                value={initialUserData.apellido_usuario}
+                onChange={handleChange}
+              />
+            </div>
+            <div className={NuevoStyle.select}>
+              <label htmlFor="tipo_id_usuario">Tipo de identificacion:</label>
+              <select
+                name="tipo_id_usuario"
+                value={initialUserData.tipo_id_usuario}
+                onChange={handleChange}
+                required
+              >
                 <option value="">Seleccione el tipo de Identificacion</option>
-                {
-                  tiposId.map((tipo: any) => (
-                    <option key={tipo.tipo_id} value={tipo.tipo_id}>{tipo.tipo_id}</option>
-                  ))
-                }
+                {tiposId.map((tipo:any) => (
+                  <option key={tipo} value={tipo.tipo_id}>
+                    {`${tipo.tipo_id}`}
+                  </option>
+                ))}
               </select>
-          </div>
-          <div className={NuevoStyle.inputs}>
-            <label htmlFor="id_usuario">Numero de ID:</label>
-            <input type="number" name="id_usuario" value={formData?.id_usuario || ''} onChange={handleChange} />
-          </div>
-          <div className={NuevoStyle.select}>
-            <label htmlFor="tipo_plan">Plan:</label>
-            <select name="tipo_plan" value={formData?.tipo_plan || ''} onChange={handleChange} required />
+            </div>
+
+            <div className={NuevoStyle.inputs}>
+              <label htmlFor="id_usuario_gym">Numero de ID:</label>
+              <input
+                type="number"
+                name="id_usuario_gym"
+                value={initialUserData.id_usuario_gym}
+                onChange={handleChange}
+              />
+            </div>
+            <div className={NuevoStyle.select}>
+              <label htmlFor="tipo_plan_gym">Plan:</label>
+              <select name="tipo_plan_gym" value={initialUserData.tipo_plan_gym} onChange={handleChange} required>
               <option value="">Seleccione un plan</option>
               {planes.map((plan: any) => (
-                <option key={plan.cod_plan} value={plan.cod_plan}>
+                <option key={plan} value={plan.tipo_plan}>
                   {`${plan.tipo_plan} - $${plan.precio}`}
                 </option>
               ))}
-              <label htmlFor="tipo_plan">Plan:</label>
-              <select name="tipo_plan" value={formData?.tipo_plan || ''} onChange={handleChange} >
-                {
-                  planes.map((plan: any) => (
-                    <option value={plan.tipo_plan}>{plan.tipo_plan}</option>
-                  ))
-                }
               </select>
-          </div>
-          <div className={NuevoStyle.inputs}>
-            <label htmlFor="fecha_inicio">Fecha de inicio</label>
-            <input type="date" name="fecha_inicio" value={formData?.fecha_inicio || ''} onChange={handleChange} />
-          </div>
-          <div className={NuevoStyle.buttons}>
-            <a className={NuevoStyle.volver} href="/usuarios">Volver</a>
-            <button type="submit" className={NuevoStyle.registrarNuevo}>
-              Guardar cambios
-            </button>
-          </div>
-        </form>
+            </div>
+            <div className={NuevoStyle.inputs}>
+              <label htmlFor="fecha_inicio_usuario">Fecha de inicio</label>
+              <input
+                type="date"
+                name="fecha_inicio_usuario"
+                value={initialUserData.fecha_inicio_usuario}
+                onChange={handleChange}
+              />
+            </div>
+            <div className={NuevoStyle.buttons}>
+              <a className={NuevoStyle.volver} href="/usuarios">
+                Volver
+              </a>
+              <button type="submit" className={NuevoStyle.registrarNuevo}>
+                Guardar cambios
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
-  </>;
+    </>
+  );
 }

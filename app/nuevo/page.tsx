@@ -16,13 +16,27 @@ export default function MiembroNuevo() {
     });
 
 
+  // obtener planes
+
+  const [planes, setPlanes] = useState([])
+
+  useEffect(() => {
+    const datosPlanes = async () => {
+      const res = await apiRestGet('planes')
+      setPlanes(res.planes_gym)
+      console.log(res.planes_gym)
+    }
+    datosPlanes()
+  }, [])
+
+
   // obtener tipoId
 
   const [tiposId, setTiposId] = useState([])
 
   useEffect(() => {
     const datosTipoId = async () => {
-      const resTipoId = await apiRestGet('obtener_tipos_id/')
+      const resTipoId = await apiRestGet('tipos-id')
       setTiposId(resTipoId.tipos_id)
       console.log(resTipoId.tipos_id)
     }
@@ -108,6 +122,7 @@ export default function MiembroNuevo() {
                 <option value="">Seleccione el tipo de Identificacion</option>
                 {
                   tiposId.map((tipo:any)=>(
+                    // eslint-disable-next-line react/jsx-key
                     <option value={tipo.tipo_id}>{tipo.tipo_id}</option>
                   ))
                 }
@@ -120,15 +135,12 @@ export default function MiembroNuevo() {
             <div className={NuevoStyle.select}>
               <label htmlFor="plan">Plan:</label>
               <select name="plan" value={formData.plan} onChange={handleChange} required>
-                <option value="">Seleccione su plan</option>
-                <option value="A">Anual - $1000</option>
-                <option value="T">Trimestral - $300</option>
-                <option value="M">Mensual - $100</option>
-                <option value="S3">Semana x3 - $90</option>
-                <option value="S2">Semana x2 - $75</option>
-                <option value="S">Semanal - $10</option>
-                <option value="D">Diario - $1</option>
-                <option value="O">Personalizado - $??</option>
+                <option value="">Seleccione un plan</option>
+                {
+                  planes.map((plan:any)=>(
+                    <option key={plan} value={plan.tipo_plan}>{plan.tipo_plan} - ${plan.precio}</option>
+                  ))
+                }
               </select>
             </div>
             <div className={NuevoStyle.inputs}>

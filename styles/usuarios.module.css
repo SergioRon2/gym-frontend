@@ -140,12 +140,19 @@
     color: #aaa;
 }
 
+.opciones{
+    display: flex;
+    justify-content: space-around;
+    width: 92vw;
+}
+
 .filtrosContainer{
     width: 92vw;
     height: 5vh;
     display: flex;
-    justify-content: space-between;
+    justify-content: start;
     align-items: center;
+    gap: 20px;
 }
 .filtrosContainer > div{
     display: flex;
@@ -162,7 +169,7 @@
     color: white;
 }
 
-.filtrosContai  ner > div > select > option {
+.filtrosContainer > div > select > option {
     color: black;
 }
 
@@ -170,10 +177,19 @@
     color: #777;
 }
 
+.filtrosContainer > select > option{
+    color: black;
+}
+
 .nuevoUsuario{
     color: #fff;
     transition: all .2s ease;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    width: 100%;
 }
-.filtrosContainer > select > option{
-    color: black;
+
+.nuevoUsuario:hover{
+    color: #999;
 }
