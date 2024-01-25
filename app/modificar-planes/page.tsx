@@ -52,7 +52,7 @@ const ModificacionPlanes = () => {
 
         if (confirmarPlan) {
             try {
-                const res = formularioEditado.editable ? await apiRestPut('Planes', {...formulario, id:formularioEditado.id}) : await apiRestPost('crear_planes_gym', formulario);
+                const res = formularioEditado.editable ? await apiRestPut('editar-plan', {...formulario, id:formularioEditado.id}) : await apiRestPost('crear_plan', formulario);
                 console.log(res);
 
                 if(res.success){
@@ -153,8 +153,8 @@ const ModificacionPlanes = () => {
                 <div className={ModificarPlanes.campos}>
                     <form onSubmit={handleSubmit} id='formulario'>
                         <div className="">
-                            <label htmlFor="tipoPlan">Plan</label>
-                            <input type="text" value={formulario.tipo_plan} onChange={handleInputChange} name='tipoPlan' />
+                            <label htmlFor="tipo_plan">Plan</label>
+                            <input type="text" value={formulario.tipo_plan} onChange={handleInputChange} name='tipo_plan' />
                         </div>
                         <div className="">
                             <label htmlFor="precio">Precio</label>

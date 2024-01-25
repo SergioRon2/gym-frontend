@@ -127,9 +127,6 @@ export default function Miembros() {
 
   return (
     <>
-      <a href="#inicio">
-        <div className={StyleUsuarios.botonSubida}>↑</div>
-      </a>
       <div className={StyleUsuarios.container}>
         <div className={StyleUsuarios.opciones}>
           <div className={StyleUsuarios.filtrosContainer}>
@@ -155,7 +152,6 @@ export default function Miembros() {
           </div>
         </div>
         <div className={StyleUsuarios.usuarios}>
-          <div id="inicio" className={StyleUsuarios.inicioContainer}></div>
           {usuarios.length > 0 ? (
             usuarios.map((user: any, index: any) => (
               <div
@@ -169,6 +165,7 @@ export default function Miembros() {
                   {user.nombre_usuario} {user.apellido_usuario}
                 </h2>
                 <h4>ID: {user.id_usuario_gym}</h4>
+                <h4>Plan : {user.tipo_plan_gym}</h4>
                 <h4>Dias restantes: {user.dias_restantes_usuario}</h4>
                 <div className={StyleUsuarios.buttons}>
                   <button
