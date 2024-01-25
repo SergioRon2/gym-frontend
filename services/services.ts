@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
 
-axios.defaults.baseURL = 'http://localhost:5288/'
+axios.defaults.baseURL = 'http://localhost:8000/gymapp'
 
 
 async function getRequestHeaders() {

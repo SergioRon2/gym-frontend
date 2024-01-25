@@ -15,7 +15,7 @@ export default function Miembros(){
 
   useEffect(() => {
     const datosUsuarios = async () => {
-      const res = await apiRestGet('plan');
+      const res = await apiRestGet('plan-usuario');
       setUsuarios(res.tarjetas);
       console.log(res.tarjetas)
     }
@@ -39,8 +39,8 @@ export default function Miembros(){
 
   const detallesUsuario = async (userId:any) => {
     try {
-      const res = await apiRestGet(`detalle/${userId}`);
-      console.log(res)
+      const res = await apiRestGet(`detalle-usuario/${userId}`);
+      console.log(res.nombre)
       swal({
         title: `Detalles de ${res.nombre} ${res.apellido}`,
         text: `ID: ${res.id_usuario}\nPlan: ${res.tipo_plan}\nTipo de identificacion: ${res.tipo_id}\nFecha de inicio: ${res.fecha_inicio_gym}\nDias restantes: ${res.dias_restantes}`,
@@ -53,9 +53,8 @@ export default function Miembros(){
     }
   };
 
-    
 
-  // ------------------------- ELIMINAR USUARIO --------------------------------
+// ------------------------- ELIMINAR USUARIO --------------------------------
 
 
 
@@ -155,10 +154,10 @@ export default function Miembros(){
                 <div id="inicio" className={StyleUsuarios.inicioContainer}></div>
                 {usuarios.length > 0 ? (
                   usuarios.map((user:any, index:any) => (
-                    <div className={classNames({ [StyleUsuarios.cardRed]: user.dias_restantes <= 0 }, { [StyleUsuarios.card]: user.dias_restantes > 0 })} key={index}>
-                      <h2>{user.nombre} {user.apellido}</h2>
+                    <div className={classNames({ [StyleUsuarios.cardRed]: user.dias_restantes_usuario <= 0 }, { [StyleUsuarios.card]: user.dias_restantes_usuario > 0 })} key={index}>
+                      <h2>{user.nombre_usuario} {user.apellido_usuario}</h2>
                       <h4>ID: {user.id_usuario}</h4>
-                      <h4>Dias restantes: {user.dias_restantes}</h4>
+                      <h4>Dias restantes: {user.dias_restantes_usuario}</h4> 
                       <div className={StyleUsuarios.buttons}>
                         <button onClick={() => {detallesUsuario(user.id)}} className={StyleUsuarios.buttonBlue}>Ver</button>
                         <button onClick={() => {actualizarUsuario(user.id)}} className={StyleUsuarios.buttonGreen}>Actualizar</button>
@@ -167,7 +166,7 @@ export default function Miembros(){
                     </div>
                   ))
                 ) : (
-                  <h2>Para crear un usuario, haz clic en "Nuevo Usuario" en la barra de navegacion.</h2>
+                  <h2>Para crear un usuario, haz clic en <b>Nuevo Usuario</b></h2>
                 )}
             </div>
       </div>

@@ -13,9 +13,9 @@ const ModificacionPlanes = () => {
 
     useEffect(()=>{
         const datos = async() => {
-            const res = await apiRestGet('Planes')
-            setPlanes(res.dataCollection)
-            console.log(res.dataCollection)
+            const res = await apiRestGet('planes')
+            setPlanes(res.planes_gym)
+            console.log(res.planes_gym)
         }
         datos()
     }, []);
@@ -27,32 +27,32 @@ const ModificacionPlanes = () => {
     })
 
     const [formulario, setFormulario] = useState({
-      tipoPlan: '',
-      precio: '',
-      dias: '',
+        tipo_plan: '',
+        precio: '',
+        dias: '',
     });
-  
+
     const handleInputChange = (event:any) => {
-      const { name, value } = event.target;
-      setFormulario({
-        ...formulario,
-        [name]: value,
-      });
+        const { name, value } = event.target;
+        setFormulario({
+            ...formulario,
+            [name]: value,
+        });
     };
-  
+
     const handleSubmit = async (event:any) => {
         event.preventDefault();
 
         const confirmarPlan = await swal({
             title: '¿Estás seguro?',
-            text: formularioEditado.editable ? `Esta accion editara el plan ${formulario.tipoPlan}` : 'Esta acción añadira un nuevo plan',
+            text: formularioEditado.editable ? `Esta accion editara el plan ${formulario.tipo_plan}` : 'Esta acción añadira un nuevo plan',
             icon: 'warning',
             buttons: ['Cancelar', 'Crear'],
-          });
-      
+        });
+
         if (confirmarPlan) {
             try {
-                const res = formularioEditado.editable ? await apiRestPut('Planes', {...formulario, id:formularioEditado.id}) : await apiRestPost('Planes', formulario);
+                const res = formularioEditado.editable ? await apiRestPut('Planes', {...formulario, id:formularioEditado.id}) : await apiRestPost('crear_planes_gym', formulario);
                 console.log(res);
 
                 if(res.success){
@@ -85,7 +85,7 @@ const ModificacionPlanes = () => {
 
     
     const editarPlan = async(plan:any) =>{
-        setFormulario({tipoPlan : plan.tipoPlan, dias : plan.dias, precio : plan.precio})
+        setFormulario({tipo_plan : plan.tipo_plan, dias : plan.dias, precio : plan.precio})
 
         setFormularioEditado({editable : true, id : plan.id})
     }
@@ -99,9 +99,9 @@ const ModificacionPlanes = () => {
             icon: 'warning',
             buttons: ['Cancelar', 'Sí, eliminar'],
             dangerMode: true,
-          });
+        });
 
-          if (confirmDelete){
+        if (confirmDelete){
             try{
                 const res = await apiRestDelete(`Planes/${plan.id}`)
                 console.log(res)
@@ -123,7 +123,7 @@ const ModificacionPlanes = () => {
             } catch(error){
                 console.error(error)
             }
-          }
+        }
     }
 
     const href = () => {
@@ -142,8 +142,10 @@ const ModificacionPlanes = () => {
                     <p>Accion</p>
                 </div>
                 {
-                    planes.map((plan:any)=> (
-                        <div className={ModificarPlanes.listaPlanes}><p>{plan.tipoPlan}</p><p>{plan.precio}</p><p>{plan.dias}</p><div className={ModificarPlanes.acciones}><p className={ModificarPlanes.editar} onClick={()=>{editarPlan(plan), href()}}>Editar</p><p className={ModificarPlanes.eliminar} onClick={()=>{eliminarPlan(plan)}}>Eliminar</p></div></div>
+                    planes?.map((plan:any)=> (
+                        <>
+                            <div className={ModificarPlanes.listaPlanes}><p>{plan.tipo_plan}</p><p>{plan.precio}</p><p>{plan.dias}</p><div className={ModificarPlanes.acciones}><p className={ModificarPlanes.editar} onClick={()=>{editarPlan(plan), href()}}>Editar</p><p className={ModificarPlanes.eliminar} onClick={()=>{eliminarPlan(plan)}}>Eliminar</p></div></div>
+                        </>
                     ))
                 }
             </div>
@@ -152,7 +154,7 @@ const ModificacionPlanes = () => {
                     <form onSubmit={handleSubmit} id='formulario'>
                         <div className="">
                             <label htmlFor="tipoPlan">Plan</label>
-                            <input type="text" value={formulario.tipoPlan} onChange={handleInputChange} name='tipoPlan' />
+                            <input type="text" value={formulario.tipo_plan} onChange={handleInputChange} name='tipoPlan' />
                         </div>
                         <div className="">
                             <label htmlFor="precio">Precio</label>
