@@ -44,7 +44,7 @@ export default function Miembros() {
       console.error("Error al obtener detalles del usuario:", error);
       swal(
         "Error",
-        "Hubo un problema al obtener detalles del usuario",
+        "Hubo un problema al obtener detalles del usuario!",
         "error"
       );
     }
