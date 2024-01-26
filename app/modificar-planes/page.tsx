@@ -144,7 +144,15 @@ const ModificacionPlanes = () => {
                 {
                     planes.map((plan:any)=> (
                         <>
-                            <div className={ModificarPlanes.listaPlanes}><p>{plan.tipo_plan}</p><p>$ {plan.precio}</p><p>{plan.dias}</p><div className={ModificarPlanes.acciones}><p className={ModificarPlanes.editar} onClick={()=>{editarPlan(plan), href()}}>Editar</p><p className={ModificarPlanes.eliminar} onClick={()=>{eliminarPlan(plan)}}>Eliminar</p></div></div>
+                            <div className={ModificarPlanes.listaPlanes}>
+                                <p>{plan.tipo_plan}</p>
+                                <p>$ {plan.precio}</p>
+                                <p>{plan.dias}</p>
+                                <div className={ModificarPlanes.acciones}>
+                                    <p className={ModificarPlanes.editar} onClick={()=>{editarPlan(plan), href()}}>Editar</p>
+                                    <p className={ModificarPlanes.eliminar} onClick={()=>{eliminarPlan(plan)}}>Eliminar</p>
+                                </div>
+                            </div>
                         </>
                     ))
                 }

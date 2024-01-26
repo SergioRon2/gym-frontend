@@ -1,6 +1,6 @@
 @keyframes blur-animation {
     0%, 100%{
-        backdrop-filter: blur(5px);
+        backdrop-filter: blur(10px);
     }
     50%{
         backdrop-filter: blur(15px);
@@ -10,9 +10,9 @@
 .container{
     animation: blur-animation 2s infinite ease;
     height: 80vh;
-    border: 1px solid #888;
+    border: 1px solid #f70;
     transition: all .2s ease-out;
-    background-color: #8882;
+    background-color: #f703;
 
     display: flex;
     flex-direction: column;
@@ -20,7 +20,7 @@
     align-items: center;
 }
 .container:hover{
-    border: 1px solid #eee;
+    border: 1px solid #f40;
 }
 
 .title{

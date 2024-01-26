@@ -35,8 +35,8 @@ export default function Miembros() {
       const res = await apiRestGet(`detalle-usuario/${userId}`);
       console.log(res);
       swal({
-        title: `Detalles de ${res.nombre} ${res.apellido}`,
-        text: `ID: ${res.id_usuario}\nPlan: ${res.tipo_plan}\nTipo de identificacion: ${res.tipo_id}\nFecha de inicio: ${res.fecha_inicio_gym}\nDias restantes: ${res.dias_restantes}`,
+        title: `Detalles del usuario`,
+        text: `Nombres: ${res.nombre}\nApellidos: ${res.apellido}\nID: ${res.id_usuario}\nPlan: ${res.tipo_plan}\nTipo de identificacion: ${res.tipo_id}\nFecha de inicio: ${res.fecha_inicio_gym}\nDias restantes: ${res.dias_restantes}\nFecha fin: ${res.fecha_fin}`,
         icon: "info",
       });
     } catch (error) {
@@ -94,6 +94,8 @@ export default function Miembros() {
     }
   };
 
+  const [hover, setHover] = useState(null);
+
   const filtrarUsuarios = () => {
     let usuariosFiltrados = usuarios;
 
@@ -148,7 +150,9 @@ export default function Miembros() {
             </select>
           </div>
           <div className={StyleUsuarios.nuevoUsuario}>
-              <Link href={'/nuevo'}>+ Nuevo usuario</Link>
+            <Link className={StyleUsuarios.link} href={"/nuevo"}>
+              + Nuevo usuario
+            </Link>
           </div>
         </div>
         <div className={StyleUsuarios.usuarios}>
@@ -157,22 +161,33 @@ export default function Miembros() {
               <div
                 className={classNames(
                   { [StyleUsuarios.cardRed]: user.dias_restantes_usuario <= 0 },
-                  { [StyleUsuarios.card]: user.dias_restantes_usuario > 0 }
+                  { [StyleUsuarios.card]: user.dias_restantes_usuario > 0 },
+                  { [StyleUsuarios.hoveredCard]: hover === index }
                 )}
                 key={index}
+                onMouseEnter={() => setHover(index)}
+                onMouseLeave={() => setHover(null)}
               >
+                <h4>
+                  Dias restantes <br />
+                  <div className={StyleUsuarios.diasRestantes}>
+                    {user.dias_restantes_usuario}
+                  </div>
+                </h4>
                 <h2>
                   {user.nombre_usuario} {user.apellido_usuario}
                 </h2>
                 <h4>ID: {user.id_usuario_gym}</h4>
                 <h4>Plan : {user.tipo_plan_gym}</h4>
-                <h4>Dias restantes: {user.dias_restantes_usuario}</h4>
-                <div className={StyleUsuarios.buttons}>
+                <div
+                  className={StyleUsuarios.buttons}
+                  style={{ display: hover === index ? "block" : "none" }}
+                >
                   <button
                     onClick={() => {
                       detallesUsuario(user.id);
                     }}
-                    className={StyleUsuarios.buttonBlue}
+                    className={StyleUsuarios.button}
                   >
                     Ver
                   </button>
@@ -180,7 +195,7 @@ export default function Miembros() {
                     onClick={() => {
                       actualizarUsuario(user.id);
                     }}
-                    className={StyleUsuarios.buttonGreen}
+                    className={StyleUsuarios.button}
                   >
                     Actualizar
                   </button>
@@ -188,7 +203,7 @@ export default function Miembros() {
                     onClick={() => {
                       eliminarUsuario(user.id);
                     }}
-                    className={StyleUsuarios.buttonRed}
+                    className={StyleUsuarios.button}
                   >
                     Eliminar
                   </button>

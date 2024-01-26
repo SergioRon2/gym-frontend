@@ -5,12 +5,12 @@
 .container1, .container2{
     height: 80vh;
     width: 100vw;
-    background-color: #aaa2;
+    background-color: #f705;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: 1px solid #888;
+    border: 1px solid #f70;
     backdrop-filter: blur(15px);
     gap: 50px;
 }

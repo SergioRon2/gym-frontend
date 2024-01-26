@@ -9,7 +9,8 @@
     backdrop-filter: blur(20px);
     width: 30vw;
     height: 50vh;
-    border: 1px solid #555;
+    border: 1px solid #f40;
+    background-color: #f705;
     transition: all .2s ease;
     padding: 10px;
 
@@ -29,7 +30,7 @@
 }
 
 .formulario:hover{
-    border: 1px solid #ddd;
+    border: 1px solid #f30;
 }
 
 .title{
@@ -58,11 +59,11 @@
     margin-top: 50px;
     transition: all .2s ease;
     outline: 1px solid transparent;
-    background-color: #555c;
+    background-color: #f50c;
     color: #fff;
 }
 .registrarAsistencia:hover{
-    outline: 1px solid #333;
+    outline: 1px solid #f30;
 }
 
 
