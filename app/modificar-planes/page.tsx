@@ -47,12 +47,13 @@ const ModificacionPlanes = () => {
             title: '¿Estás seguro?',
             text: formularioEditado.editable ? `Esta accion editara el plan ${formulario.tipo_plan}` : 'Esta acción añadira un nuevo plan',
             icon: 'warning',
-            buttons: ['Cancelar', 'Crear'],
+            buttons: ['Cancelar', 'Confirmar'],
         });
 
         if (confirmarPlan) {
             try {
-                const res = formularioEditado.editable ? await apiRestPut('editar-plan', {...formulario, id:formularioEditado.id}) : await apiRestPost('crear_plan', formulario);
+                console.log('formulario: ', formulario)
+                const res = formularioEditado.editable ? await apiRestPut('editar-plan/', {...formulario, id:formularioEditado.id}) : await apiRestPost('crear-plan/', formulario);
                 console.log(res);
 
                 if(res.success){
@@ -67,7 +68,6 @@ const ModificacionPlanes = () => {
 
                 } else{
                     swal('Error', 'Error al tomar los datos del plan', 'error')
-                    
                 }
 
             } catch (error) {
@@ -83,7 +83,6 @@ const ModificacionPlanes = () => {
         }
     };
 
-    
     const editarPlan = async(plan:any) =>{
         setFormulario({tipo_plan : plan.tipo_plan, dias : plan.dias, precio : plan.precio})
 
@@ -103,7 +102,7 @@ const ModificacionPlanes = () => {
 
         if (confirmDelete){
             try{
-                const res = await apiRestDelete(`Planes/${plan.id}`)
+                const res = await apiRestDelete(`eliminar-plan/${plan.id}`)
                 console.log(res)
                 if (res.success){
                     swal({
@@ -141,36 +140,38 @@ const ModificacionPlanes = () => {
                     <p>Dias</p>
                     <p>Accion</p>
                 </div>
-                {
-                    planes.map((plan:any)=> (
-                        <>
-                            <div className={ModificarPlanes.listaPlanes}>
-                                <p>{plan.tipo_plan}</p>
-                                <p>$ {plan.precio}</p>
-                                <p>{plan.dias}</p>
-                                <div className={ModificarPlanes.acciones}>
-                                    <p className={ModificarPlanes.editar} onClick={()=>{editarPlan(plan), href()}}>Editar</p>
-                                    <p className={ModificarPlanes.eliminar} onClick={()=>{eliminarPlan(plan)}}>Eliminar</p>
+                <div className={ModificarPlanes.scrollPlanes}>
+                    {
+                        planes.map((plan:any)=> (
+                            <>
+                                <div className={ModificarPlanes.listaPlanes}>
+                                    <p>{plan.tipo_plan}</p>
+                                    <p>$ {plan.precio}</p>
+                                    <p>{plan.dias}</p>
+                                    <div className={ModificarPlanes.acciones}>
+                                        <p className={ModificarPlanes.editar} onClick={()=>{editarPlan(plan), href()}}>Editar</p>
+                                        <p className={ModificarPlanes.eliminar} onClick={()=>{eliminarPlan(plan)}}>Eliminar</p>
+                                    </div>
                                 </div>
-                            </div>
-                        </>
-                    ))
-                }
+                            </>
+                        ))
+                    }
+                </div>
             </div>
             <div className={ModificarPlanes.formulario}>
                 <div className={ModificarPlanes.campos}>
                     <form onSubmit={handleSubmit} id='formulario'>
                         <div className="">
                             <label htmlFor="tipo_plan">Plan</label>
-                            <input type="text" value={formulario.tipo_plan} onChange={handleInputChange} name='tipo_plan' />
+                            <input type="text" value={formulario.tipo_plan} onChange={handleInputChange} name='tipo_plan' required />
                         </div>
                         <div className="">
                             <label htmlFor="precio">Precio</label>
-                            <input type="number" value={formulario.precio} onChange={handleInputChange} name='precio' />
+                            <input type="number" value={formulario.precio} onChange={handleInputChange} name='precio' required />
                         </div>
                         <div className="">
                             <label htmlFor="dias">Dias</label>
-                            <input type="number" value={formulario.dias} onChange={handleInputChange} name='dias' />
+                            <input type="number" value={formulario.dias} onChange={handleInputChange} name='dias' required />
                         </div>
                         <div className={ModificarPlanes.opciones}>
                             <input type="submit" className={ModificarPlanes.button} value={formularioEditado.editable ? 'Editar plan' : 'Crear plan'} />

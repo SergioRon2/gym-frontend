@@ -12,6 +12,38 @@
     padding-top: 20px;
     overflow: hidden;
 }
+
+@media (max-width:992px) {
+    .container{
+        height: auto;
+        margin-top: 100px;
+        background-color: #f704;
+        border: 1px solid #f70;
+        transition: all .3s ease-in;
+        backdrop-filter: blur(5px);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        padding-top: 20px;
+        overflow: hidden;
+    }
+    .opciones{
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 50px;
+    }
+    .filtrosContainer{
+        flex-direction: column;
+    }
+    .nuevoUsuario{
+        justify-content: center;
+        align-items: center;
+    }
+}
+
 .container > .usuarios{
     height: 100vh;
     width: 95vw;

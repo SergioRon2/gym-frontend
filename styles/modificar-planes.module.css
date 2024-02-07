@@ -140,6 +140,25 @@
     align-items: center;
     background-color: #fff3;
 }
+.scrollPlanes{
+    max-height: 40vh;
+    overflow-y: scroll;
+}
+
+.scrollPlanes::-webkit-scrollbar {
+    width: 10px; /* Ancho del scrollbar */
+}
+
+.scrollPlanes::-webkit-scrollbar-thumb {
+    background-color: #fff7; /* Color del thumb (agarre) */
+    border-radius: 5px; /* Borde redondeado del thumb */
+}
+
+.scrollPlanes::-webkit-scrollbar-track {
+    background-color: #fff3; /* Color de fondo del track (rastro) */
+    border-bottom: 1px white solid;
+}
+
 .listaPlanes p{
     border-bottom: 1px solid white;
     width: 100%;
