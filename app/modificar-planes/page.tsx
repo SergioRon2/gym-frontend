@@ -53,7 +53,7 @@ const ModificacionPlanes = () => {
         if (confirmarPlan) {
             try {
                 console.log('formulario: ', formulario)
-                const res = formularioEditado.editable ? await apiRestPut('editar-plan/', {...formulario, id:formularioEditado.id}) : await apiRestPost('crear-plan/', formulario);
+                const res = formularioEditado.editable ? await apiRestPut(`editar-plan/${formularioEditado.id}`, {...formulario, id:formularioEditado.id}) : await apiRestPost('crear-plan/', formulario);
                 console.log(res);
 
                 if(res.success){

@@ -10,12 +10,12 @@ export default function ActualizarMiembro() {
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
   const [formData, setFormData] = useState({
-    nombre: "",
-    apellido: "",
-    tipo_id: "",
-    id_usuario: "",
-    tipo_plan: "",
-    fecha_inicio: "",
+    nombre_usuario: "",
+    apellido_usuario: "",
+    tipo_id_usuario: "",
+    id_usuario_gym: "",
+    tipo_plan_gym: "",
+    fecha_inicio_usuario: "",
   });
 
   const [initialUserData, setInitialUserData] = useState({
@@ -26,7 +26,7 @@ export default function ActualizarMiembro() {
     id_usuario_gym: "",
     tipo_plan_gym: "",
     fecha_inicio_usuario: "",
-  })
+})
 
 
   // obtener planes
