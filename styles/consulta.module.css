@@ -3,12 +3,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 10px;
 }
 
 .formulario{
     backdrop-filter: blur(20px);
-    width: auto;
-    height: auto;
+    width: 40vw;
+    height: 80vh;
     border: 1px solid #f40;
     background-color: #f704;
     transition: all .2s ease;
@@ -17,7 +18,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: start;
+    align-items: center;
 }
 
 .formulario > form{
@@ -26,11 +27,17 @@
     display: flex;
     flex-direction: column;
     justify-content: start;
+    margin-top: 50px;
     align-items: center;
 }
 
 .formulario:hover{
     border: 1px solid #f30;
+}
+
+.formulario > .title{
+    font-size: 2em;
+    font-weight: bold;
 }
 
 .title{
@@ -65,6 +72,79 @@
     outline: 1px solid #f10;
 }
 
+.respuestaConsulta{
+    backdrop-filter: blur(20px);
+    width: 60vw;
+    height: 80vh;
+    border: 1px solid #f40;
+    background-color: #f704;
+    transition: all .2s ease;
+    padding: 40px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+}
+
+.respuestaConsulta > .response {
+    width: 100%;
+}
+
+.respuestaConsulta > .response::-webkit-scrollbar {
+    width: 10px; /* Ancho del scrollbar */
+    height: 10px;
+}
+
+.respuestaConsulta > .response::-webkit-scrollbar-thumb {
+    background-color: #fff7; /* Color del thumb (agarre) */
+    border-radius: 5px; /* Borde redondeado del thumb */
+}
+
+.respuestaConsulta > .response::-webkit-scrollbar-track {
+    background-color: #fff3; 
+    border-bottom: 1px white solid;
+}
+
+
+.tabla{
+    width: 50vw;
+    overflow-y: scroll;
+}
+
+.tabla > .estructuraTabla{
+    gap: 40px;
+}
+
+.titulosTabla{
+    background-color: #f306;
+}
+
+.respuestaTabla{
+    background-color: #fff3;
+    color: #fff;
+}
+
+.respuestaTabla, .titulosTabla {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    text-align: center;
+}
+
+.eliminarAsistencia{
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    text-align: center;
+    background-color: #fff3;
+    transition: all .1s ease;
+}
+
+.eliminarAsistencia:hover{
+    background-color: #f306;
+    cursor: pointer;
+}
 
 @media (max-width:768px) {
     .formulario{
@@ -80,4 +160,11 @@
 
 .i{
     color: #aaa;
+}
+
+.NA > h1{
+    text-align: center;
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 50px;
 }

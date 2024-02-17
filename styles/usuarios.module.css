@@ -125,7 +125,9 @@
     margin: 15px 0;
 }
 
-
+.textDetalles{
+    user-select: all !important;
+}
 
 @keyframes animation-borderRed {
     0%, 100%{

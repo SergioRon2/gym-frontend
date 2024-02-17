@@ -36,9 +36,20 @@ export default function Miembros() {
       console.log(res);
       swal({
         title: `Detalles del usuario`,
-        text: `Nombres: ${res.nombre}\nApellidos: ${res.apellido}\nID: ${res.id_usuario}\nPlan: ${res.tipo_plan}\nTipo de identificacion: ${res.tipo_id}\nFecha de inicio: ${res.fecha_inicio_gym}\nDias restantes: ${res.dias_restantes}\nFecha fin: ${res.fecha_fin}`,
+        text: `
+          ID especial: ${res.id}
+          Nombres: ${res.nombre}
+          Apellidos: ${res.apellido}
+          ID: ${res.id_usuario}
+          Plan: ${res.tipo_plan}
+          Tipo de identificacion: ${res.tipo_id}
+          Fecha de inicio: ${res.fecha_inicio_gym}
+          Dias restantes: ${res.dias_restantes}
+          Fecha fin: ${res.fecha_fin}
+          `,
         icon: "info",
-      });
+    });
+    
     } catch (error) {
       // Manejar errores en la solicitud API
       console.error("Error al obtener detalles del usuario:", error);

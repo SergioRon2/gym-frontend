@@ -21,12 +21,13 @@ export default function Asistencias(){
             });
 
             if(response.success){
+                swal('Solicitud fallida', 'La asistencia no se pudo registrar', 'error')
+            } else{
                 // Mostrar un SweetAlert de éxito
                 swal({
                     title: '¡Asistencia registrada!',
                     text: 'La asistencia ha sido registrada exitosamente.',
                     icon: 'success',
-                    timer: 2000, // Opcional: Cerrar automáticamente después de 2 segundos
                 }).then(() => {
                     // Limpia los campos después de registrar la asistencia
                     setIdUsuario('');
