@@ -48,7 +48,7 @@ export default function Asistencias(){
                 <h1 className={AsistenciasStyle.title}>Asistencia</h1>
                 <form onSubmit={handleRegistrarAsistencia}>
                     <div className={AsistenciasStyle.datos}>
-                        <label className="mr-2 text-light">ID del Usuario:</label>
+                        <label className="mr-2 text-light">ID especial del usuario:</label>
                         <input 
                             type="text" 
                             value={idUsuario} 

@@ -9,13 +9,14 @@ import { useSearchParams } from "next/navigation";
 export default function ActualizarMiembro() {
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
+
   const [formData, setFormData] = useState({
-    nombre_usuario: "",
-    apellido_usuario: "",
-    tipo_id_usuario: "",
-    id_usuario_gym: "",
-    tipo_plan_gym: "",
-    fecha_inicio_usuario: "",
+    nombre_usuario: undefined,
+    apellido_usuario: undefined,
+    tipo_id_usuario: undefined,
+    id_usuario_gym: undefined,
+    tipo_plan_gym: undefined,
+    fecha_inicio_usuario: undefined,
   });
 
   const [initialUserData, setInitialUserData] = useState({
@@ -146,7 +147,7 @@ export default function ActualizarMiembro() {
               <input
                 type="text"
                 name="nombre_usuario"
-                value={initialUserData.nombre_usuario}
+                value={formData.nombre_usuario ?? initialUserData.nombre_usuario}
                 onChange={handleChange}
               />
             </div>
@@ -155,7 +156,7 @@ export default function ActualizarMiembro() {
               <input
                 type="text"
                 name="apellido_usuario"
-                value={initialUserData.apellido_usuario}
+                value={formData.apellido_usuario ?? initialUserData.apellido_usuario}
                 onChange={handleChange}
               />
             </div>
@@ -163,7 +164,7 @@ export default function ActualizarMiembro() {
               <label htmlFor="tipo_id_usuario">Tipo de identificacion:</label>
               <select
                 name="tipo_id_usuario"
-                value={initialUserData.tipo_id_usuario}
+                value={formData.tipo_id_usuario ?? initialUserData.tipo_id_usuario}
                 onChange={handleChange}
                 required
               >
@@ -181,13 +182,13 @@ export default function ActualizarMiembro() {
               <input
                 type="number"
                 name="id_usuario_gym"
-                value={initialUserData.id_usuario_gym}
+                value={formData.id_usuario_gym ?? initialUserData.id_usuario_gym}
                 onChange={handleChange}
               />
             </div>
             <div className={NuevoStyle.select}>
               <label htmlFor="tipo_plan_gym">Plan:</label>
-              <select name="tipo_plan_gym" value={initialUserData.tipo_plan_gym} onChange={handleChange} required>
+              <select name="tipo_plan_gym" value={formData.tipo_plan_gym ?? initialUserData.tipo_plan_gym} onChange={handleChange} required>
               <option value="">Seleccione un plan</option>
               {planes.map((plan: any) => (
                 <option key={plan} value={plan.tipo_plan}>
@@ -201,7 +202,7 @@ export default function ActualizarMiembro() {
               <input
                 type="date"
                 name="fecha_inicio_usuario"
-                value={initialUserData.fecha_inicio_usuario}
+                value={formData.fecha_inicio_usuario ?? initialUserData.fecha_inicio_usuario}
                 onChange={handleChange}
               />
             </div>

@@ -34,7 +34,7 @@ export default function Consultas(){
             swal("Cancelado", "La eliminación ha sido cancelada", "info");
         }
     };
-    
+
     const eliminarAsistencia = async (id:any) => {
         try {
             const response = await apiRestDelete(`/eliminar-asistencia/${id}`);

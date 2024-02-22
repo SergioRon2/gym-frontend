@@ -89,6 +89,7 @@
 
 .respuestaConsulta > .response {
     width: 100%;
+    text-align: center;
 }
 
 .respuestaConsulta > .response::-webkit-scrollbar {
