@@ -200,7 +200,7 @@ export default function Miembros() {
                     }}
                     className={StyleUsuarios.button}
                   >
-                    Ver
+                    Detalles
                   </button>
                   <button
                     onClick={() => {

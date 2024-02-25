@@ -1,5 +1,5 @@
 "use client";
-import { apiRestPut, apiRestGet } from "@/services/services";
+import { apiRestPut, apiRestGet, apiRestPatch } from "@/services/services";
 import { useState, useEffect } from "react";
 import NuevoStyle from "styles/actualizar.module.css";
 import Image from "next/image";
@@ -11,12 +11,12 @@ export default function ActualizarMiembro() {
   const id = searchParams.get("id");
 
   const [formData, setFormData] = useState({
-    nombre_usuario: undefined,
-    apellido_usuario: undefined,
-    tipo_id_usuario: undefined,
-    id_usuario_gym: undefined,
-    tipo_plan_gym: undefined,
-    fecha_inicio_usuario: undefined,
+    nombre: undefined,
+    apellido: undefined,
+    tipo_id: undefined,
+    id_usuario: undefined,
+    tipo_plan: undefined,
+    fecha_inicio_gym: undefined,
   });
 
   const [initialUserData, setInitialUserData] = useState({
@@ -143,28 +143,28 @@ export default function ActualizarMiembro() {
         <div className={NuevoStyle.container2}>
           <form onSubmit={handleSubmit} className={NuevoStyle.formulario}>
             <div className={NuevoStyle.inputs}>
-              <label htmlFor="nombre_usuario">Nombre(s):</label>
+              <label htmlFor="nombre">Nombre(s):</label>
               <input
                 type="text"
-                name="nombre_usuario"
-                value={formData.nombre_usuario ?? initialUserData.nombre_usuario}
+                name="nombre"
+                value={formData.nombre ?? initialUserData.nombre_usuario}
                 onChange={handleChange}
               />
             </div>
             <div className={NuevoStyle.inputs}>
-              <label htmlFor="apellido_usuario">Apellido(s):</label>
+              <label htmlFor="apellido">Apellido(s):</label>
               <input
                 type="text"
-                name="apellido_usuario"
-                value={formData.apellido_usuario ?? initialUserData.apellido_usuario}
+                name="apellido"
+                value={formData.apellido ?? initialUserData.apellido_usuario}
                 onChange={handleChange}
               />
             </div>
             <div className={NuevoStyle.select}>
-              <label htmlFor="tipo_id_usuario">Tipo de identificacion:</label>
+              <label htmlFor="tipo_id">Tipo de identificacion:</label>
               <select
-                name="tipo_id_usuario"
-                value={formData.tipo_id_usuario ?? initialUserData.tipo_id_usuario}
+                name="tipo_id"
+                value={formData.tipo_id ?? initialUserData.tipo_id_usuario}
                 onChange={handleChange}
                 required
               >
@@ -178,17 +178,17 @@ export default function ActualizarMiembro() {
             </div>
 
             <div className={NuevoStyle.inputs}>
-              <label htmlFor="id_usuario_gym">Numero de ID:</label>
+              <label htmlFor="id_usuario">Numero de ID:</label>
               <input
                 type="number"
-                name="id_usuario_gym"
-                value={formData.id_usuario_gym ?? initialUserData.id_usuario_gym}
+                name="id_usuario"
+                value={formData.id_usuario ?? initialUserData.id_usuario_gym}
                 onChange={handleChange}
               />
             </div>
             <div className={NuevoStyle.select}>
-              <label htmlFor="tipo_plan_gym">Plan:</label>
-              <select name="tipo_plan_gym" value={formData.tipo_plan_gym ?? initialUserData.tipo_plan_gym} onChange={handleChange} required>
+              <label htmlFor="tipo_plan">Plan:</label>
+              <select name="tipo_plan" value={formData.tipo_plan ?? initialUserData.tipo_plan_gym} onChange={handleChange} required>
               <option value="">Seleccione un plan</option>
               {planes.map((plan: any) => (
                 <option key={plan} value={plan.tipo_plan}>
@@ -198,11 +198,11 @@ export default function ActualizarMiembro() {
               </select>
             </div>
             <div className={NuevoStyle.inputs}>
-              <label htmlFor="fecha_inicio_usuario">Fecha de inicio</label>
+              <label htmlFor="fecha_inicio_gym">Fecha de inicio</label>
               <input
                 type="date"
-                name="fecha_inicio_usuario"
-                value={formData.fecha_inicio_usuario ?? initialUserData.fecha_inicio_usuario}
+                name="fecha_inicio_gym"
+                value={formData.fecha_inicio_gym ?? initialUserData.fecha_inicio_usuario}
                 onChange={handleChange}
               />
             </div>
