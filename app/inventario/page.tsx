@@ -120,15 +120,15 @@ export default function Inventario(){
               ))
             ) : (
               <div className={StyleArticulos.h2}>
-                <h2>Para crear un articulo, haz clic en <a href={'/nuevo-articulo'}>"Nuevo Articulo"</a>.</h2>
+                <h2>Para crear un articulo, haz clic en <a href={'/nuevo-articulo'}><b>Nuevo Articulo</b></a>.</h2>
               </div>
             )}
           </div>
-          <div className={StyleArticulos.container2}>
+          {/* <div className={StyleArticulos.container2}>
             <h2>Gastos diarios: ${}</h2>
             <h2>Gastos mensuales: ${}</h2>
             <h2>Ganancias diarias: ${}</h2>
             <h2>Ganancias mensuales: ${}</h2>
-          </div>
+          </div> */}
     </>
 }
