@@ -55,6 +55,7 @@ export default function Asistencias(){
                             onChange={(event) => setIdUsuario(event.target.value)} 
                             className="form-control" 
                             placeholder="Ingrese ID" 
+                            required
                         />
                     </div>
                     <div className={AsistenciasStyle.datos}>
@@ -64,6 +65,7 @@ export default function Asistencias(){
                             value={fecha} 
                             onChange={(event) => setFecha(event.target.value)} 
                             className="form-control" 
+                            required
                         />
                     </div>
                     <button type="submit" className={AsistenciasStyle.registrarAsistencia}>

@@ -26,7 +26,7 @@ export default function Inventario(){
 
   const actualizarArticulo = async (itemId: any) => {
     // Redirige a la página de actualización con la ID como parámetro
-    window.location.href = `/actualizar?id=${itemId}`;
+    window.location.href = `/actualizar-articulo?id=${itemId}`;
   }
 
 
@@ -101,7 +101,7 @@ export default function Inventario(){
   return <>
           <div className={StyleArticulos.container}>
             <div className={StyleArticulos.nuevoArticulo}>
-              <a href={'/nuevo-articulo'}>Nuevo articulo</a> 
+              <a href={'/nuevo-articulo'}>+ Nuevo articulo</a> 
             </div>
             <div className={StyleArticulos.titulos}>
               <h2>Nombre del articulo</h2>
@@ -110,7 +110,7 @@ export default function Inventario(){
             {articulos.length > 0 ? (
               articulos.map((item:any, index:any) => (
                 <div className={StyleArticulos.card} key={index}>
-                  <h2>{item.nombre}</h2>
+                  <h2>{item.nombre_articulo}</h2>
                   <div className={StyleArticulos.buttons}>
                     <button onClick={() => {detallesArticulo(item.id)}} className={StyleArticulos.buttonBlue}>Ver</button>
                     <button onClick={() => {actualizarArticulo(item.id)}} className={StyleArticulos.buttonGreen}>Actualizar</button>
@@ -120,7 +120,7 @@ export default function Inventario(){
               ))
             ) : (
               <div className={StyleArticulos.h2}>
-                <h2>Para crear un articulo, haz clic en <a href={'/nuevo-articulo'}><b>Nuevo Articulo</b></a>.</h2>
+                <h2>Para crear un articulo, haz clic en <b>Nuevo Articulo</b>.</h2>
               </div>
             )}
           </div>
