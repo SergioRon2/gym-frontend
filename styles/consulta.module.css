@@ -10,8 +10,8 @@
     backdrop-filter: blur(20px);
     width: 40vw;
     height: 80vh;
-    border: 1px solid #f40;
-    background-color: #f704;
+    border: 1px solid #044;
+    background-color: #0119;
     transition: all .2s ease;
     padding: 40px;
 
@@ -32,7 +32,7 @@
 }
 
 .formulario:hover{
-    border: 1px solid #f30;
+    border: 1px solid #055;
 }
 
 .formulario > .title{
@@ -66,18 +66,19 @@
     margin-top: 50px;
     transition: all .2s ease;
     outline: 1px solid transparent;
-    background-color: #f70c;
+    background-color: transparent;
 }
 .consultarAsistencia:hover{
-    outline: 1px solid #f10;
+    background-color: #fff;
+    color: #011;
 }
 
 .respuestaConsulta{
     backdrop-filter: blur(20px);
     width: 60vw;
     height: 80vh;
-    border: 1px solid #f40;
-    background-color: #f704;
+    border: 1px solid #044;
+    background-color: #0119;
     transition: all .2s ease;
     padding: 40px;
 
@@ -118,7 +119,7 @@
 }
 
 .titulosTabla{
-    background-color: #f306;
+    background-color: #011;
 }
 
 .respuestaTabla{
@@ -143,7 +144,7 @@
 }
 
 .eliminarAsistencia:hover{
-    background-color: #f306;
+    background-color: #400;
     cursor: pointer;
 }
 

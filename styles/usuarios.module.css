@@ -1,9 +1,9 @@
 .container{
     height: 80vh;
-    background-color: #f704;
-    border: 1px solid #f70;
+    background-color: #0119;
+    border: 1px solid #044;
     transition: all .3s ease-in;
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(20px);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -17,8 +17,8 @@
     .container{
         height: auto;
         margin-top: 100px;
-        background-color: #f704;
-        border: 1px solid #f70;
+        background-color: #0119;
+        border: 1px solid #044;
         transition: all .3s ease-in;
         backdrop-filter: blur(5px);
         display: flex;
@@ -56,8 +56,24 @@
     padding: 30px;
     overflow-x: hidden;
 }
+
+.usuarios::-webkit-scrollbar {
+    width: 10px; /* Ancho del scrollbar */
+}
+
+.usuarios::-webkit-scrollbar-thumb {
+    background-color: #fff7; /* Color del thumb (agarre) */
+    border-radius: 5px; /* Borde redondeado del thumb */
+}
+
+.usuarios::-webkit-scrollbar-track {
+    background-color: #fff3; /* Color de fondo del track (rastro) */
+    border-bottom: 1px white solid;
+}
+
+
 .container:hover{
-    border: 1px solid #d40;
+    border: 1px solid #055;
     backdrop-filter: blur(10px);
 }
 
@@ -65,11 +81,11 @@
     min-width: 200px;
     width: 300px;
     height: 300px;
-    border: 1px solid #f20;
+    border: 1px solid #022;
     backdrop-filter: blur(10px);    
     transition: all .2s;
 
-    background-color: #f707;
+    background-color: #033a;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -96,9 +112,9 @@
 }
 
 .card:hover{
-    border: 1px solid #f00;
+    border: 1px solid #033;
     backdrop-filter: blur(20px);
-    box-shadow: 0px 1px 5px 5px #f40;
+    box-shadow: 0px 1px 5px 5px #044;
 }
 
 .hoveredCard{
@@ -118,7 +134,7 @@
 }
 
 .diasRestantes{
-    background-color: #d305;
+    background-color: #0665;
     font-size: 3em;
     border-radius: 100px;
     padding: 10px;  

@@ -4,9 +4,9 @@
     justify-content: space-between;
     align-items: center;
     flex-direction: row;
-    border-bottom: 1px solid #f70;
+    border-bottom: 1px solid #033;
     transition: all .3s ease;
-    background-color: #f706;
+    background-color: #011;
 }
 
 .x{
@@ -19,7 +19,7 @@
 }
 
 .navbar:hover{
-    border-bottom: 1px solid #f50;
+    border-bottom: 1px solid #055;
 }
 .navbar > div{
     width: 100vw;
@@ -68,7 +68,7 @@
         align-items: center;
         flex-direction: column;
         text-align: center;
-        background-color: #f706;
+        background-color: #011;
     }
     .navbar > div{
         width: 100%;

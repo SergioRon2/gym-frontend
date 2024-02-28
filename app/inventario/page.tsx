@@ -110,7 +110,7 @@ export default function Inventario(){
             {articulos.length > 0 ? (
               articulos.map((item:any, index:any) => (
                 <div className={StyleArticulos.card} key={index}>
-                  <h2>{item.nombre_articulo}</h2>
+                  <h2>{item.nombre}</h2>
                   <div className={StyleArticulos.buttons}>
                     <button onClick={() => {detallesArticulo(item.id)}} className={StyleArticulos.buttonBlue}>Ver</button>
                     <button onClick={() => {actualizarArticulo(item.id)}} className={StyleArticulos.buttonGreen}>Actualizar</button>
@@ -124,11 +124,11 @@ export default function Inventario(){
               </div>
             )}
           </div>
-          {/* <div className={StyleArticulos.container2}>
+          <div className={StyleArticulos.container2}>
             <h2>Gastos diarios: ${}</h2>
             <h2>Gastos mensuales: ${}</h2>
             <h2>Ganancias diarias: ${}</h2>
             <h2>Ganancias mensuales: ${}</h2>
-          </div> */}
+          </div>
     </>
 }

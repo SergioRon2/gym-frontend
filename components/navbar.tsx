@@ -10,7 +10,7 @@ export default function Navbar(){
             <nav className={navbar.navbar}>
                 <div className="">
                     <Link className={navbar.logo} href={"/"}>
-                        <Image src={'/logo.png'} alt="logo.png" width={120} height={50} />
+                        <Image src={'/logo.png'} alt="logo.png" width={100} height={20} />
                     </Link>
                     <p className={navbar.x}>X</p>
                     <ul className={navbar.links}>

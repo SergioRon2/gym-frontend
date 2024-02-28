@@ -1,7 +1,7 @@
 .container{
     height: 65vh;
-    background-color: #f706;
-    border: 1px solid #f40;
+    background-color: #0119;
+    border: 1px solid #044;
     transition: all .3s ease-in;
     backdrop-filter: blur(5px);
     justify-content: space-evenly;
@@ -11,17 +11,17 @@
     overflow-y: scroll;
 }
 .container:hover{
-    border: 1px solid #f60;
+    border: 1px solid #055;
     backdrop-filter: blur(10px);
 }
 
 .card{
     width: 90vw;
     height: auto;
-    border: 1px solid #333;
+    /* border: 1px solid #077; */
     backdrop-filter: blur(10px);    
     transition: all .2s;
-    background-color: #fff4;
+    background-color: #022;
 
     display: flex;
     align-items: center;
@@ -51,7 +51,7 @@
 .titulos{
     display: flex;
     width: 90vw;
-    background-color: #f704;
+    background-color: #033;
     justify-content: space-between;
     padding: 0 10px;
 }
@@ -100,8 +100,8 @@
 }
 
 .container2{
-    background-color: #f706;
-    border: 1px solid #f40;
+    background-color: #0119;
+    border: 1px solid #044;
     transition: all .3s ease-in;
     backdrop-filter: blur(5px);
     justify-content: space-evenly;
@@ -115,7 +115,7 @@
 
 }
 .container2:hover{
-    border: 1px solid #f50;
+    border: 1px solid #044;
     backdrop-filter: blur(10px);
 }
 

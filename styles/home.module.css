@@ -10,35 +10,63 @@
 .container{
     animation: blur-animation 2s infinite ease;
     height: 80vh;
-    border: 1px solid #f70;
+    border: 1px solid #033;
     transition: all .2s ease-out;
-    background-color: #f703;
+    background-color: #0116;
 
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: start;
+    overflow: hidden;
 }
 .container:hover{
-    border: 1px solid #f40;
+    border: 1px solid #055;
+}
+
+@media (max-width: 768px) {
+    .container{
+        align-items: center;
+    }
+}
+
+.menBanner{
+    position: absolute;
+    left: 60vw;
+    bottom: .1vh;
+    z-index: -1;
+    transition: all .1s ease;
+}
+
+.menBanner:hover{
+    transform: scale(1.07);
+}
+
+@media (max-width: 768px) {
+    .menBanner{
+        display: none;
+    }
 }
 
 .title{
     font-weight: bold;
     font-size: 4em;
+    margin-left: 150px;
 }
 
 .encabezado{
     font-size: 1em;
+    margin-left: 150px;
 }
 
 @media (max-width: 768px) {
     .title{
         font-size: 3em;
         text-align: center;
+        margin: 0;
     }
     .encabezado{
         text-align: center;
+        margin: 0;
     }
 }
-  

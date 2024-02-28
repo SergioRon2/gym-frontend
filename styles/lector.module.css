@@ -14,8 +14,8 @@
     margin-top: 30px;
     height: 65vh;
     width: 30vw;
-    border: 1px solid #f70;
-    background-color: #f704;
+    border: 1px solid #044;
+    background-color: #0119;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -24,7 +24,7 @@
     backdrop-filter: blur(10px);
 }
 .containerLector:hover{
-    border: 1px solid #f40;
+    border: 1px solid #055;
 }
 
 .registrarAsistencia{
@@ -32,10 +32,11 @@
     margin-top: 100px;
     transition: all .2s ease;
     outline: 1px solid transparent;
-    background-color: #f70c;
+    background-color: transparent;
 }
 .registrarAsistencia:hover{
-    outline: 1px solid #f10;
+    background-color: #fff;
+    color: #011;
 }
 
 @media (max-width: 768px) {
