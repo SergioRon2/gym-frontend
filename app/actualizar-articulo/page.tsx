@@ -1,12 +1,12 @@
 "use client";
-import { apiRestGet, apiRestPost, apiRestPut } from "@/services/services";
+import { apiRestGet, apiRestPatch, apiRestPost, apiRestPut } from "@/services/services";
 import { useEffect, useState } from "react";
 import ActualizarArticuloStyle from "styles/actualizar-articulo.module.css";
 import Image from "next/image";
 import swal from "sweetalert";
 import { useSearchParams } from "next/navigation";
 
-export default function CrearArticulo() {
+export default function ActualizarArticulo() {
 
     const searchParams = useSearchParams();
     const id = searchParams.get("id");
@@ -21,7 +21,7 @@ export default function CrearArticulo() {
     });
 
     const [initialUserData, setInitialUserData] = useState({
-        id : "",
+        id : null,
         nombre: "",
         descripcion: "",
         precio: "",
@@ -61,7 +61,7 @@ export default function CrearArticulo() {
         if (confirmarActualizacion) {
             swal("Éxito", "La actualización se procesó de manera exitosa", "success");
             try {
-                const response = await apiRestPut(`/actualizar-articulo/${initialUserData.id}`, formData);
+                const response = await apiRestPatch(`/actualizar-articulo/${initialUserData.id}`, formData);
                 console.log(response);
         
                 if (response.success) {

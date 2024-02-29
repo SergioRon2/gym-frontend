@@ -48,7 +48,6 @@ export default function Inventario(){
     }
   };
 
-    
 
   // ------------------------- ELIMINAR ARTICULO --------------------------------
 
@@ -100,29 +99,37 @@ export default function Inventario(){
 
   return <>
           <div className={StyleArticulos.container}>
-            <div className={StyleArticulos.nuevoArticulo}>
-              <a href={'/nuevo-articulo'}>+ Nuevo articulo</a> 
+            <div className={StyleArticulos.menu}>
+                
             </div>
-            <div className={StyleArticulos.titulos}>
-              <h2>Nombre del articulo</h2>
-              <h2>Opciones</h2>
-            </div>
-            {articulos.length > 0 ? (
-              articulos.map((item:any, index:any) => (
-                <div className={StyleArticulos.card} key={index}>
-                  <h2>{item.nombre}</h2>
-                  <div className={StyleArticulos.buttons}>
-                    <button onClick={() => {detallesArticulo(item.id)}} className={StyleArticulos.buttonBlue}>Ver</button>
-                    <button onClick={() => {actualizarArticulo(item.id)}} className={StyleArticulos.buttonGreen}>Actualizar</button>
-                    <button onClick={() => {eliminarArticulo(item.id)}} className={StyleArticulos.buttonRed}>Eliminar</button>
-                  </div>
-                </div>
-              ))
-            ) : (
-              <div className={StyleArticulos.h2}>
-                <h2>Para crear un articulo, haz clic en <b>Nuevo Articulo</b>.</h2>
+            <div className={StyleArticulos.contenido}>
+              <h3 className={StyleArticulos.title}>Articulos</h3>
+              <div className={StyleArticulos.nuevoArticulo}>
+                <a href={'/nuevo-articulo'}>+ Nuevo articulo</a> 
               </div>
-            )}
+              <div className={StyleArticulos.titulos}>
+                <h2>Nombre del articulo</h2>
+                <h2>Opciones</h2>
+              </div>
+              <div className={StyleArticulos.scrollArticulos}>
+              {articulos.length > 0 ? (
+                articulos.map((item:any, index:any) => (
+                  <div className={StyleArticulos.card} key={index}>
+                    <h2>{item.nombre}</h2>
+                    <div className={StyleArticulos.buttons}>
+                      <button onClick={() => {detallesArticulo(item.id)}} className={StyleArticulos.buttonBlue}>Ver</button>
+                      <button onClick={() => {actualizarArticulo(item.id)}} className={StyleArticulos.buttonGreen}>Actualizar</button>
+                      <button onClick={() => {eliminarArticulo(item.id)}} className={StyleArticulos.buttonRed}>Eliminar</button>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <div className={StyleArticulos.h2}>
+                  <h2>Para crear un articulo, haz clic en <b>Nuevo Articulo</b>.</h2>
+                </div>
+              )}  
+              </div>
+            </div>
           </div>
           <div className={StyleArticulos.container2}>
             <h2>Gastos diarios: ${}</h2>

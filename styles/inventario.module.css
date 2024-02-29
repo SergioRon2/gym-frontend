@@ -1,5 +1,12 @@
 .container{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    flex-wrap: wrap ;
+}
+.contenido{
     height: 65vh;
+    width: 70vw;
     background-color: #0119;
     border: 1px solid #044;
     transition: all .3s ease-in;
@@ -8,15 +15,53 @@
     flex-wrap: wrap;
     padding: 40px;
     overflow-x: hidden;
-    overflow-y: scroll;
+    overflow-y: hidden;
 }
-.container:hover{
+.contenido:hover{
     border: 1px solid #055;
     backdrop-filter: blur(10px);
 }
+.title{
+    text-align: center;
+    font-size: 1.7em;
+    font-weight: bold;
+    line-height: .1px;
+}
+.menu{
+    height: 65vh;
+    width: 25vw;
+    background-color: #0119;
+    border: 1px solid #044;
+    transition: all .3s ease-in;
+    backdrop-filter: blur(5px);
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    padding: 40px;
+    overflow-x: hidden;
+}
+
+.scrollArticulos{
+    overflow: scroll;
+    height: 85%;
+    overflow-x: hidden;
+}
+
+.scrollArticulos::-webkit-scrollbar {
+    width: 10px; /* Ancho del scrollbar */
+}
+
+.scrollArticulos::-webkit-scrollbar-thumb {
+    background-color: #fff7; /* Color del thumb (agarre) */
+    border-radius: 5px; /* Borde redondeado del thumb */
+}
+
+.scrollArticulos::-webkit-scrollbar-track {
+    background-color: #fff3; /* Color de fondo del track (rastro) */
+    border-bottom: 1px white solid;
+}
 
 .card{
-    width: 90vw;
+    width: auto;
     height: auto;
     /* border: 1px solid #077; */
     backdrop-filter: blur(10px);    
@@ -32,9 +77,13 @@
 }
 
 @media (max-width:768px) {
-    .container{
+    .contenido{
         display: flex;
         gap: 20px;
+        width: auto;
+    }
+    .menu{
+        width: 100vw;
     }
     .card{
         height: 20vh;
@@ -50,7 +99,7 @@
 
 .titulos{
     display: flex;
-    width: 90vw;
+    width: auto;
     background-color: #033;
     justify-content: space-between;
     padding: 0 10px;

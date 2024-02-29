@@ -1,9 +1,22 @@
+'use client'
 import HomeStyle from 'styles/home.module.css'
 import Image from 'next/image'
 import MenBanner from '../public/men-banner.png'
+import { useEffect } from 'react';
+import anime from 'animejs' ;
 
 
 export default function Home() {
+
+  useEffect(() => {
+    anime({
+      targets: '.menBanner', 
+      translateX: -250
+    });
+  }, []); 
+
+
+
   return (
     <>
       <div className={HomeStyle.container}>

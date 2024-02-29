@@ -6,6 +6,7 @@ import swal from "sweetalert";
 import classNames from "classnames";
 import Link from "next/link";
 
+
 export default function Miembros() {
   const [usuarios, setUsuarios] = useState([]);
   const [filtroTexto, setFiltroTexto] = useState("");
