@@ -3,11 +3,18 @@ import AsistenciasStyle from 'styles/asistencia.module.css'
 import { useEffect, useState } from 'react'; 
 import { apiRestPost } from '@/services/services';
 import swal from 'sweetalert';
+import LoadingSpinner from '@/components/loading';
 
 export default function Asistencias(){
 
     const [idUsuario, setIdUsuario] = useState('');
     const [fecha, setFecha] = useState('');
+    const [loading, setLoading] = useState(true);
+
+
+    useEffect(() => {
+        setLoading(false);
+    }, []);
 
     const handleRegistrarAsistencia = async (event:any) => {
         event.preventDefault(); // Prevenir el comportamiento predeterminado del formulario
@@ -43,36 +50,42 @@ export default function Asistencias(){
 
 
     return (
-        <div className={AsistenciasStyle.container}>
-            <div className={AsistenciasStyle.formulario}>
-                <h1 className={AsistenciasStyle.title}>Asistencia</h1>
-                <form onSubmit={handleRegistrarAsistencia}>
-                    <div className={AsistenciasStyle.datos}>
-                        <label className="mr-2 text-light">ID especial del usuario:</label>
-                        <input 
-                            type="text" 
-                            value={idUsuario} 
-                            onChange={(event) => setIdUsuario(event.target.value)} 
-                            className="form-control" 
-                            placeholder="Ingrese ID" 
-                            required
-                        />
+        <>
+            {
+                loading ? <LoadingSpinner /> : (
+                    <div className={AsistenciasStyle.container}>
+                        <div className={AsistenciasStyle.formulario}>
+                            <h1 className={AsistenciasStyle.title}>Asistencia</h1>
+                            <form onSubmit={handleRegistrarAsistencia}>
+                                <div className={AsistenciasStyle.datos}>
+                                    <label className="mr-2 text-light">ID especial del usuario:</label>
+                                    <input 
+                                        type="text" 
+                                        value={idUsuario} 
+                                        onChange={(event) => setIdUsuario(event.target.value)} 
+                                        className="form-control" 
+                                        placeholder="Ingrese ID" 
+                                        required
+                                    />
+                                </div>
+                                <div className={AsistenciasStyle.datos}>
+                                    <label className="mr-2 text-light">Selecciona una fecha:</label>
+                                    <input 
+                                        type="date" 
+                                        value={fecha} 
+                                        onChange={(event) => setFecha(event.target.value)} 
+                                        className="form-control" 
+                                        required
+                                    />
+                                </div>
+                                <button type="submit" className={AsistenciasStyle.registrarAsistencia}>
+                                    Registrar asistencia
+                                </button>
+                            </form>
+                        </div>
                     </div>
-                    <div className={AsistenciasStyle.datos}>
-                        <label className="mr-2 text-light">Selecciona una fecha:</label>
-                        <input 
-                            type="date" 
-                            value={fecha} 
-                            onChange={(event) => setFecha(event.target.value)} 
-                            className="form-control" 
-                            required
-                        />
-                    </div>
-                    <button type="submit" className={AsistenciasStyle.registrarAsistencia}>
-                        Registrar asistencia
-                    </button>
-                </form>
-            </div>
-        </div>
+                )
+            }
+        </>
     );
 }

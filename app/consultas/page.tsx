@@ -5,8 +5,16 @@ import ConsultaStyle from 'styles/consulta.module.css'
 import Image from 'next/image'
 import Mistery from '../../public/mistery.png'
 import swal from 'sweetalert'
+import LoadingSpinner from '@/components/loading'
 
 export default function Consultas(){
+
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        setLoading(false);
+    }, []);
+
 
     const [asistencias, setAsistencias] = useState([])
 
@@ -58,56 +66,60 @@ export default function Consultas(){
     };
 
     return <>
-        <div className={ConsultaStyle.container}>
-            <div className={ConsultaStyle.respuestaConsulta}>
-                    {
-                        asistencias.length > 0 ? 
-                        <div className={ConsultaStyle.response}>
-                            <h1 className={ConsultaStyle.title}>Todas las asistencias</h1>
-                            <table className={ConsultaStyle.tabla}>
-                                <tr className={ConsultaStyle.headingTabla}>
-                                    <th className={ConsultaStyle.titulosTabla}>ID especial</th>
-                                    <th className={ConsultaStyle.titulosTabla}>Nombre</th>
-                                    <th className={ConsultaStyle.titulosTabla}>Fecha</th>
-                                    <th className={ConsultaStyle.titulosTabla}>Numero de identificacion</th>
-                                    <th className={ConsultaStyle.titulosTabla}>Presente</th>
-                                    <th className={ConsultaStyle.titulosTabla}>Eliminar</th>
-                                </tr>
-                                {
-                                    asistencias.map((data:any)=>(
-                                        <tr key={data} className={ConsultaStyle.estructuraTabla}>
-                                            <td className={ConsultaStyle.respuestaTabla}>{data.usuario__id}</td>
-                                            <td className={ConsultaStyle.respuestaTabla}>{data.usuario__nombre}</td>
-                                            <td className={ConsultaStyle.respuestaTabla}>{data.fecha}</td>
-                                            <td className={ConsultaStyle.respuestaTabla}>{data.usuario__id_usuario}</td>
-                                            <td className={ConsultaStyle.respuestaTabla}>{data.presente == true ? '✔' : '✘'}</td>
-                                            <td className={ConsultaStyle.eliminarAsistencia} onClick={()=>{eliminarAsistencia(data.id)}}>🗑️</td>
+        {
+            loading ? <LoadingSpinner/> : (
+                <div className={ConsultaStyle.container}>
+                    <div className={ConsultaStyle.respuestaConsulta}>
+                            {
+                                asistencias.length > 0 ? 
+                                <div className={ConsultaStyle.response}>
+                                    <h1 className={ConsultaStyle.title}>Todas las asistencias</h1>
+                                    <table className={ConsultaStyle.tabla}>
+                                        <tr className={ConsultaStyle.headingTabla}>
+                                            <th className={ConsultaStyle.titulosTabla}>ID especial</th>
+                                            <th className={ConsultaStyle.titulosTabla}>Nombre</th>
+                                            <th className={ConsultaStyle.titulosTabla}>Fecha</th>
+                                            <th className={ConsultaStyle.titulosTabla}>Numero de identificacion</th>
+                                            <th className={ConsultaStyle.titulosTabla}>Presente</th>
+                                            <th className={ConsultaStyle.titulosTabla}>Eliminar</th>
                                         </tr>
-                                    )) 
-                                }
-                            </table>
-                        </div>
-                        : 
-                        <div className={ConsultaStyle.NA}>
-                            <h1>No hay asistencias</h1>
-                            <Image draggable={'false'} width={350} height={350} src={Mistery} alt='mistery.png' />
-                        </div>
-                    }
-            </div>
-            <div className={ConsultaStyle.formulario}>
-                <h1 className={ConsultaStyle.title}>Consulta de Asistencias</h1>
-                <form action="">
-                    <div className={ConsultaStyle.datos}>
-                        <label className="mr-2 text-light">Selecciona una fecha:</label>
-                        <input type="date" id="fechaSelector" name="fecha" className="form-control" />
+                                        {
+                                            asistencias.map((data:any)=>(
+                                                <tr key={data} className={ConsultaStyle.estructuraTabla}>
+                                                    <td className={ConsultaStyle.respuestaTabla}>{data.usuario__id}</td>
+                                                    <td className={ConsultaStyle.respuestaTabla}>{data.usuario__nombre}</td>
+                                                    <td className={ConsultaStyle.respuestaTabla}>{data.fecha}</td>
+                                                    <td className={ConsultaStyle.respuestaTabla}>{data.usuario__id_usuario}</td>
+                                                    <td className={ConsultaStyle.respuestaTabla}>{data.presente == true ? '✔' : '✘'}</td>
+                                                    <td className={ConsultaStyle.eliminarAsistencia} onClick={()=>{eliminarAsistencia(data.id)}}>🗑️</td>
+                                                </tr>
+                                            )) 
+                                        }
+                                    </table>
+                                </div>
+                                : 
+                                <div className={ConsultaStyle.NA}>
+                                    <h1>No hay asistencias</h1>
+                                    <Image draggable={'false'} width={350} height={350} src={Mistery} alt='mistery.png' />
+                                </div>
+                            }
                     </div>
-                    <div className={ConsultaStyle.datos}>
-                        <label className="mr-2 text-light">ID especial del Usuario (<i className={ConsultaStyle.i}>opcional, por si se quiere ser especifico en la busqueda</i>):</label>
-                        <input type="text" id="idUsuario" name="id_usuario" className="form-control" placeholder="Ingrese ID" />
+                    <div className={ConsultaStyle.formulario}>
+                        <h1 className={ConsultaStyle.title}>Consulta de Asistencias</h1>
+                        <form action="">
+                            <div className={ConsultaStyle.datos}>
+                                <label className="mr-2 text-light">Selecciona una fecha:</label>
+                                <input type="date" id="fechaSelector" name="fecha" className="form-control" />
+                            </div>
+                            <div className={ConsultaStyle.datos}>
+                                <label className="mr-2 text-light">ID especial del Usuario (<i className={ConsultaStyle.i}>opcional, por si se quiere ser especifico en la busqueda</i>):</label>
+                                <input type="text" id="idUsuario" name="id_usuario" className="form-control" placeholder="Ingrese ID" />
+                            </div>
+                            <a className={ConsultaStyle.consultarAsistencia} href="">Consultar asistencia</a>
+                        </form>
                     </div>
-                    <a className={ConsultaStyle.consultarAsistencia} href="">Consultar asistencia</a>
-                </form>
-            </div>
-        </div>
+                </div>
+            )
+        }
     </>
 }

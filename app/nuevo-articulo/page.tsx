@@ -1,11 +1,20 @@
 'use client';
 import { apiRestPost } from '@/services/services';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import NuevoArticuloStyle from 'styles/nuevo-articulo.module.css';
 import Image from 'next/image'
 import swal from 'sweetalert'
+import LoadingSpinner from '@/components/loading';
 
 export default function CrearArticulo() {
+
+  const [loading, setLoading] = useState(true);
+
+
+  useEffect(() => {
+      setLoading(false);
+  }, []);
+
     const [formData, setFormData] = useState({
       nombre: '',
       descripcion: '',
@@ -72,38 +81,44 @@ export default function CrearArticulo() {
     }
   
     return (
-      <div className={NuevoArticuloStyle.general}>
-        <div className={NuevoArticuloStyle.container1}>
-          <h1 className={NuevoArticuloStyle.title}>Registrar articulo</h1>
-          <Image src='/banner-nuevo-articulo.png' width={300} height={300} alt="banner-nuevo-articulo.png" />
-        </div>
-        <div className={NuevoArticuloStyle.container2}>
-          <form onSubmit={handleSubmit} className={NuevoArticuloStyle.formulario}>
-            <div className={NuevoArticuloStyle.inputs}>
-              <label htmlFor="nombre">Nombre:</label>
-              <input type="text" name="nombre" value={formData.nombre} onChange={handleChange} required/>
+      <>
+        {
+          loading ? <LoadingSpinner /> : (
+            <div className={NuevoArticuloStyle.general}>
+              <div className={NuevoArticuloStyle.container1}>
+                <h1 className={NuevoArticuloStyle.title}>Registrar articulo</h1>
+                <Image src='/banner-nuevo-articulo.png' width={300} height={300} alt="banner-nuevo-articulo.png" />
+              </div>
+              <div className={NuevoArticuloStyle.container2}>
+                <form onSubmit={handleSubmit} className={NuevoArticuloStyle.formulario}>
+                  <div className={NuevoArticuloStyle.inputs}>
+                    <label htmlFor="nombre">Nombre:</label>
+                    <input type="text" name="nombre" value={formData.nombre} onChange={handleChange} required/>
+                  </div>
+                  <div className={NuevoArticuloStyle.textarea}>
+                    <label htmlFor="descripcion">Descripcion:</label>
+                    <textarea maxLength={100} name="descripcion" value={formData.descripcion} onChange={handleChange} required/>
+                  </div>
+                  <div className={NuevoArticuloStyle.inputs}>
+                    <label htmlFor="precio">Precio:</label>
+                    <input type="number" name="precio" value={formData.precio} onChange={handleChange}  required/>
+                  </div>
+                  <div className={NuevoArticuloStyle.inputs}>
+                    <label htmlFor="cantidad_disponible">Cantidad disponible</label>
+                    <input type="number" name="cantidad_disponible" value={formData.cantidad_disponible} onChange={handleChange} required/>
+                  </div>
+                  <div className={NuevoArticuloStyle.buttons}>
+                    <a className={NuevoArticuloStyle.volver} href="/inventario">Volver</a>
+                    <button type="submit" className={NuevoArticuloStyle.registrarNuevo}>
+                      Registrar nuevo articulo
+                    </button>
+                  </div>
+                </form>
+              </div>
             </div>
-            <div className={NuevoArticuloStyle.textarea}>
-              <label htmlFor="descripcion">Descripcion:</label>
-              <textarea maxLength={100} name="descripcion" value={formData.descripcion} onChange={handleChange} required/>
-            </div>
-            <div className={NuevoArticuloStyle.inputs}>
-              <label htmlFor="precio">Precio:</label>
-              <input type="number" name="precio" value={formData.precio} onChange={handleChange}  required/>
-            </div>
-            <div className={NuevoArticuloStyle.inputs}>
-              <label htmlFor="cantidad_disponible">Cantidad disponible</label>
-              <input type="number" name="cantidad_disponible" value={formData.cantidad_disponible} onChange={handleChange} required/>
-            </div>
-            <div className={NuevoArticuloStyle.buttons}>
-              <a className={NuevoArticuloStyle.volver} href="/inventario">Volver</a>
-              <button type="submit" className={NuevoArticuloStyle.registrarNuevo}>
-                Registrar nuevo articulo
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
+          )
+        }
+      </>
     );
   }
   

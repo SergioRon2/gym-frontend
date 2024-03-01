@@ -5,6 +5,7 @@ import ActualizarArticuloStyle from "styles/actualizar-articulo.module.css";
 import Image from "next/image";
 import swal from "sweetalert";
 import { useSearchParams } from "next/navigation";
+import LoadingSpinner from "@/components/loading";
 
 export default function ActualizarArticulo() {
 
@@ -12,6 +13,12 @@ export default function ActualizarArticulo() {
     const id = searchParams.get("id");
 
 
+    const [loading, setLoading] = useState(true);
+
+
+    useEffect(() => {
+        setLoading(false);
+    }, []);
 
     const [formData, setFormData] = useState({
         nombre: undefined,
@@ -98,65 +105,69 @@ export default function ActualizarArticulo() {
 };
 
 return (
-    <div className={ActualizarArticuloStyle.general}>
-        <div className={ActualizarArticuloStyle.container1}>
-            <h1 className={ActualizarArticuloStyle.title}>Actualizar articulo</h1>
-            <Image
-            src="/banner-nuevo-articulo.png"
-            width={300}
-            height={300}
-            alt="banner-nuevo-articulo.png"
-            draggable={false}
-            />
-        </div>
-        <div className={ActualizarArticuloStyle.container2}>
-            <form onSubmit={handleSubmit} className={ActualizarArticuloStyle.formulario}>
-                <div className={ActualizarArticuloStyle.inputs}>
-                    <label htmlFor="nombre">Nombre:</label>
-                    <input
-                    type="text"
-                    name="nombre"
-                    value={formData.nombre ?? initialUserData.nombre}
-                    onChange={handleChange}
-                    />
+        <>
+            loading ? <LoadingSpinner/ > : (
+                <div className={ActualizarArticuloStyle.general}>
+                    <div className={ActualizarArticuloStyle.container1}>
+                        <h1 className={ActualizarArticuloStyle.title}>Actualizar articulo</h1>
+                        <Image
+                        src="/banner-nuevo-articulo.png"
+                        width={300}
+                        height={300}
+                        alt="banner-nuevo-articulo.png"
+                        draggable={false}
+                        />
+                    </div>
+                    <div className={ActualizarArticuloStyle.container2}>
+                        <form onSubmit={handleSubmit} className={ActualizarArticuloStyle.formulario}>
+                            <div className={ActualizarArticuloStyle.inputs}>
+                                <label htmlFor="nombre">Nombre:</label>
+                                <input
+                                type="text"
+                                name="nombre"
+                                value={formData.nombre ?? initialUserData.nombre}
+                                onChange={handleChange}
+                                />
+                            </div>
+                            <div className={ActualizarArticuloStyle.textarea}>
+                                <label htmlFor="descripcion">Descripcion:</label>
+                                <textarea
+                                maxLength={100}
+                                name="descripcion"
+                                value={formData.descripcion ?? initialUserData.descripcion}
+                                onChange={handleChange}
+                                />
+                            </div>
+                            <div className={ActualizarArticuloStyle.inputs}>
+                                <label htmlFor="precio">Precio:</label>
+                                <input
+                                type="number"
+                                name="precio"
+                                value={formData.precio ?? initialUserData.precio}
+                                onChange={handleChange}
+                                />
+                            </div>
+                            <div className={ActualizarArticuloStyle.inputs}>
+                                <label htmlFor="cantidad_disponible">Cantidad disponible</label>
+                                <input
+                                type="number"
+                                name="cantidad_disponible"
+                                value={formData.cantidad_disponible ?? initialUserData.cantidad_disponible}
+                                onChange={handleChange}
+                                />
+                            </div>
+                            <div className={ActualizarArticuloStyle.buttons}>
+                                <a className={ActualizarArticuloStyle.volver} href="/inventario">
+                                Volver
+                                </a>
+                                <button type="submit" className={ActualizarArticuloStyle.registrarActualizacion}>
+                                Actualizar articulo
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <div className={ActualizarArticuloStyle.textarea}>
-                    <label htmlFor="descripcion">Descripcion:</label>
-                    <textarea
-                    maxLength={100}
-                    name="descripcion"
-                    value={formData.descripcion ?? initialUserData.descripcion}
-                    onChange={handleChange}
-                    />
-                </div>
-                <div className={ActualizarArticuloStyle.inputs}>
-                    <label htmlFor="precio">Precio:</label>
-                    <input
-                    type="number"
-                    name="precio"
-                    value={formData.precio ?? initialUserData.precio}
-                    onChange={handleChange}
-                    />
-                </div>
-                <div className={ActualizarArticuloStyle.inputs}>
-                    <label htmlFor="cantidad_disponible">Cantidad disponible</label>
-                    <input
-                    type="number"
-                    name="cantidad_disponible"
-                    value={formData.cantidad_disponible ?? initialUserData.cantidad_disponible}
-                    onChange={handleChange}
-                    />
-                </div>
-                <div className={ActualizarArticuloStyle.buttons}>
-                    <a className={ActualizarArticuloStyle.volver} href="/inventario">
-                    Volver
-                    </a>
-                    <button type="submit" className={ActualizarArticuloStyle.registrarActualizacion}>
-                    Actualizar articulo
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-    );
+            )
+        </>
+    )
 }

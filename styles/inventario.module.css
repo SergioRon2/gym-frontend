@@ -2,10 +2,11 @@
     display: flex;
     flex-direction: row;
     gap: 10px;
-    flex-wrap: wrap ;
+    flex-wrap: wrap;
+    height: auto;
 }
 .contenido{
-    height: 65vh;
+    height: 80vh;
     width: 70vw;
     background-color: #0119;
     border: 1px solid #044;
@@ -28,7 +29,7 @@
     line-height: .1px;
 }
 .menu{
-    height: 65vh;
+    height: 80vh;
     width: 25vw;
     background-color: #0119;
     border: 1px solid #044;
@@ -146,31 +147,4 @@
 }
 .nuevoArticulo a:hover{
     color: #aaa;
-}
-
-.container2{
-    background-color: #0119;
-    border: 1px solid #044;
-    transition: all .3s ease-in;
-    backdrop-filter: blur(5px);
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-    padding: 40px;  
-    margin-top: 10px;
-
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-
-}
-.container2:hover{
-    border: 1px solid #044;
-    backdrop-filter: blur(10px);
-}
-
-@media (max-width:768px) {
-    .container2{
-        display: flex;
-        flex-direction: column;
-    }
 }

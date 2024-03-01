@@ -5,6 +5,7 @@ import NuevoStyle from "styles/actualizar.module.css";
 import Image from "next/image";
 import swal from "sweetalert";
 import { useSearchParams } from "next/navigation";
+import LoadingSpinner from "@/components/loading";
 
 export default function ActualizarMiembro() {
   const searchParams = useSearchParams();
@@ -28,6 +29,13 @@ export default function ActualizarMiembro() {
     tipo_plan_gym: "",
     fecha_inicio_usuario: "",
 })
+
+const [loading, setLoading] = useState(true);
+
+
+  useEffect(() => {
+      setLoading(false);
+  }, []);
 
 
   // obtener planes
@@ -129,94 +137,98 @@ export default function ActualizarMiembro() {
 
   return (
     <>
-      <div className={NuevoStyle.general}>
-        <div className={NuevoStyle.container1}>
-          <h1 className={NuevoStyle.title}>Actualizar Miembro</h1>
-          <Image
-            draggable={false}
-            src="/banner-nuevo-usuario.png"
-            width={300}
-            height={300}
-            alt="banner-nuevo-usuario.png"
-          />
-        </div>
-        <div className={NuevoStyle.container2}>
-          <form onSubmit={handleSubmit} className={NuevoStyle.formulario}>
-            <div className={NuevoStyle.inputs}>
-              <label htmlFor="nombre">Nombre(s):</label>
-              <input
-                type="text"
-                name="nombre"
-                value={formData.nombre ?? initialUserData.nombre_usuario}
-                onChange={handleChange}
+      {
+        loading ? <LoadingSpinner /> : (
+          <div className={NuevoStyle.general}>
+            <div className={NuevoStyle.container1}>
+              <h1 className={NuevoStyle.title}>Actualizar Miembro</h1>
+              <Image
+                draggable={false}
+                src="/banner-nuevo-usuario.png"
+                width={300}
+                height={300}
+                alt="banner-nuevo-usuario.png"
               />
             </div>
-            <div className={NuevoStyle.inputs}>
-              <label htmlFor="apellido">Apellido(s):</label>
-              <input
-                type="text"
-                name="apellido"
-                value={formData.apellido ?? initialUserData.apellido_usuario}
-                onChange={handleChange}
-              />
-            </div>
-            <div className={NuevoStyle.select}>
-              <label htmlFor="tipo_id">Tipo de identificacion:</label>
-              <select
-                name="tipo_id"
-                value={formData.tipo_id ?? initialUserData.tipo_id_usuario}
-                onChange={handleChange}
-                required
-              >
-                <option value="">Seleccione el tipo de Identificacion</option>
-                {tiposId.map((tipo:any) => (
-                  <option key={tipo} value={tipo.tipo_id}>
-                    {`${tipo.tipo_id}`}
-                  </option>
-                ))}
-              </select>
-            </div>
+            <div className={NuevoStyle.container2}>
+              <form onSubmit={handleSubmit} className={NuevoStyle.formulario}>
+                <div className={NuevoStyle.inputs}>
+                  <label htmlFor="nombre">Nombre(s):</label>
+                  <input
+                    type="text"
+                    name="nombre"
+                    value={formData.nombre ?? initialUserData.nombre_usuario}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className={NuevoStyle.inputs}>
+                  <label htmlFor="apellido">Apellido(s):</label>
+                  <input
+                    type="text"
+                    name="apellido"
+                    value={formData.apellido ?? initialUserData.apellido_usuario}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className={NuevoStyle.select}>
+                  <label htmlFor="tipo_id">Tipo de identificacion:</label>
+                  <select
+                    name="tipo_id"
+                    value={formData.tipo_id ?? initialUserData.tipo_id_usuario}
+                    onChange={handleChange}
+                    required
+                  >
+                    <option value="">Seleccione el tipo de Identificacion</option>
+                    {tiposId.map((tipo:any) => (
+                      <option key={tipo} value={tipo.tipo_id}>
+                        {`${tipo.tipo_id}`}
+                      </option>
+                    ))}
+                  </select>
+                </div>
 
-            <div className={NuevoStyle.inputs}>
-              <label htmlFor="id_usuario">Numero de ID:</label>
-              <input
-                type="number"
-                name="id_usuario"
-                value={formData.id_usuario ?? initialUserData.id_usuario_gym}
-                onChange={handleChange}
-              />
+                <div className={NuevoStyle.inputs}>
+                  <label htmlFor="id_usuario">Numero de ID:</label>
+                  <input
+                    type="number"
+                    name="id_usuario"
+                    value={formData.id_usuario ?? initialUserData.id_usuario_gym}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className={NuevoStyle.select}>
+                  <label htmlFor="tipo_plan">Plan:</label>
+                  <select name="tipo_plan" value={formData.tipo_plan ?? initialUserData.tipo_plan_gym} onChange={handleChange} required>
+                  <option value="">Seleccione un plan</option>
+                  {planes.map((plan: any) => (
+                    <option key={plan} value={plan.tipo_plan}>
+                      {`${plan.tipo_plan} - $${plan.precio}`}
+                    </option>
+                  ))}
+                  </select>
+                </div>
+                <div className={NuevoStyle.inputs}>
+                  <label htmlFor="fecha_inicio_gym">Fecha de inicio</label>
+                  <input
+                    type="date"
+                    name="fecha_inicio_gym"
+                    value={formData.fecha_inicio_gym ?? initialUserData.fecha_inicio_usuario}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className={NuevoStyle.buttons}>
+                  <a className={NuevoStyle.volver} href="/usuarios">
+                    Volver
+                  </a>
+                  <button type="submit" className={NuevoStyle.registrarNuevo}>
+                    Guardar cambios
+                  </button>
+                </div>
+              </form>
             </div>
-            <div className={NuevoStyle.select}>
-              <label htmlFor="tipo_plan">Plan:</label>
-              <select name="tipo_plan" value={formData.tipo_plan ?? initialUserData.tipo_plan_gym} onChange={handleChange} required>
-              <option value="">Seleccione un plan</option>
-              {planes.map((plan: any) => (
-                <option key={plan} value={plan.tipo_plan}>
-                  {`${plan.tipo_plan} - $${plan.precio}`}
-                </option>
-              ))}
-              </select>
-            </div>
-            <div className={NuevoStyle.inputs}>
-              <label htmlFor="fecha_inicio_gym">Fecha de inicio</label>
-              <input
-                type="date"
-                name="fecha_inicio_gym"
-                value={formData.fecha_inicio_gym ?? initialUserData.fecha_inicio_usuario}
-                onChange={handleChange}
-              />
-            </div>
-            <div className={NuevoStyle.buttons}>
-              <a className={NuevoStyle.volver} href="/usuarios">
-                Volver
-              </a>
-              <button type="submit" className={NuevoStyle.registrarNuevo}>
-                Guardar cambios
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
+          </div>
+        )
+      }
     </>
   );
 }

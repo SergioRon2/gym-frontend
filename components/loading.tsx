@@ -5,8 +5,7 @@ import Image from 'next/image';
 const LoadingSpinner = () => {
   return (
     <div className={StyleSpinner.container}>
-      <Image src='/gym-ani-1.gif' className={StyleSpinner.img} width={400} height={400} alt='pollito corriendo' />
-      <Image src='/puntos-suspensivos.gif' className={StyleSpinner.img} width={400} height={400} alt='puntos' />
+      <Image src='/gym-ani-1.gif' draggable={false} className={StyleSpinner.img} width={150} height={150} alt='pollito corriendo' />
     </div> 
   );
 };

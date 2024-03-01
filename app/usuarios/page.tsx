@@ -5,36 +5,45 @@ import StyleUsuarios from "styles/usuarios.module.css";
 import swal from "sweetalert";
 import classNames from "classnames";
 import Link from "next/link";
+import LoadingSpinner from "@/components/loading";
 
 
 export default function Miembros() {
-  const [usuarios, setUsuarios] = useState([]);
-  const [filtroTexto, setFiltroTexto] = useState("");
-  const [filtroCategoria, setFiltroCategoria] = useState("tipoPlan"); // Puedes cambiar el valor por defecto según tus necesidades
+  const [usuarios, setUsuarios] = useState<any[]>([]) 
+  const [filtroTexto, setFiltroTexto] = useState("") 
+  const [filtroCategoria, setFiltroCategoria] = useState("tipoPlan")  
+  const [notificacionesMostradas, setNotificacionesMostradas] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+
+  useEffect(() => {
+      setLoading(false);
+  }, []);
+  
 
   useEffect(() => {
     const datosUsuarios = async () => {
-      const res = await apiRestGet("plan-usuario");
-      setUsuarios(res.tarjetas);
-      console.log(res.tarjetas);
-    };
+      const res = await apiRestGet("plan-usuario") 
+      setUsuarios(res.tarjetas)
+      console.log(res.tarjetas)
+    } 
 
-    datosUsuarios();
-  }, []);
+    datosUsuarios() 
+  }, []) 
 
   // ------------------------- ACTUALIZAR USUARIO --------------------------------
 
   const actualizarUsuario = async (userId: any) => {
     // Redirige a la página de actualización con la ID como parámetro
-    window.location.href = `/actualizar?id=${userId}`;
-  };
+    window.location.href = `/actualizar?id=${userId}` 
+  } 
 
   // ------------------------- DETALLES DEL USUARIO --------------------------------
 
   const detallesUsuario = async (userId: any) => {
     try {
-      const res = await apiRestGet(`detalle-usuario/${userId}`);
-      console.log(res);
+      const res = await apiRestGet(`detalle-usuario/${userId}`) 
+      console.log(res) 
       swal({
         title: `Detalles del usuario`,
         text: `
@@ -49,18 +58,18 @@ export default function Miembros() {
           Fecha fin: ${res.fecha_fin}
           `,
         icon: "info",
-    });
+    }) 
     
     } catch (error) {
       // Manejar errores en la solicitud API
-      console.error("Error al obtener detalles del usuario:", error);
+      console.error("Error al obtener detalles del usuario:", error) 
       swal(
         "Error",
         "Hubo un problema al obtener detalles del usuario!",
         "error"
-      );
+      ) 
     }
-  };
+  } 
 
   // ------------------------- ELIMINAR USUARIO --------------------------------
 
@@ -73,14 +82,14 @@ export default function Miembros() {
       icon: "warning",
       buttons: ["Cancelar", "Sí, eliminar"],
       dangerMode: true,
-    });
+    }) 
 
     // Verificar si el usuario confirmó la eliminación
     if (confirmDelete) {
       try {
         // Realizar la solicitud DELETE a la API
-        const response = await apiRestDelete(`eliminar/${userId}`);
-        console.log(response);
+        const response = await apiRestDelete(`eliminar/${userId}`) 
+        console.log(response) 
 
         // Verificar si la eliminación fue exitosa
         if (response.success) {
@@ -90,26 +99,26 @@ export default function Miembros() {
             text: response.mensaje,
             icon: "success",
           }).then(function () {
-            window.location.href = "/usuarios";
-          });
+            window.location.href = "/usuarios" 
+          }) 
         } else {
           // La eliminación falló, mostrar SweetAlert de error
-          swal("Error", response.mensaje, "error");
+          swal("Error", response.mensaje, "error") 
         }
       } catch (error: any) {
         // Manejar errores de la solicitud DELETE, si es necesario
-        console.error("Error al eliminar el usuario:", error);
+        console.error("Error al eliminar el usuario:", error) 
 
         // Mostrar SweetAlert de error con el mensaje adecuado
-        swal("Error", error, "error");
+        swal("Error", error, "error") 
       }
     }
-  };
+  } 
 
-  const [hover, setHover] = useState(null);
+  const [hover, setHover] = useState(null) 
 
   const filtrarUsuarios = () => {
-    let usuariosFiltrados = usuarios;
+    let usuariosFiltrados = usuarios 
 
     // Filtrar por texto
     if (filtroTexto.trim() !== "") {
@@ -117,7 +126,7 @@ export default function Miembros() {
         `${user.nombre} ${user.apellido}`
           .toLowerCase()
           .includes(filtroTexto.toLowerCase())
-      );
+      ) 
     }
 
     // Filtrar por categoría
@@ -125,23 +134,71 @@ export default function Miembros() {
       usuariosFiltrados = usuariosFiltrados.sort((a: any, b: any) => {
         // Ajusta según la categoría seleccionada (puedes agregar más categorías según sea necesario)
         if (filtroCategoria === "diasRestantes") {
-          return a.dias_restantes - b.dias_restantes;
+          return a.dias_restantes - b.dias_restantes
         } else if (filtroCategoria === "alfabeticamente") {
-          return a.nombre.localeCompare(b.nombre);
+          return a.nombre.localeCompare(b.nombre)
         } else if (filtroCategoria === "tipoPlan") {
-          return a.tipo_plan.localeCompare(b.tipo_plan);
+          return a.tipo_plan.localeCompare(b.tipo_plan)
         }
 
-        return 0; // Si la categoría no coincide
-      });
+        return 0  // Si la categoría no coincide
+      }) 
     }
 
-    return usuariosFiltrados;
-  };
+    return usuariosFiltrados 
+  } 
+
+  // NOTIFICACION <= 5 DIAS RESTANTES
+
+  const notificacionDiasRestantes = async (usuario: any) => {
+    try {
+      const nombreUsuario = usuario.nombre_usuario;
+      const diasRestantes = usuario.dias_restantes_usuario;
+
+      console.log(`Verificando usuario: ${nombreUsuario}, días restantes: ${diasRestantes}`);
+  
+      if (diasRestantes <= 5 || diasRestantes === 10) {
+        swal({
+          title: 'Notificacion',
+          text: `Al cliente ${nombreUsuario} le quedan ${diasRestantes} días`,
+          icon: 'info',
+        }) 
+      }
+    } catch (error) {
+      console.error("Error al obtener detalles del usuario:", error);
+      swal("Error", "Hubo un problema al obtener detalles del usuario!", "error");
+    }
+  }
+  
+  useEffect(() => {
+    const notificaciones: string[] = []; // Array para almacenar todas las notificaciones
+    
+    usuarios.forEach(usuario => {
+      const { nombre_usuario, dias_restantes_usuario } = usuario;
+  
+      // Verificar si el usuario cumple con los criterios
+      if (dias_restantes_usuario <= 5 || dias_restantes_usuario === 10) {
+        notificaciones.push(`Al cliente ${nombre_usuario} le quedan ${dias_restantes_usuario} días`)
+      }
+    })
+  
+    // Mostrar todas las notificaciones juntas
+    if (!notificacionesMostradas && notificaciones.length > 0) {
+      swal({
+        title: 'Notificaciones',
+        text: notificaciones.join('\n'),
+        icon: 'info',
+      });
+      setNotificacionesMostradas(true)
+    }
+  }, [usuarios, notificacionesMostradas]);
+  
 
   return (
     <>
-      <div className={StyleUsuarios.container}>
+      {
+        loading ? <LoadingSpinner/> : (
+          <div className={StyleUsuarios.container}>
         <div className={StyleUsuarios.opciones}>
           <div className={StyleUsuarios.filtrosContainer}>
             <input
@@ -168,7 +225,8 @@ export default function Miembros() {
           </div>
         </div>
         <div className={StyleUsuarios.usuarios}>
-          {usuarios.length > 0 ? (
+          {
+          usuarios.length > 0 ? (
             usuarios.map((user: any, index: any) => (
               <div
                 className={classNames(
@@ -189,7 +247,7 @@ export default function Miembros() {
                 <h2>
                   {user.nombre_usuario} {user.apellido_usuario}
                 </h2>
-                <h4>ID: {user.id_usuario_gym}</h4>
+                <h4>Numero de ID: {user.id_usuario_gym}</h4>
                 <h4>Plan : {user.tipo_plan_gym}</h4>
                 <div
                   className={StyleUsuarios.buttons}
@@ -197,7 +255,7 @@ export default function Miembros() {
                 >
                   <button
                     onClick={() => {
-                      detallesUsuario(user.id);
+                      detallesUsuario(user.id) 
                     }}
                     className={StyleUsuarios.button}
                   >
@@ -205,7 +263,7 @@ export default function Miembros() {
                   </button>
                   <button
                     onClick={() => {
-                      actualizarUsuario(user.id);
+                      actualizarUsuario(user.id) 
                     }}
                     className={StyleUsuarios.button}
                   >
@@ -213,7 +271,7 @@ export default function Miembros() {
                   </button>
                   <button
                     onClick={() => {
-                      eliminarUsuario(user.id);
+                      eliminarUsuario(user.id) 
                     }}
                     className={StyleUsuarios.button}
                   >
@@ -229,6 +287,8 @@ export default function Miembros() {
           )}
         </div>
       </div>
+        )
+      }
     </>
-  );
+  ) 
 }

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Metadata } from '@/config/metadata'
 
 function HeadLinks(){
     return <>
@@ -10,6 +11,8 @@ function HeadLinks(){
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin='' />
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Rubik&display=swap" rel="stylesheet" />
         <title>GymSoftware</title>
+        <title>{Metadata.title}</title>
+        <meta name="description" content={Metadata.description} />
     </>
 }
 

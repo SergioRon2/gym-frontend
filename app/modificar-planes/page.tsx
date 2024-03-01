@@ -4,10 +4,16 @@ import { useEffect, useState } from 'react'
 import ModificarPlanes from 'styles/modificar-planes.module.css'
 import Link from 'next/link'
 import swal from 'sweetalert'
+import LoadingSpinner from '@/components/loading'
 
 const ModificacionPlanes = () => {
 
-// Se empiezan a tomar los planes desde el backend para mostrarlos en pantalla
+    const [loading, setLoading] = useState(true);
+
+
+    useEffect(() => {
+        setLoading(false);
+    }, []);
 
     const [planes, setPlanes] = useState([])
 
@@ -131,58 +137,62 @@ const ModificacionPlanes = () => {
 
 
     return <>
-        <div className={ModificarPlanes.container}>
-            <h1>Modificacion de planes</h1>
-            <div className={ModificarPlanes.planesActuales}>
-                <div className={ModificarPlanes.categoria}>
-                    <p>Plan</p>
-                    <p>Precio</p>
-                    <p>Dias</p>
-                    <p>Accion</p>
-                </div>
-                <div className={ModificarPlanes.scrollPlanes}>
-                    {
-                        planes.map((plan:any)=> (
-                            <>
-                                <div className={ModificarPlanes.listaPlanes}>
-                                    <p>{plan.tipo_plan}</p>
-                                    <p>$ {plan.precio}</p>
-                                    <p>{plan.dias}</p>
-                                    <div className={ModificarPlanes.acciones}>
-                                        <p className={ModificarPlanes.editar} onClick={()=>{editarPlan(plan), href()}}>Editar</p>
-                                        <p className={ModificarPlanes.eliminar} onClick={()=>{eliminarPlan(plan)}}>Eliminar</p>
-                                    </div>
+        {
+            loading ? <LoadingSpinner /> : (
+                <div className={ModificarPlanes.container}>
+                    <h1>Modificacion de planes</h1>
+                    <div className={ModificarPlanes.planesActuales}>
+                        <div className={ModificarPlanes.categoria}>
+                            <p>Plan</p>
+                            <p>Precio</p>
+                            <p>Dias</p>
+                            <p>Accion</p>
+                        </div>
+                        <div className={ModificarPlanes.scrollPlanes}>
+                            {
+                                planes.map((plan:any)=> (
+                                    <>
+                                        <div className={ModificarPlanes.listaPlanes}>
+                                            <p>{plan.tipo_plan}</p>
+                                            <p>$ {plan.precio}</p>
+                                            <p>{plan.dias}</p>
+                                            <div className={ModificarPlanes.acciones}>
+                                                <p className={ModificarPlanes.editar} onClick={()=>{editarPlan(plan), href()}}>Editar</p>
+                                                <p className={ModificarPlanes.eliminar} onClick={()=>{eliminarPlan(plan)}}>Eliminar</p>
+                                            </div>
+                                        </div>
+                                    </>
+                                ))
+                            }
+                        </div>
+                    </div>
+                    <div className={ModificarPlanes.formulario}>
+                        <div className={ModificarPlanes.campos}>
+                            <form onSubmit={handleSubmit} id='formulario'>
+                                <div className="">
+                                    <label htmlFor="tipo_plan">Plan</label>
+                                    <input type="text" value={formulario.tipo_plan} onChange={handleInputChange} name='tipo_plan' required />
                                 </div>
-                            </>
-                        ))
-                    }
+                                <div className="">
+                                    <label htmlFor="precio">Precio</label>
+                                    <input type="number" value={formulario.precio} onChange={handleInputChange} name='precio' required />
+                                </div>
+                                <div className="">
+                                    <label htmlFor="dias">Dias</label>
+                                    <input type="number" value={formulario.dias} onChange={handleInputChange} name='dias' required />
+                                </div>
+                                <div className={ModificarPlanes.opciones}>
+                                    <input type="submit" className={ModificarPlanes.button} value={formularioEditado.editable ? 'Editar plan' : 'Crear plan'} />
+                                    <Link href="/usuarios">
+                                        <p className={ModificarPlanes.volver}>Volver</p>
+                                    </Link>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div className={ModificarPlanes.formulario}>
-                <div className={ModificarPlanes.campos}>
-                    <form onSubmit={handleSubmit} id='formulario'>
-                        <div className="">
-                            <label htmlFor="tipo_plan">Plan</label>
-                            <input type="text" value={formulario.tipo_plan} onChange={handleInputChange} name='tipo_plan' required />
-                        </div>
-                        <div className="">
-                            <label htmlFor="precio">Precio</label>
-                            <input type="number" value={formulario.precio} onChange={handleInputChange} name='precio' required />
-                        </div>
-                        <div className="">
-                            <label htmlFor="dias">Dias</label>
-                            <input type="number" value={formulario.dias} onChange={handleInputChange} name='dias' required />
-                        </div>
-                        <div className={ModificarPlanes.opciones}>
-                            <input type="submit" className={ModificarPlanes.button} value={formularioEditado.editable ? 'Editar plan' : 'Crear plan'} />
-                            <Link href="/usuarios">
-                                <p className={ModificarPlanes.volver}>Volver</p>
-                            </Link>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+            )
+        }
     </>
 
 }
