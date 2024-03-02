@@ -111,63 +111,65 @@ export default function MiembroNuevo() {
   
     return (
       <>
-        loading ? <LoadingSpinner /> : (
-          <div className={NuevoStyle.general}>
-            <div className={NuevoStyle.container1}>
-              <h1 className={NuevoStyle.title}>Registrar Nuevo Miembro</h1>
-              <Image draggable={false} src='/banner-nuevo-usuario.png' width={300} height={300} alt="banner-nuevo-usuario.png" />
+        {
+          loading ? <LoadingSpinner /> : (
+            <div className={NuevoStyle.general}>
+              <div className={NuevoStyle.container1}>
+                <h1 className={NuevoStyle.title}>Registrar Nuevo Miembro</h1>
+                <Image draggable={false} src='/banner-nuevo-usuario.png' width={300} height={300} alt="banner-nuevo-usuario.png" />
+              </div>
+              <div className={NuevoStyle.container2}>
+                <form onSubmit={handleSubmit} className={NuevoStyle.formulario}>
+                  <div className={NuevoStyle.inputs}>
+                    <label htmlFor="nombre">Nombre(s):</label>
+                    <input type="text" name="nombre" value={formData.nombre} onChange={handleChange} required/>
+                  </div>
+                  <div className={NuevoStyle.inputs}>
+                    <label htmlFor="apellido">Apellido(s):</label>
+                    <input type="text" name="apellido" value={formData.apellido} onChange={handleChange} required/>
+                  </div>
+                  <div className={NuevoStyle.select}>
+                    <label htmlFor="tipo_id">Identificacion:</label>
+                    <select name="tipo_id" value={formData.tipo_id} onChange={handleChange} required>
+                      <option value="">Seleccione el tipo de Identificacion</option>
+                      {
+                        tiposId.map((tipo:any)=>(
+                          // eslint-disable-next-line react/jsx-key
+                          <option value={tipo.tipo_id}>{tipo.tipo_id}</option>
+                        ))
+                      }
+                    </select>
+                  </div>
+                  <div className={NuevoStyle.inputs}>
+                    <label htmlFor="id_usuario">Numero de ID:</label>
+                    <input type="number" name="id_usuario" value={formData.id_usuario} onChange={handleChange} minLength={6} required/>
+                  </div>
+                  <div className={NuevoStyle.select}>
+                    <label htmlFor="plan">Plan:</label>
+                    <select name="plan" value={formData.plan} onChange={handleChange} required>
+                      <option value="">Seleccione un plan</option>
+                      {
+                        planes.map((plan:any)=>(
+                          <option key={plan} value={plan.tipo_plan}>{plan.tipo_plan} - ${plan.precio}</option>
+                        ))
+                      }
+                    </select>
+                  </div>
+                  <div className={NuevoStyle.inputs}>
+                    <label htmlFor="fechaInicio">Fecha de inicio</label>
+                    <input type="date" name="fechaInicio" value={formData.fechaInicio} onChange={handleChange} required/>
+                  </div>
+                  <div className={NuevoStyle.buttons}>
+                    <a className={NuevoStyle.volver} href="/usuarios">Volver</a>
+                    <button type="submit" className={NuevoStyle.registrarNuevo}>
+                      Registrar nuevo miembro
+                    </button>
+                  </div>
+                </form>
+              </div>
             </div>
-            <div className={NuevoStyle.container2}>
-              <form onSubmit={handleSubmit} className={NuevoStyle.formulario}>
-                <div className={NuevoStyle.inputs}>
-                  <label htmlFor="nombre">Nombre(s):</label>
-                  <input type="text" name="nombre" value={formData.nombre} onChange={handleChange} required/>
-                </div>
-                <div className={NuevoStyle.inputs}>
-                  <label htmlFor="apellido">Apellido(s):</label>
-                  <input type="text" name="apellido" value={formData.apellido} onChange={handleChange} required/>
-                </div>
-                <div className={NuevoStyle.select}>
-                  <label htmlFor="tipo_id">Identificacion:</label>
-                  <select name="tipo_id" value={formData.tipo_id} onChange={handleChange} required>
-                    <option value="">Seleccione el tipo de Identificacion</option>
-                    {
-                      tiposId.map((tipo:any)=>(
-                        // eslint-disable-next-line react/jsx-key
-                        <option value={tipo.tipo_id}>{tipo.tipo_id}</option>
-                      ))
-                    }
-                  </select>
-                </div>
-                <div className={NuevoStyle.inputs}>
-                  <label htmlFor="id_usuario">Numero de ID:</label>
-                  <input type="number" name="id_usuario" value={formData.id_usuario} onChange={handleChange} minLength={6} required/>
-                </div>
-                <div className={NuevoStyle.select}>
-                  <label htmlFor="plan">Plan:</label>
-                  <select name="plan" value={formData.plan} onChange={handleChange} required>
-                    <option value="">Seleccione un plan</option>
-                    {
-                      planes.map((plan:any)=>(
-                        <option key={plan} value={plan.tipo_plan}>{plan.tipo_plan} - ${plan.precio}</option>
-                      ))
-                    }
-                  </select>
-                </div>
-                <div className={NuevoStyle.inputs}>
-                  <label htmlFor="fechaInicio">Fecha de inicio</label>
-                  <input type="date" name="fechaInicio" value={formData.fechaInicio} onChange={handleChange} required/>
-                </div>
-                <div className={NuevoStyle.buttons}>
-                  <a className={NuevoStyle.volver} href="/usuarios">Volver</a>
-                  <button type="submit" className={NuevoStyle.registrarNuevo}>
-                    Registrar nuevo miembro
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-        )
+          )
+        }
       </>
     );
   }

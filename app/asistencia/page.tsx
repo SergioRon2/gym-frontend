@@ -22,7 +22,7 @@ export default function Asistencias(){
         try {
             // Realizar la solicitud POST al backend para registrar la asistencia
             const response = await apiRestPost('/crear-asistencia/', {
-                usuario_id: idUsuario,
+                nuip: idUsuario,
                 presente: true, // Opcional, dependiendo de tus requisitos
                 fecha: fecha
             });
@@ -37,8 +37,7 @@ export default function Asistencias(){
                     icon: 'success',
                 }).then(() => {
                     // Limpia los campos después de registrar la asistencia
-                    setIdUsuario('');
-                    setFecha('');
+                    window.location.href = '/consultas'
                 });
             }
         } catch (error) {
@@ -58,9 +57,10 @@ export default function Asistencias(){
                             <h1 className={AsistenciasStyle.title}>Asistencia</h1>
                             <form onSubmit={handleRegistrarAsistencia}>
                                 <div className={AsistenciasStyle.datos}>
-                                    <label className="mr-2 text-light">ID especial del usuario:</label>
+                                    <label className="mr-2 text-light">NUIP del usuario:</label>
                                     <input 
                                         type="text" 
+                                        name='nuip'
                                         value={idUsuario} 
                                         onChange={(event) => setIdUsuario(event.target.value)} 
                                         className="form-control" 

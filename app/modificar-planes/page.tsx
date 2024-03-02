@@ -5,6 +5,8 @@ import ModificarPlanes from 'styles/modificar-planes.module.css'
 import Link from 'next/link'
 import swal from 'sweetalert'
 import LoadingSpinner from '@/components/loading'
+import { FaPencilAlt } from "react-icons/fa";
+import { FaTrash } from "react-icons/fa";
 
 const ModificacionPlanes = () => {
 
@@ -16,12 +18,14 @@ const ModificacionPlanes = () => {
     }, []);
 
     const [planes, setPlanes] = useState([])
+    
 
     useEffect(()=>{
         const datos = async() => {
             const res = await apiRestGet('planes')
-            setPlanes(res.planes_gym)
-            console.log(res.planes_gym)
+            const planes = res.planes_gym;
+            setPlanes(planes);
+            console.log(planes);
         }
         datos()
     }, []);
@@ -136,6 +140,7 @@ const ModificacionPlanes = () => {
     }
 
 
+
     return <>
         {
             loading ? <LoadingSpinner /> : (
@@ -157,8 +162,8 @@ const ModificacionPlanes = () => {
                                             <p>$ {plan.precio}</p>
                                             <p>{plan.dias}</p>
                                             <div className={ModificarPlanes.acciones}>
-                                                <p className={ModificarPlanes.editar} onClick={()=>{editarPlan(plan), href()}}>Editar</p>
-                                                <p className={ModificarPlanes.eliminar} onClick={()=>{eliminarPlan(plan)}}>Eliminar</p>
+                                                <p className={ModificarPlanes.editar} onClick={()=>{editarPlan(plan), href()}}><FaPencilAlt style={{display: 'flex', margin: '4px auto'}} /></p>
+                                                <p className={ModificarPlanes.eliminar} onClick={()=>{eliminarPlan(plan)}}><FaTrash style={{display: 'flex', margin: '4px auto'}} /></p>
                                             </div>
                                         </div>
                                     </>

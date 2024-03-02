@@ -6,6 +6,7 @@ import Image from 'next/image'
 import Mistery from '../../public/mistery.png'
 import swal from 'sweetalert'
 import LoadingSpinner from '@/components/loading'
+import { FaTrash } from "react-icons/fa";
 
 export default function Consultas(){
 
@@ -76,22 +77,20 @@ export default function Consultas(){
                                     <h1 className={ConsultaStyle.title}>Todas las asistencias</h1>
                                     <table className={ConsultaStyle.tabla}>
                                         <tr className={ConsultaStyle.headingTabla}>
-                                            <th className={ConsultaStyle.titulosTabla}>ID especial</th>
-                                            <th className={ConsultaStyle.titulosTabla}>Nombre</th>
-                                            <th className={ConsultaStyle.titulosTabla}>Fecha</th>
-                                            <th className={ConsultaStyle.titulosTabla}>Numero de identificacion</th>
-                                            <th className={ConsultaStyle.titulosTabla}>Presente</th>
+                                            <th className={ConsultaStyle.titulosTabla}>NUIP</th>
+                                            <th className={ConsultaStyle.titulosTabla}>Nombre del cliente</th>
+                                            <th className={ConsultaStyle.titulosTabla}>Fecha de la asistencia</th>
+                                            <th className={ConsultaStyle.titulosTabla}>Hora de la asistencia</th>
                                             <th className={ConsultaStyle.titulosTabla}>Eliminar</th>
                                         </tr>
                                         {
                                             asistencias.map((data:any)=>(
                                                 <tr key={data} className={ConsultaStyle.estructuraTabla}>
-                                                    <td className={ConsultaStyle.respuestaTabla}>{data.usuario__id}</td>
+                                                    <td className={ConsultaStyle.respuestaTabla}>{data.usuario__id_usuario}</td>
                                                     <td className={ConsultaStyle.respuestaTabla}>{data.usuario__nombre}</td>
                                                     <td className={ConsultaStyle.respuestaTabla}>{data.fecha}</td>
-                                                    <td className={ConsultaStyle.respuestaTabla}>{data.usuario__id_usuario}</td>
-                                                    <td className={ConsultaStyle.respuestaTabla}>{data.presente == true ? '✔' : '✘'}</td>
-                                                    <td className={ConsultaStyle.eliminarAsistencia} onClick={()=>{eliminarAsistencia(data.id)}}>🗑️</td>
+                                                    <td className={ConsultaStyle.respuestaTabla}>{data.hora}</td>
+                                                    <td className={ConsultaStyle.eliminarAsistencia} onClick={()=>{eliminarAsistencia(data.id)}}><FaTrash style={{display: 'flex', margin: 'auto'}} /></td>
                                                 </tr>
                                             )) 
                                         }

@@ -230,6 +230,7 @@
     justify-content: end;
     align-items: center;
     width: 100%;
+    gap: 20px;
 }
 
 .link{
@@ -238,4 +239,36 @@
 
 .nuevoUsuario > .link:hover{
     color: #999;
+}
+
+.notificaciones{
+    width: 3vw;
+    display: flex;
+    justify-content: center;
+}
+
+.notificaciones > .campana{
+    transition: all .3s ease;
+    cursor: pointer;
+}
+.notificaciones > .campana:hover{
+    color: #999;
+}
+.alertaNotificacion{
+    position: absolute;
+    border-radius: 50%;
+    background-color: red;
+    width: 8px;
+    height: 8px;
+    margin-left: 10px;
+    margin-bottom: 2px;
+}
+.desalertaNotificacion{
+    position: absolute;
+    border-radius: 50%;
+    background-color: transparent;
+    width: 8px;
+    height: 8px;
+    margin-left: 10px;
+    margin-bottom: 2px;
 }
