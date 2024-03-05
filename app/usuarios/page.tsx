@@ -46,10 +46,9 @@ export default function Miembros() {
       swal({
         title: `Detalles del usuario`,
         text: `
-          ID especial: ${res.id}
           Nombres: ${res.nombre}
           Apellidos: ${res.apellido}
-          ID: ${res.id_usuario}
+          NUIP: ${res.id_usuario}
           Plan: ${res.tipo_plan}
           Tipo de identificacion: ${res.tipo_id}
           Fecha de inicio: ${res.fecha_inicio_gym}
@@ -57,6 +56,18 @@ export default function Miembros() {
           Fecha fin: ${res.fecha_fin}
           `,
         icon: "info",
+        buttons: {
+          cancel: "Cerrar",
+          descargarQR: {
+            text: "Descargar QR",
+            value: "descargar",
+          },
+        },
+      }).then((value) => {
+        // Manejar la descarga del código QR si se hace clic en el botón correspondiente
+        if (value === "descargar") {
+          window.location.href = `/api/descargarqr/${userId}`;
+        }
       });
     } catch (error) {
       // Manejar errores en la solicitud API
@@ -67,7 +78,8 @@ export default function Miembros() {
         "error"
       );
     }
-  };
+};
+
 
   // ------------------------- ELIMINAR USUARIO --------------------------------
 

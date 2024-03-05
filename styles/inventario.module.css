@@ -7,7 +7,7 @@
 }
 .contenido{
     height: 80vh;
-    width: 70vw;
+    width: 80vw;
     background-color: #0119;
     border: 1px solid #044;
     transition: all .3s ease-in;
@@ -30,7 +30,7 @@
 }
 .menu{
     height: 80vh;
-    width: 25vw;
+    width: 15vw;
     background-color: #0119;
     border: 1px solid #044;
     transition: all .3s ease-in;
