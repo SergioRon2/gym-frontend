@@ -56,18 +56,18 @@ export default function Miembros() {
           Fecha fin: ${res.fecha_fin}
           `,
         icon: "info",
-        buttons: {
-          cancel: "Cerrar",
-          descargarQR: {
-            text: "Descargar QR",
-            value: "descargar",
-          },
-        },
-      }).then((value) => {
-        // Manejar la descarga del código QR si se hace clic en el botón correspondiente
-        if (value === "descargar") {
-          window.location.href = `/api/descargarqr/${userId}`;
-        }
+      //   buttons: {
+      //     cancel: "Cerrar",
+      //     descargarQR: {
+      //       text: "Descargar QR",
+      //       value: "descargar",
+      //     },
+      //   },
+      // }).then((value) => {
+      //   // Manejar la descarga del código QR si se hace clic en el botón correspondiente
+      //   if (value === "descargar") {
+      //     window.location.href = `/api/descargarqr/${userId}`;
+      //   }
       });
     } catch (error) {
       // Manejar errores en la solicitud API
