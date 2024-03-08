@@ -35,10 +35,22 @@
     border: 1px solid #044;
     transition: all .3s ease-in;
     backdrop-filter: blur(5px);
-    justify-content: space-evenly;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 30px;
+    flex-direction: column;
     flex-wrap: wrap;
-    padding: 40px;
+    padding: 40px 0;
     overflow-x: hidden;
+}
+
+.links{
+    transition: all .1s ease;
+}
+
+.links:hover{
+    color : #888
 }
 
 .scrollArticulos{

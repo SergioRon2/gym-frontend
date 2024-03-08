@@ -35,7 +35,7 @@ export default function Inventario(){
 
   const actualizarArticulo = async (itemId: any) => {
     // Redirige a la página de actualización con la ID como parámetro
-    window.location.href = `/actualizar-articulo?id=${itemId}`;
+    window.location.href = `/inventario/actualizar-articulo?id=${itemId}`;
   }
 
 
@@ -111,7 +111,9 @@ export default function Inventario(){
             loading ? <LoadingSpinner/> : (
               <div className={StyleArticulos.container}>
                 <div className={StyleArticulos.menu}>
-                    
+                  <a href={"/inventario/articulos"} className={StyleArticulos.links}>Articulos</a>
+                  <a href={"/inventario/reportes"} className={StyleArticulos.links}>Reportes</a>
+                  <a href={"/inventario/detalles"} className={StyleArticulos.links}>Detalles</a>
                 </div>
                 <div className={StyleArticulos.contenido}>
                   <h3 className={StyleArticulos.title}>Articulos</h3>
@@ -123,7 +125,7 @@ export default function Inventario(){
                     <h2>Opciones</h2>
                   </div>
                   <div className={StyleArticulos.scrollArticulos}>
-                  {articulos.length > 0 ? (
+                  {/* {articulos.length > 0 ? (
                     articulos.map((item:any, index:any) => (
                       <div className={StyleArticulos.card} key={index}>
                         <h2>{item.nombre}</h2>
@@ -138,7 +140,7 @@ export default function Inventario(){
                     <div className={StyleArticulos.h2}>
                       <h2>Para crear un articulo, haz clic en <b>Nuevo Articulo</b>.</h2>
                     </div>
-                  )}  
+                  )}   */}
                   </div>
                 </div>
               </div>

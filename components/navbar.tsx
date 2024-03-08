@@ -30,7 +30,7 @@ export default function Navbar(){
                             <Link className={navbar.link} href={"/modificar-planes"}>Modificar Planes</Link>
                         </li>
                         <li className="">
-                            <Link className={navbar.link} href={"/inventario"}>Inventario</Link>
+                            <Link className={navbar.link} href={"/inventario/articulos"}>Inventario</Link>
                         </li>
                     </ul>
                 </div>
