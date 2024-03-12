@@ -52,7 +52,7 @@ export default function CrearArticulo() {
                 text: 'Articulo creado correctamente.',
                 icon: 'success',
             }).then(() => {
-                window.location.href = '/inventario'
+                window.location.href = '/inventario/articulos'
             });
           } else {
               // En caso de error, muestra el SweetAlert con el mensaje de error

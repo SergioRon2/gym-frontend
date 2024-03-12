@@ -1,7 +1,7 @@
 'use client';
 import { apiRestDelete, apiRestGet } from '@/services/services'
 import { useEffect, useState } from 'react'
-import StyleArticulos from 'styles/inventario.module.css'
+import StyleInventario from 'styles/inventario.module.css'
 import swal from 'sweetalert'
 import { AiOutlineEye } from "react-icons/ai";
 import LoadingSpinner from '@/components/loading';
@@ -109,35 +109,35 @@ export default function Inventario(){
   return <>
           {
             loading ? <LoadingSpinner/> : (
-              <div className={StyleArticulos.container}>
-                <div className={StyleArticulos.menu}>
-                  <a href={"/inventario/articulos"} className={StyleArticulos.links}>Articulos</a>
-                  <a href={"/inventario/reportes"} className={StyleArticulos.links}>Reportes</a>
-                  <a href={"/inventario/detalles"} className={StyleArticulos.links}>Detalles</a>
+              <div className={StyleInventario.container}>
+                <div className={StyleInventario.menu}>
+                  <a href={"/inventario/articulos"} className={StyleInventario.links}>Articulos</a>
+                  <a href={"/inventario/reportes"} className={StyleInventario.links}>Reportes</a>
+                  <a href={"/inventario/detalles"} className={StyleInventario.links}>Detalles</a>
                 </div>
-                <div className={StyleArticulos.contenido}>
-                  <h3 className={StyleArticulos.title}>Articulos</h3>
-                  <div className={StyleArticulos.nuevoArticulo}>
-                    <a href={'/nuevo-articulo'}>+ Nuevo articulo</a> 
+                <div className={StyleInventario.contenido}>
+                  <h3 className={StyleInventario.title}>Articulos</h3>
+                  <div className={StyleInventario.nuevoArticulo}>
+                    <a href={'inventario/nuevo-articulo'}>+ Nuevo articulo</a> 
                   </div>
-                  <div className={StyleArticulos.titulos}>
+                  <div className={StyleInventario.titulos}>
                     <h2>Nombre del articulo</h2>
                     <h2>Opciones</h2>
                   </div>
-                  <div className={StyleArticulos.scrollArticulos}>
+                  <div className={StyleInventario.scrollArticulos}>
                   {articulos.length > 0 ? (
                     articulos.map((item:any, index:any) => (
-                      <div className={StyleArticulos.card} key={index}>
+                      <div className={StyleInventario.card} key={index}>
                         <h2>{item.nombre}</h2>
-                        <div className={StyleArticulos.buttons}>
-                          <button onClick={() => {detallesArticulo(item.id)}} className={StyleArticulos.buttonBlue}>Ver</button>
-                          <button onClick={() => {actualizarArticulo(item.id)}} className={StyleArticulos.buttonGreen}>Actualizar</button>
-                          <button onClick={() => {eliminarArticulo(item.id)}} className={StyleArticulos.buttonRed}>Eliminar</button>
+                        <div className={StyleInventario.buttons}>
+                          <button onClick={() => {detallesArticulo(item.id)}} className={StyleInventario.buttonBlue}>Ver</button>
+                          <button onClick={() => {actualizarArticulo(item.id)}} className={StyleInventario.buttonGreen}>Actualizar</button>
+                          <button onClick={() => {eliminarArticulo(item.id)}} className={StyleInventario.buttonRed}>Eliminar</button>
                         </div>
                       </div>
                     ))
                   ) : (
-                    <div className={StyleArticulos.h2}>
+                    <div className={StyleInventario.h2}>
                       <h2>Para crear un articulo, haz clic en <b>Nuevo Articulo</b>.</h2>
                     </div>
                   )}  

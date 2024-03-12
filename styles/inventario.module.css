@@ -1,3 +1,4 @@
+
 .container{
     display: flex;
     flex-direction: row;
@@ -159,4 +160,81 @@
 }
 .nuevoArticulo a:hover{
     color: #aaa;
+}
+
+
+
+/* DETALLES */
+
+.contenidoDetalles{
+    display: flex;
+    align-items: center;
+}
+
+.containerDetalles{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    height: 85%;
+    width: 100%;
+}
+
+.detallesGenerales{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    min-height: 15vh;
+    background-color: #022;
+    border: 1px solid #ddd;
+}
+
+.tablaContainer{
+    height: 90%;
+}
+
+.tablaRegistros{
+    width: 100%;
+}
+
+.titulosTabla{
+    background-color: #011;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.atributosTabla{
+    background-color: #ddd3;
+    text-align: center;
+    border: 1px solid #ddd;
+    padding: 5px;
+}
+
+.atributosTabla:nth-child(3),
+.atributosTabla:nth-child(5){
+    background-color: #f102;
+}
+
+.atributosTabla:nth-child(2),
+.atributosTabla:nth-child(4){
+    background-color: #0e01;
+}
+
+.total{
+    width: auto;
+    padding: 5px 50px;
+    border-top: 1px solid;
+    border-left: 1px solid;
+
+    display: flex;
+    margin: auto 0 auto auto;
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 30px;
+    background-color: #011;
+}
+
+.h1Total{
+    text-align: center;
 }

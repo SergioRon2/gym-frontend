@@ -2,8 +2,7 @@
 import HomeStyle from 'styles/home.module.css'
 import Image from 'next/image'
 import MenBanner from '../public/men-banner.png'
-import { useEffect, useState } from 'react';
-import anime from 'animejs' ;
+import { useEffect, useState } from 'react'; 
 import LoadingSpinner from '@/components/loading';
 
 
@@ -15,14 +14,6 @@ export default function Home() {
   useEffect(() => {
       setLoading(false);
   }, []);
-
-  useEffect(() => {
-    anime({
-      targets: '.menBanner', 
-      translateX: -250
-    });
-  }, []); 
-
 
 
   return (

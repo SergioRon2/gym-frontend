@@ -108,18 +108,28 @@
     border-bottom: 1px white solid;
 }
 
+.scroll{
+    overflow-y: scroll;
+    height: 55vh;
+}
 
 .tabla{
     width: 50vw;
-    overflow-y: scroll;
 }
 
 .tabla > .estructuraTabla{
     gap: 40px;
 }
 
+.headingTabla{
+    z-index: 99;
+}
+
 .titulosTabla{
     background-color: #011;
+    border: 1px solid white;
+    position: sticky;
+    top: 0;
 }
 
 .respuestaTabla{
