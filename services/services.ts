@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
 
-axios.defaults.baseURL = 'https://literate-carnival-w4v799vg4wc9457-8000.app.github.dev/gymapp'
+axios.defaults.baseURL = 'https://bookish-dollop-5w5x4g7xqxrc4jvw-8000.app.github.dev/gymapp'
 
 
 async function getRequestHeaders() {
