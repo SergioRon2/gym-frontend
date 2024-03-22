@@ -33,6 +33,10 @@ export default function Detalles(){
     fetchRegistros();
   }, []);
 
+  const totalMensual = registros.reduce((total, registro:any) => {
+    return total + parseFloat(registro.total_mensual);
+  }, 0);
+
   return (
     <>
       {loading ? (
@@ -74,11 +78,9 @@ export default function Detalles(){
                 </div>
                 <div className={StyleInventario.total}>
                       <h1 className={StyleInventario.h1Total}><b>Total Mensual</b></h1>
-                      {
-                        registros.map((registro:any) => (
-                          <h2 key={registro.fecha}>${registro.total_mensual}</h2>
-                        ))
-                      }
+                      <div>
+                        <h2>{totalMensual}</h2>
+                      </div>
                 </div>
               </div>
             </div>

@@ -88,7 +88,7 @@ export default function Inventario(){
             text: response.mensaje,
             icon: 'success',
           }).then(function(){
-            window.location.href = '/inventario'
+            window.location.href = '/inventario/articulos'
           });
         } else {
           // La eliminación falló, mostrar SweetAlert de error
@@ -105,7 +105,6 @@ export default function Inventario(){
   };
 
 
-
   return <>
           {
             loading ? <LoadingSpinner/> : (
@@ -118,7 +117,7 @@ export default function Inventario(){
                 <div className={StyleInventario.contenido}>
                   <h3 className={StyleInventario.title}>Articulos</h3>
                   <div className={StyleInventario.nuevoArticulo}>
-                    <a href={'inventario/nuevo-articulo'}>+ Nuevo articulo</a> 
+                    <a href={'/inventario/nuevo-articulo'}>+ Nuevo articulo</a> 
                   </div>
                   <div className={StyleInventario.titulos}>
                     <h2>Nombre del articulo</h2>

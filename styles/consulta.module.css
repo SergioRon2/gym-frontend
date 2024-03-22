@@ -21,6 +21,22 @@
     align-items: center;
 }
 
+@media (max-width:768px) {
+    .container{
+        margin-top: 70%;
+        margin-bottom: 70%;
+        flex-direction: column-reverse;
+    }
+    .formulario{
+        width: 95%;
+        height: 80vh !important;
+    }
+    .formulario > form{
+        width: 100%;
+        height: 100%;
+    }
+}
+
 .formulario > form{
     height: 100%;
     width: 100%;
@@ -88,6 +104,12 @@
     align-items: center;
 }
 
+@media (max-width:768px) {
+    .respuestaConsulta{
+        width: 95%;
+    }
+}
+
 .respuestaConsulta > .response {
     width: 100%;
     text-align: center;
@@ -115,6 +137,23 @@
 
 .tabla{
     width: 50vw;
+}
+
+@media (max-width:768px) {
+    .scroll{
+        width: 100%;        
+    }
+    .respuestaConsulta{
+        padding: 10px;
+    }
+    .headingTabla, .estructuraTabla{
+        width: 100%;
+        font-size: 10px !important;
+        padding: 0 !important;
+    }
+    .tabla{
+        width: 100%;
+    }
 }
 
 .tabla > .estructuraTabla{

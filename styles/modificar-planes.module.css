@@ -223,6 +223,10 @@
         width: auto;
     }
 
+    .listaPlanes{
+        font-size: 12px;
+    }
+
     .listaPlanes > p{
         width: 100%;
     }

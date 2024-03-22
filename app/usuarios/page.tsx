@@ -11,10 +11,11 @@ import { FaBell } from "react-icons/fa";
 export default function Miembros() {
   const [usuarios, setUsuarios] = useState([]);
   const [filtroTexto, setFiltroTexto] = useState("");
-  const [filtroCategoria, setFiltroCategoria] = useState("tipoPlan");
+  const [filtroCategoria, setFiltroCategoria] = useState("todos");
   const [notificacionesMostradas, setNotificacionesMostradas] = useState(false);
   const [loading, setLoading] = useState(true);
   const [notificaciones, setNotificaciones] = useState<string[]>([]);
+  const [hover, setHover] = useState(null);
 
   useEffect(() => {
     setLoading(false);
@@ -113,7 +114,7 @@ export default function Miembros() {
           });
         } else {
           // La eliminación falló, mostrar SweetAlert de error
-          swal("Error", response.mensaje, "error");
+          swal("Exito", response.mensaje, "error");
         }
       } catch (error: any) {
         // Manejar errores de la solicitud DELETE, si es necesario
@@ -125,39 +126,37 @@ export default function Miembros() {
     }
   };
 
-  const [hover, setHover] = useState(null);
 
   const filtrarUsuarios = () => {
     let usuariosFiltrados = usuarios;
-
+    console.log(usuariosFiltrados)
+  
     // Filtrar por texto
     if (filtroTexto.trim() !== "") {
       usuariosFiltrados = usuariosFiltrados.filter((user: any) =>
         `${user.nombre} ${user.apellido}`
-          .toLowerCase()
-          .includes(filtroTexto.toLowerCase())
+        .toLowerCase()
+        .includes(filtroTexto.toLowerCase())
       );
     }
-
+  
     // Filtrar por categoría
     if (filtroCategoria !== "todos") {
-      usuariosFiltrados = usuariosFiltrados.sort((a: any, b: any) => {
-        // Ajusta según la categoría seleccionada (puedes agregar más categorías según sea necesario)
+      usuariosFiltrados = usuariosFiltrados.filter((user: any) => {
         if (filtroCategoria === "diasRestantes") {
-          return a.dias_restantes - b.dias_restantes;
+          return user.dias_restantes > 0; // Ajusta el criterio de filtro según sea necesario
         } else if (filtroCategoria === "alfabeticamente") {
-          return a.nombre.localeCompare(b.nombre);
+          return user.nombre && user.apellido; // Verifica si las propiedades nombre y apellido están definidas
         } else if (filtroCategoria === "tipoPlan") {
-          return a.tipo_plan.localeCompare(b.tipo_plan);
+          return user.tipo_plan; // Verifica si la propiedad tipo_plan está definida
         }
-
-        return 0; // Si la categoría no coincide
+        return false; // Devuelve false para los usuarios que no cumplan con el filtro seleccionado
       });
     }
-
+  
     return usuariosFiltrados;
   };
-
+  
   // NOTIFICACION <= 5 DIAS RESTANTES
 
   useEffect(() => {
@@ -197,6 +196,9 @@ export default function Miembros() {
     }
   };
 
+
+  const filterUser = filtrarUsuarios();
+
   return (
     <>
       {loading ? (
@@ -212,15 +214,20 @@ export default function Miembros() {
                 onChange={(e) => setFiltroTexto(e.target.value)}
               />
 
-              <select
-                value={filtroCategoria}
-                onChange={(e) => setFiltroCategoria(e.target.value)}
-              >
-                <option value="todos">Todos</option>
-                <option value="diasRestantes">Días Restantes</option>
-                <option value="alfabeticamente">Alfabéticamente</option>
-                <option value="tipoPlan">Tipo de Plan</option>
-              </select>
+            <select
+              name="filtroCategoria"
+              value={filtroCategoria}
+              onChange={(e) => {
+                console.log(e.target.value); // esta línea es para verificar el valor seleccionado
+                setFiltroCategoria(e.target.value);
+              }}
+            >
+              <option value="todos">Todos</option>
+              <option value="diasRestantes">Días Restantes</option>
+              <option value="alfabeticamente">Alfabéticamente</option>
+              <option value="tipoPlan">Tipo de Plan</option>
+            </select>
+
             </div>
             <div className={StyleUsuarios.nuevoUsuario}>
               <Link className={StyleUsuarios.link} href={"/nuevo"}>
@@ -241,8 +248,8 @@ export default function Miembros() {
             </div>
           </div>
           <div className={StyleUsuarios.usuarios}>
-            {usuarios.length > 0 ? (
-              usuarios.map((user: any, index: any) => (
+            {filterUser.length > 0 ? (
+              filterUser.map((user: any, index: any) => (
                 <div
                   className={classNames(
                     { [StyleUsuarios.cardRed]: user.dias_restantes_usuario <= 0,},

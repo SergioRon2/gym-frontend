@@ -78,7 +78,7 @@ export default function ActualizarArticulo() {
                     text: "Articulo actualizado correctamente.",
                     icon: "success",
                     }).then(() => {
-                        window.location.href = "/inventario";
+                        window.location.href = "/inventario/articulos";
                     });
                 } else {
                     swal({
